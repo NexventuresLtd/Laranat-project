@@ -10,7 +10,8 @@ export default function App() {
   const { darkMode, toggleTheme } = useDarkMode();
   const location = useLocation();
 
-  const isAuthPage = location.pathname === "/signin" || location.pathname === "/signup";
+  // ✅ Updated auth routes
+  const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
   return (
     <div
@@ -34,8 +35,8 @@ export default function App() {
         />
 
         {/* AUTH PAGES */}
-        <Route path="/signin" element={<AuthContainer darkMode={darkMode} />} />
-        <Route path="/signup" element={<AuthContainer darkMode={darkMode} />} />
+        <Route path="/login" element={<AuthContainer darkMode={darkMode} />} />
+        <Route path="/register" element={<AuthContainer darkMode={darkMode} />} />
       </Routes>
 
       {/* Footer only on non-auth pages */}

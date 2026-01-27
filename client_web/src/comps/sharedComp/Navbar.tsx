@@ -32,6 +32,11 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
     setMobileMenuOpen(false); // Close mobile menu after navigation
   };
 
+  const handleGetStarted = () => {
+    navigate("/login"); // ✅ updated to unified login route
+    setMobileMenuOpen(false); // Close menu if mobile
+  };
+
   return (
     <>
       {/* Top gradient */}
@@ -127,7 +132,7 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
                 size={20}
               />
               <button
-                onClick={() => navigate("/signin")}
+                onClick={handleGetStarted} // ✅ updated
                 className={`
                   px-6 py-2.5 rounded-full text-sm font-bold shadow-lg transition-all hover:shadow-orange-500/25 transform hover:-translate-y-0.5
                   ${darkMode || !scrolled ? "bg-white text-slate-900 hover:bg-orange-50" : "bg-slate-900 text-white hover:bg-slate-800"}
@@ -172,6 +177,16 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
                     {item.name}
                   </motion.button>
                 ))}
+                {/* Mobile Get Started button */}
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: menuItems.length * 0.1 }}
+                  onClick={handleGetStarted}
+                  className={`px-6 py-3 rounded-full font-bold text-white bg-orange-500 shadow-lg hover:bg-orange-600`}
+                >
+                  Get Started
+                </motion.button>
               </div>
             </motion.div>
           )}
