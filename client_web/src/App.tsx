@@ -4,13 +4,14 @@ import Footer from "./comps/sharedComp/Footer";
 import Hero from "./pages/Hero";
 import NewArrivals from "./comps/homePage/NewArrivals";
 import AuthContainer from "./pages/Auth/AuthContainer";
+import About from "./pages/about"; 
 import { useDarkMode } from "./hooks/useDarkMode";
 
 export default function App() {
   const { darkMode, toggleTheme } = useDarkMode();
   const location = useLocation();
 
-  // ✅ Updated auth routes
+  // ✅ Check if current page is an auth page
   const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
   return (
@@ -33,6 +34,9 @@ export default function App() {
             </>
           }
         />
+
+        {/* ABOUT */}
+        <Route path="/about" element={<About darkMode={darkMode} />} /> {/* ✅ About route */}
 
         {/* AUTH PAGES */}
         <Route path="/login" element={<AuthContainer darkMode={darkMode} />} />

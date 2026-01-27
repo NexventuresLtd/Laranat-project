@@ -24,7 +24,7 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
     { name: "Home", path: "/" },
     { name: "Portfolio", path: "/portfolio" },
     { name: "Comics", path: "/comics" },
-    { name: "About", path: "/about" },
+    { name: "About Us", path: "/about" },
   ];
 
   const handleNavigate = (path: string) => {
