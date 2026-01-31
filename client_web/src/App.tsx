@@ -3,8 +3,10 @@ import Navbar from "./comps/sharedComp/Navbar";
 import Footer from "./comps/sharedComp/Footer";
 import Hero from "./pages/Hero";
 import NewArrivals from "./comps/homePage/NewArrivals";
-import AuthContainer from "./pages/Auth/AuthContainer";
-import About from "./pages/about"; 
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
+import About from "./pages/about";
+import Comics from "./pages/comics"; 
 import { useDarkMode } from "./hooks/useDarkMode";
 
 export default function App() {
@@ -38,9 +40,12 @@ export default function App() {
         {/* ABOUT */}
         <Route path="/about" element={<About darkMode={darkMode} />} /> {/* ✅ About route */}
 
-        {/* AUTH PAGES */}
-        <Route path="/login" element={<AuthContainer darkMode={darkMode} />} />
-        <Route path="/register" element={<AuthContainer darkMode={darkMode} />} />
+        {/* COMICS */}
+        <Route path="/comics" element={<Comics darkMode={darkMode} />} /> {/* ✅ Comics route */}
+
+        {/* AUTH PAGES – two separate pages */}
+        <Route path="/login" element={<LoginPage darkMode={darkMode} />} />
+        <Route path="/register" element={<RegisterPage darkMode={darkMode} />} />
       </Routes>
 
       {/* Footer only on non-auth pages */}
