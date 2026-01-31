@@ -9,6 +9,7 @@ import HomeCTA from "./comps/homePage/HomeCTA";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import About from "./pages/about";
+import Bookstore from "./pages/Bookstore";
 import { useDarkMode } from "./hooks/useDarkMode";
 
 export default function App() {
@@ -51,6 +52,9 @@ export default function App() {
 
         {/* ABOUT */}
         <Route path="/about" element={<About darkMode={darkMode} />} />
+
+        {/* BOOKSTORE – browse by category */}
+        <Route path="/bookstore" element={<Bookstore darkMode={darkMode} />} />
 
         {/* AUTH PAGES – two separate pages */}
         <Route path="/login" element={<LoginPage darkMode={darkMode} />} />

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ShoppingBag, Moon, Sun } from "lucide-react";
+import { Menu, X, ShoppingBag, Moon, Sun, ChevronDown } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { COMIC_CATEGORIES } from "../../data/categories";
 
 interface NavbarProps {
   darkMode: boolean;
@@ -13,6 +14,7 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -26,6 +28,10 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
     { name: "Comics", path: "/#featured-comics" },
     { name: "About Us", path: "/about" },
   ];
+
+  const categoryLinks = COMIC_CATEGORIES.filter((c) => c.id !== "all").map(
+    (c) => ({ name: c.label, path: `/bookstore?category=${c.id}` })
+  );
 
   const handleNavigate = (path: string) => {
     navigate(path);
@@ -89,7 +95,88 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-10">
-            {menuItems.map((item) => (
+            {/* Home first */}
+            <div
+              className="relative group cursor-pointer py-2"
+              onClick={() => navigate("/")}
+            >
+              <span
+                className={`text-sm font-semibold tracking-wide transition-colors drop-shadow-md ${
+                  location.pathname === "/"
+                    ? "text-orange-500"
+                    : scrolled
+                    ? darkMode
+                      ? "text-slate-300 group-hover:text-white"
+                      : "text-slate-600 group-hover:text-orange-600"
+                    : "text-slate-100 group-hover:text-white"
+                }`}
+              >
+                Home
+              </span>
+              <span className="absolute bottom-0 left-0 h-[2px] bg-orange-500 transition-all duration-300 w-0 group-hover:w-full" />
+            </div>
+            {/* Categories dropdown – between Home and Portfolio */}
+            <div
+              className="relative py-2"
+              onMouseEnter={() => setCategoriesOpen(true)}
+              onMouseLeave={() => setCategoriesOpen(false)}
+            >
+              <button
+                className={`flex items-center gap-1 text-sm font-semibold tracking-wide transition-colors drop-shadow-md ${
+                  location.pathname === "/bookstore"
+                    ? "text-orange-500"
+                    : scrolled
+                    ? darkMode
+                      ? "text-slate-300 hover:text-white"
+                      : "text-slate-600 hover:text-orange-600"
+                    : "text-slate-100 hover:text-white"
+                }`}
+              >
+                Categories <ChevronDown size={14} className={categoriesOpen ? "rotate-180 transition-transform" : ""} />
+              </button>
+              <span className={`absolute bottom-0 left-0 h-[2px] bg-orange-500 transition-all duration-300 ${categoriesOpen ? "w-full" : "w-0"}`} />
+              <AnimatePresence>
+                {categoriesOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.2 }}
+                    className={`absolute top-full left-0 mt-1 py-2 min-w-[160px] rounded-xl shadow-xl border ${
+                      darkMode ? "bg-slate-900 border-slate-700" : "bg-white border-slate-200"
+                    }`}
+                  >
+                    <button
+                      onClick={() => {
+                        handleNavigate("/bookstore");
+                        setCategoriesOpen(false);
+                      }}
+                      className={`block w-full text-left px-4 py-2.5 text-sm font-medium ${
+                        darkMode ? "text-slate-200 hover:bg-slate-800" : "text-slate-700 hover:bg-slate-50"
+                      }`}
+                    >
+                      All
+                    </button>
+                    {categoryLinks.map((link) => (
+                      <button
+                        key={link.name}
+                        onClick={() => {
+                          handleNavigate(link.path);
+                          setCategoriesOpen(false);
+                        }}
+                        className={`block w-full text-left px-4 py-2.5 text-sm font-medium ${
+                          darkMode ? "text-slate-200 hover:bg-slate-800" : "text-slate-700 hover:bg-slate-50"
+                        }`}
+                      >
+                        {link.name}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            {/* Portfolio, Comics, About Us */}
+            {menuItems.filter((item) => item.name !== "Home").map((item) => (
               <div
                 key={item.name}
                 className="relative group cursor-pointer py-2"
@@ -164,13 +251,49 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
               transition={{ duration: 0.3 }}
               className={`md:hidden origin-top absolute top-full left-0 right-0 ${darkMode ? "bg-slate-950" : "bg-white"} border-t border-slate-100/10`}
             >
-              <div className="flex flex-col items-center justify-center h-full gap-8 pb-20">
-                {menuItems.map((item, i) => (
+              <div className="flex flex-col items-center justify-center h-full gap-6 pb-20 pt-4">
+                {/* Home first */}
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0 }}
+                  onClick={() => handleNavigate("/")}
+                  className={`text-2xl font-bold ${darkMode ? "text-white" : "text-slate-900"}`}
+                >
+                  Home
+                </motion.button>
+                {/* Categories – between Home and Portfolio */}
+                <div className="flex flex-col items-center gap-2 w-full max-w-xs">
+                  <span className={`text-sm font-semibold uppercase tracking-wider ${darkMode ? "text-slate-500" : "text-slate-400"}`}>
+                    Categories
+                  </span>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    <button
+                      onClick={() => handleNavigate("/bookstore")}
+                      className="px-4 py-2 rounded-xl text-sm font-bold bg-orange-500 text-white"
+                    >
+                      All
+                    </button>
+                    {categoryLinks.map((link) => (
+                      <button
+                        key={link.name}
+                        onClick={() => handleNavigate(link.path)}
+                        className={`px-4 py-2 rounded-xl text-sm font-bold border-2 ${
+                          darkMode ? "border-slate-600 text-slate-200" : "border-slate-300 text-slate-700"
+                        }`}
+                      >
+                        {link.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                {/* Portfolio, Comics, About Us */}
+                {menuItems.filter((item) => item.name !== "Home").map((item, i) => (
                   <motion.button
                     key={item.name}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.1 }}
+                    transition={{ delay: (i + 2) * 0.1 }}
                     onClick={() => handleNavigate(item.path)}
                     className={`text-2xl font-bold ${darkMode ? "text-white" : "text-slate-900"}`}
                   >
@@ -181,7 +304,7 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
                 <motion.button
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: menuItems.length * 0.1 }}
+                  transition={{ delay: (menuItems.length + 2) * 0.1 }}
                   onClick={handleGetStarted}
                   className={`px-6 py-3 rounded-full font-bold text-white bg-orange-500 shadow-lg hover:bg-orange-600`}
                 >
