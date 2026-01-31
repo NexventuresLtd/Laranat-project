@@ -1,19 +1,29 @@
+import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./comps/sharedComp/Navbar";
 import Footer from "./comps/sharedComp/Footer";
 import Hero from "./pages/Hero";
-import NewArrivals from "./comps/homePage/NewArrivals";
+import FeaturedComics from "./comps/homePage/FeaturedComics";
+import OurServices from "./comps/homePage/OurServices";
+import HomeCTA from "./comps/homePage/HomeCTA";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import About from "./pages/about";
-import Comics from "./pages/comics"; 
 import { useDarkMode } from "./hooks/useDarkMode";
 
 export default function App() {
   const { darkMode, toggleTheme } = useDarkMode();
   const location = useLocation();
 
-  // ✅ Check if current page is an auth page
+  // Scroll to Featured Comics when navigating to /#featured-comics
+  useEffect(() => {
+    const hash = location.hash || window.location.hash;
+    if (location.pathname === "/" && hash === "#featured-comics") {
+      const el = document.getElementById("featured-comics");
+      el?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [location.pathname, location.hash]);
+
   const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
   return (
@@ -32,16 +42,15 @@ export default function App() {
           element={
             <>
               <Hero darkMode={darkMode} />
-              <NewArrivals darkMode={darkMode} />
+              <FeaturedComics darkMode={darkMode} />
+              <OurServices darkMode={darkMode} />
+              <HomeCTA darkMode={darkMode} />
             </>
           }
         />
 
         {/* ABOUT */}
-        <Route path="/about" element={<About darkMode={darkMode} />} /> {/* ✅ About route */}
-
-        {/* COMICS */}
-        <Route path="/comics" element={<Comics darkMode={darkMode} />} /> {/* ✅ Comics route */}
+        <Route path="/about" element={<About darkMode={darkMode} />} />
 
         {/* AUTH PAGES – two separate pages */}
         <Route path="/login" element={<LoginPage darkMode={darkMode} />} />

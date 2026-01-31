@@ -23,7 +23,7 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
   const menuItems = [
     { name: "Home", path: "/" },
     { name: "Portfolio", path: "/portfolio" },
-    { name: "Comics", path: "/comics" },
+    { name: "Comics", path: "/#featured-comics" },
     { name: "About Us", path: "/about" },
   ];
 
