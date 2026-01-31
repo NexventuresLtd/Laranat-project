@@ -4,6 +4,7 @@ import Navbar from "./comps/sharedComp/Navbar";
 import Footer from "./comps/sharedComp/Footer";
 import Hero from "./pages/Hero";
 import FeaturedComics from "./comps/homePage/FeaturedComics";
+import NewReadings from "./comps/homePage/NewReadings";
 import OurServices from "./comps/homePage/OurServices";
 import HomeCTA from "./comps/homePage/HomeCTA";
 import LoginPage from "./pages/Login";
@@ -44,6 +45,7 @@ export default function App() {
             <>
               <Hero darkMode={darkMode} />
               <FeaturedComics darkMode={darkMode} />
+              <NewReadings darkMode={darkMode} />
               <OurServices darkMode={darkMode} />
               <HomeCTA darkMode={darkMode} />
             </>
