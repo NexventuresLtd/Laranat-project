@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 
-// Image for "Our Story" – creative studio / art vibe (replace with your own asset path if needed)
 const OUR_STORY_IMAGE =
   "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1200&auto=format&fit=crop";
 
@@ -15,7 +14,7 @@ export default function AboutHero({ darkMode }: AboutHeroProps) {
         darkMode ? "bg-slate-950" : "bg-gradient-to-b from-slate-50 to-white"
       }`}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(249,115,22,0.15),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(249,115,22,0.12),transparent)]" />
       <div className="w-11/12 max-w-6xl mx-auto relative z-10">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* Image */}
@@ -31,11 +30,11 @@ export default function AboutHero({ darkMode }: AboutHeroProps) {
                 alt="Lanart21 creative studio – our story"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             </div>
           </motion.div>
 
-          {/* Text */}
+          {/* Text – Who we are & what problem we solve */}
           <div className="order-1 md:order-2 text-center md:text-left">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
@@ -59,12 +58,26 @@ export default function AboutHero({ darkMode }: AboutHeroProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className={`text-lg md:text-xl max-w-xl leading-relaxed ${
+              className={`text-lg md:text-xl max-w-xl leading-relaxed mb-6 ${
                 darkMode ? "text-slate-400" : "text-slate-600"
               } ${"md:mx-0 mx-auto"}`}
             >
-              A creative studio dedicated to exceptional design and digital experiences.
-              We bring innovative ideas to life and empower creatives around the world.
+              Lanart21 is a creative studio built for storytellers and visual artists.
+              We exist to solve a real problem: great comics and books often never reach
+              readers because publishing is fragmented and artists lack the tools and
+              visibility they deserve.
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className={`text-base md:text-lg max-w-xl leading-relaxed ${
+                darkMode ? "text-slate-300" : "text-slate-600"
+              } ${"md:mx-0 mx-auto"}`}
+            >
+              We combine digital publishing with artist empowerment—giving creators a
+              home for their work and readers a single place to discover diverse,
+              high-quality comics and illustrated books.
             </motion.p>
           </div>
         </div>
