@@ -73,4 +73,32 @@ export const comicsData: Comic[] = [
     chapter: 12,
     price: "$19.99",
   },
+  {
+    id: 5,
+    title: "The Alchemist",
+    description:
+      "A shepherd boy named Santiago travels from Spain to Egypt in search of a treasure buried near the Pyramids, discovering his personal legend along the way.",
+    author: "Paulo Coelho",
+    genre: "Philosophical Fiction",
+    language: "English",
+    status: "Completed",
+    cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=1000&auto=format&fit=crop",
+    type: "One-shot",
+    ageRating: "13+",
+    price: "$14.99",
+  },
+  {
+    id: 6,
+    title: "1984",
+    description:
+      "In a totalitarian society where Big Brother watches everyone, Winston Smith dares to think and love in defiance of the Party.",
+    author: "George Orwell",
+    genre: "Dystopian",
+    language: "English",
+    status: "Completed",
+    cover: "https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=1000&auto=format&fit=crop",
+    type: "One-shot",
+    ageRating: "16+",
+    price: "$12.99",
+  },
 ];

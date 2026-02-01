@@ -25,7 +25,7 @@ const services = [
     title: "Digital Bookstore",
     description: "Browse and buy comics and books online.",
     icon: BookOpen,
-    path: "/#featured-comics",
+    path: "/comics",
     accent: "from-cyan-500 to-blue-600",
   },
   {

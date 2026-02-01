@@ -14,14 +14,14 @@ export const SLIDES: SlideData[] = [
   },
   {
     id: 2,
-    title: "Build Your Skills",
-    subtitle: "NEON CODE",
-    description: "Learn coding, digital design, and project creation while growing your tech and storytelling skills.",
-    image: "https://www.hdwallpapers.in/download/demon_slayer_tanjiro_kamado_with_sword_with_blue_background_4k_8k_hd_anime-7680x4320.jpg",
-    accent: "text-cyan-300",
-    buttonGradient: "from-cyan-500 to-blue-600",
-    buttonShadow: "shadow-cyan-500/40",
-    weather: "rain"
+    title: "Create Your Story",
+    subtitle: "STUDIO",
+    description: "From comics to digital books—create, publish, and share your stories with the world.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2574&auto=format&fit=crop",
+    accent: "text-amber-400",
+    buttonGradient: "from-amber-500 to-orange-600",
+    buttonShadow: "shadow-amber-500/40",
+    weather: "fireflies"
   },
   {
     id: 3,

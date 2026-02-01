@@ -10,6 +10,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { comicsData, type Comic } from "../../data/comics";
 
 interface FeaturedComicsProps {
@@ -110,6 +111,16 @@ export default function FeaturedComics({ darkMode }: FeaturedComicsProps) {
               Handpicked for you
             </p>
           </div>
+          <Link
+            to="/comics"
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all shrink-0 ${
+              darkMode
+                ? "bg-orange-500 text-white hover:bg-orange-600"
+                : "bg-orange-500 text-white hover:bg-orange-600"
+            }`}
+          >
+            View All <ChevronRight size={18} />
+          </Link>
         </div>
 
         <AnimatePresence mode="wait">

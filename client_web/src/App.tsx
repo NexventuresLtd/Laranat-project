@@ -4,11 +4,13 @@ import Navbar from "./comps/sharedComp/Navbar";
 import Footer from "./comps/sharedComp/Footer";
 import Hero from "./pages/Hero";
 import FeaturedComics from "./comps/homePage/FeaturedComics";
+import NewReadings from "./comps/homePage/NewReadings";
 import OurServices from "./comps/homePage/OurServices";
 import HomeCTA from "./comps/homePage/HomeCTA";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import About from "./pages/about";
+import Comics from "./pages/Comics";
 import Bookstore from "./pages/Bookstore";
 import { useDarkMode } from "./hooks/useDarkMode";
 
@@ -44,6 +46,7 @@ export default function App() {
             <>
               <Hero darkMode={darkMode} />
               <FeaturedComics darkMode={darkMode} />
+              <NewReadings darkMode={darkMode} />
               <OurServices darkMode={darkMode} />
               <HomeCTA darkMode={darkMode} />
             </>
@@ -53,7 +56,10 @@ export default function App() {
         {/* ABOUT */}
         <Route path="/about" element={<About darkMode={darkMode} />} />
 
-        {/* BOOKSTORE – browse by category */}
+        {/* COMICS – all comics page (View All goes here) */}
+        <Route path="/comics" element={<Comics darkMode={darkMode} />} />
+
+        {/* BOOKSTORE – filter by category */}
         <Route path="/bookstore" element={<Bookstore darkMode={darkMode} />} />
 
         {/* AUTH PAGES – two separate pages */}

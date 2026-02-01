@@ -34,7 +34,7 @@ export default function AboutCTA({ darkMode }: AboutCTAProps) {
                 Get Started <ChevronRight size={20} />
               </Link>
               <Link
-                to="/#featured-comics"
+                to="/comics"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border-2 border-white/50 text-white font-bold hover:bg-white/10 transition-all"
               >
                 Browse Comics

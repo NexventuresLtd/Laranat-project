@@ -77,7 +77,9 @@ const Hero: React.FC<HeroProps> = ({ darkMode }) => {
             className="w-full h-full object-cover object-center"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-black/20" />
+          {/* Overlay to tone down bright blue/solid backgrounds from slide images */}
+          <div className="absolute inset-0 bg-black/35" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/20" />
         </motion.div>
       </AnimatePresence>
 
