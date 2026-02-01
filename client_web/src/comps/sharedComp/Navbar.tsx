@@ -27,6 +27,7 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
     { name: "Portfolio", path: "/portfolio" },
     { name: "Comics", path: "/comics" },
     { name: "About Us", path: "/about" },
+    { name: "Contact Us", path: "/contact" },
   ];
 
   const categoryLinks = COMIC_CATEGORIES.filter((c) => c.id !== "all").map(

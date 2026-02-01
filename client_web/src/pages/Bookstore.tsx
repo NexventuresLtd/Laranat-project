@@ -1,9 +1,23 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Filter, Search, LayoutGrid, List } from "lucide-react";
+import { Filter, Search, LayoutGrid, List, ChevronRight, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 import { comicsData, type Comic } from "../data/comics";
 import { FILTER_GENRES } from "../data/categories";
+
+/** Unique genres for quick browse strip (slug + label) */
+const GENRE_STRIP = [
+  { id: "fantasy", label: "Fantasy", slug: "Fantasy" },
+  { id: "action", label: "Action", slug: "Action" },
+  { id: "mystery", label: "Mystery", slug: "Mystery" },
+  { id: "sci-fi", label: "Sci-Fi", slug: "Sci-Fi" },
+  { id: "philosophical-fiction", label: "Philosophical", slug: "Philosophical Fiction" },
+  { id: "dystopian", label: "Dystopian", slug: "Dystopian" },
+] as const;
+
+function getGenreCount(slug: string): number {
+  return comicsData.filter((c) => c.genre === slug).length;
+}
 
 interface BookstoreProps {
   darkMode: boolean;
@@ -147,11 +161,43 @@ export default function Bookstore({ darkMode }: BookstoreProps) {
         darkMode ? "bg-slate-950 text-slate-100" : "bg-slate-50 text-slate-900"
       }`}
     >
-      {/* Page title */}
-      <div className="pt-24 pb-8 text-center">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-orange-500">
+      {/* Page title + tagline */}
+      <div className="pt-24 pb-6 text-center">
+        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-orange-500 mb-2">
           Book Store
         </h1>
+        <p className={`text-lg max-w-xl mx-auto ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
+          Filter by genre, price, and rating. Click any book to view details.
+        </p>
+      </div>
+
+      {/* Quick browse by genre */}
+      <div className="w-11/12 max-w-7xl mx-auto mb-8">
+        <p className={`text-sm font-semibold mb-3 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
+          Quick browse
+        </p>
+        <div className="flex flex-wrap justify-center gap-2">
+          {GENRE_STRIP.map((g) => {
+            const count = getGenreCount(g.slug);
+            const isActive = selectedGenres.has(g.id);
+            return (
+              <button
+                key={g.id}
+                type="button"
+                onClick={() => setSelectedGenres(isActive ? new Set() : new Set([g.id]))}
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+                  isActive
+                    ? "bg-orange-500 text-white"
+                    : darkMode
+                      ? "bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700"
+                      : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                }`}
+              >
+                {g.label} <span className="opacity-80">({count})</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div className="w-11/12 max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
@@ -330,6 +376,38 @@ export default function Bookstore({ darkMode }: BookstoreProps) {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* CTA – Comics page */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16"
+          >
+            <Link
+              to="/comics"
+              className={`flex flex-col sm:flex-row items-center gap-4 p-6 rounded-2xl transition-all ${
+                darkMode
+                  ? "bg-slate-800/60 border border-slate-700 hover:border-orange-500/40"
+                  : "bg-white border-2 border-slate-200 hover:border-orange-400 shadow-sm"
+              }`}
+            >
+              <div className="w-14 h-14 rounded-xl bg-orange-500/20 flex items-center justify-center shrink-0">
+                <BookOpen size={28} className="text-orange-500" />
+              </div>
+              <div className="text-center sm:text-left flex-1">
+                <h3 className={`font-bold text-lg mb-1 ${darkMode ? "text-white" : "text-slate-900"}`}>
+                  Browse all comics
+                </h3>
+                <p className={`text-sm ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
+                  See the full collection with featured picks and browse-by-genre on the Comics page.
+                </p>
+              </div>
+              <span className="inline-flex items-center gap-1 text-orange-500 font-bold shrink-0">
+                Go to Comics <ChevronRight size={18} />
+              </span>
+            </Link>
+          </motion.section>
         </main>
       </div>
     </div>
