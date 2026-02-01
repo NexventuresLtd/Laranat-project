@@ -162,6 +162,15 @@ const Hero: React.FC<HeroProps> = ({ darkMode }) => {
                 </div>
                 <span>Watch Trailer</span>
               </button>
+
+              {/* Contact */}
+              <button 
+                onClick={() => navigate("/contact")} 
+                className="flex items-center gap-3 px-8 py-5 rounded-full font-bold text-lg transition-all border-2 backdrop-blur-xl group shadow-lg border-white/20 text-white hover:bg-white/10 hover:border-white/40"
+              >
+                <span>Contact</span>
+                <ChevronRight className="group-hover:translate-x-1 transition-transform" size={20} />
+              </button>
             </motion.div>
           </motion.div>
         </AnimatePresence>

@@ -10,6 +10,7 @@ import HomeCTA from "./comps/homePage/HomeCTA";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import About from "./pages/about";
+import Contact from "./pages/Contact";
 import Comics from "./pages/Comics";
 import Bookstore from "./pages/Bookstore";
 import { useDarkMode } from "./hooks/useDarkMode";
@@ -55,6 +56,9 @@ export default function App() {
 
         {/* ABOUT */}
         <Route path="/about" element={<About darkMode={darkMode} />} />
+
+        {/* CONTACT */}
+        <Route path="/contact" element={<Contact darkMode={darkMode} />} />
 
         {/* COMICS – all comics page (View All goes here) */}
         <Route path="/comics" element={<Comics darkMode={darkMode} />} />
