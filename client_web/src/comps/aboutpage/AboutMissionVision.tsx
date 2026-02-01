@@ -28,6 +28,20 @@ export default function AboutMissionVision({ darkMode }: AboutMissionVisionProps
     >
       <div className="w-11/12 max-w-6xl mx-auto">
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-14"
+        >
+          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${darkMode ? "text-white" : "text-slate-900"}`}>
+            Mission & Vision
+          </h2>
+          <p className={`max-w-2xl mx-auto ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
+            What we stand for and where we’re headed.
+          </p>
+        </motion.div>
+
+        <motion.div
           className="grid md:grid-cols-2 gap-8"
           variants={containerVariants}
           initial="hidden"
@@ -50,8 +64,9 @@ export default function AboutMissionVision({ darkMode }: AboutMissionVisionProps
               Our Mission
             </h2>
             <p className={`text-base md:text-lg leading-relaxed ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
-              To create visually stunning designs that connect brands with their audiences,
-              combining creativity with technology to deliver meaningful digital experiences.
+              To bring exceptional comics and illustrated books to readers everywhere
+              through digital publishing that puts creators first. We build tools and
+              visibility so artists can focus on their craft while reaching a global audience.
             </p>
           </motion.div>
 
@@ -71,8 +86,9 @@ export default function AboutMissionVision({ darkMode }: AboutMissionVisionProps
               Our Vision
             </h2>
             <p className={`text-base md:text-lg leading-relaxed ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
-              To become a global leader in creative solutions, inspiring innovation and
-              empowering artists, designers, and brands to realize their full potential.
+              A world where every storyteller and artist has a fair path to publish and
+              thrive. We aim to be the go-to platform for digital comics and illustrated
+              books—empowering creators and delighting readers with diverse, high-quality work.
             </p>
           </motion.div>
         </motion.div>

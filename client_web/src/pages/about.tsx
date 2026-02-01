@@ -1,7 +1,8 @@
 import AboutHero from "../comps/aboutpage/AboutHero";
 import AboutMissionVision from "../comps/aboutpage/AboutMissionVision";
+import AboutUnique from "../comps/aboutpage/AboutUnique";
 import AboutTeam from "../comps/aboutpage/AboutTeam";
-
+import AboutTestimonials from "../comps/aboutpage/AboutTestimonials";
 import AboutCTA from "../comps/aboutpage/AboutCTA";
 
 interface AboutProps {
@@ -17,8 +18,10 @@ export default function About({ darkMode }: AboutProps) {
     >
       <AboutHero darkMode={darkMode} />
       <AboutMissionVision darkMode={darkMode} />
+      <AboutUnique darkMode={darkMode} />
+      
       <AboutTeam darkMode={darkMode} />
-    
+      <AboutTestimonials darkMode={darkMode} />
       <AboutCTA darkMode={darkMode} />
     </div>
   );
