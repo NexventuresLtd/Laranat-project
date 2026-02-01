@@ -28,10 +28,10 @@ export default function Footer({ darkMode }: FooterProps) {
   ];
 
   const quickLinks = [
-    { name: "Home", href: "#" },
-    { name: "Portfolio", href: "#" },
-    { name: "Comics", href: "#" },
-    { name: "About", href: "#" },
+    { name: "Home", href: "/" },
+    { name: "Portfolio", href: "/portfolio" },
+    { name: "Comics", href: "/comics" },
+    { name: "About", href: "/about" },
   ];
 
   const categories = [

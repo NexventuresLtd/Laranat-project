@@ -13,6 +13,8 @@ import About from "./pages/about";
 import Contact from "./pages/Contact";
 import Comics from "./pages/Comics";
 import Bookstore from "./pages/Bookstore";
+import Portfolio from "./pages/Portfolio";
+import ArtistProfile from "./pages/ArtistProfile";
 import { useDarkMode } from "./hooks/useDarkMode";
 
 export default function App() {
@@ -65,6 +67,12 @@ export default function App() {
 
         {/* BOOKSTORE – filter by category */}
         <Route path="/bookstore" element={<Bookstore darkMode={darkMode} />} />
+
+        {/* PORTFOLIO – showcase + artists */}
+        <Route path="/portfolio" element={<Portfolio darkMode={darkMode} />} />
+
+        {/* ARTIST PROFILE – full profile, works, social links */}
+        <Route path="/artist/:id" element={<ArtistProfile darkMode={darkMode} />} />
 
         {/* AUTH PAGES – two separate pages */}
         <Route path="/login" element={<LoginPage darkMode={darkMode} />} />
