@@ -25,12 +25,12 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
   const menuItems = [
     { name: "Home", path: "/" },
     { name: "Portfolio", path: "/portfolio" },
-    { name: "Comics", path: "/#featured-comics" },
+    { name: "Comics", path: "/comics" },
     { name: "About Us", path: "/about" },
   ];
 
   const categoryLinks = COMIC_CATEGORIES.filter((c) => c.id !== "all").map(
-    (c) => ({ name: c.label, path: `/bookstore?category=${c.id}` })
+    (c) => ({ name: c.label, path: `/comics?category=${c.id}` })
   );
 
   const handleNavigate = (path: string) => {
@@ -123,7 +123,7 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
             >
               <button
                 className={`flex items-center gap-1 text-sm font-semibold tracking-wide transition-colors drop-shadow-md ${
-                  location.pathname === "/bookstore"
+                  location.pathname === "/comics"
                     ? "text-orange-500"
                     : scrolled
                     ? darkMode
@@ -269,7 +269,7 @@ export default function Navbar({ darkMode, toggleTheme }: NavbarProps) {
                   </span>
                   <div className="flex flex-wrap justify-center gap-2">
                     <button
-                      onClick={() => handleNavigate("/bookstore")}
+                      onClick={() => handleNavigate("/comics")}
                       className="px-4 py-2 rounded-xl text-sm font-bold bg-orange-500 text-white"
                     >
                       All

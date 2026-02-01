@@ -26,7 +26,7 @@ export default function NewReadings({ darkMode }: NewReadingsProps) {
             </p>
           </div>
           <Link
-            to="/bookstore"
+            to="/comics"
             className="inline-flex items-center gap-2 text-orange-500 font-bold hover:underline shrink-0"
           >
             View All <ChevronRight size={18} />
@@ -51,7 +51,7 @@ export default function NewReadings({ darkMode }: NewReadingsProps) {
                 visible: { opacity: 1, y: 0 },
               }}
             >
-              <Link to="/bookstore" className="block group">
+              <Link to="/comics" className="block group">
                 <div
                   className={`aspect-[2/3] rounded-xl overflow-hidden shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:scale-[1.02] ${
                     darkMode ? "ring-1 ring-slate-700" : "ring-1 ring-slate-200"

@@ -112,7 +112,7 @@ export default function FeaturedComics({ darkMode }: FeaturedComicsProps) {
             </p>
           </div>
           <Link
-            to="/bookstore"
+            to="/comics"
             className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all shrink-0 ${
               darkMode
                 ? "bg-orange-500 text-white hover:bg-orange-600"
