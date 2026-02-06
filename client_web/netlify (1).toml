@@ -1,4 +1,5 @@
-[[redirects]]
+ls
+ls[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

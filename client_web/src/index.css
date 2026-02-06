@@ -1,123 +1,91 @@
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+/* Noteworthy: Apple system font on macOS/iOS; Caveat as web fallback */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
+@theme {
+  --color-brand-blue: var(--color-primary-blue);
+  --color-brand-deep: var(--color-deep-blue);
+  --color-brand-pink: var(--color-accent-pink);
+  --color-brand-purple: var(--color-secondary-purple);
+  /* Noteworthy on Apple; Caveat fallback for web */
+  --font-noteworthy: 'Noteworthy', 'Caveat', cursive;
+}
+
 :root {
-  /* LANART21 Color Palette */
+  
   --color-primary-blue: #03A9F4;
   --color-deep-blue: #0D47A1;
   --color-accent-pink: #EE40A8;
-  --color-secondary-purple: #6733B;
-  
-  /* Font */
-  --font-noteworthy: 'Architects Daughter', cursive;
+  --color-secondary-purple: #6733B0;
+  /* Navbar (reference: Chef's Kitchen – light bar, accent CTA) */
+  --navbar-bg: #ffffff;
+  --navbar-text: #1a1a2e;
+  --navbar-text-hover: var(--color-primary-blue);
+  --navbar-cta-bg: var(--color-accent-pink);
+  --navbar-cta-text: #ffffff;
+  --navbar-border: rgba(3, 169, 244, 0.15);
+  --navbar-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-* {
-  --tw-text-opacity: 1;
-}
-
+/* Base resets and defaults */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-noteworthy), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Noteworthy font for headings and logo */
+/* Noteworthy font for headings */
 h1, h2, h3, h4, h5, h6, .font-noteworthy {
   font-family: var(--font-noteworthy);
-  font-weight: 700;
   letter-spacing: 0.02em;
 }
 
-/* Primary button styles using LANART21 colors */
-.btn-primary {
-  background-color: var(--color-primary-blue);
-  color: white;
-  transition: all 0.3s ease;
+/* Custom Component Classes */
+@utility btn-primary {
+  @apply bg-[var(--color-primary-blue)] text-white transition-all duration-300 hover:bg-[var(--color-deep-blue)] hover:shadow-[0_8px_16px_rgba(3,169,244,0.3)];
 }
 
-.btn-primary:hover {
-  background-color: var(--color-deep-blue);
-  box-shadow: 0 8px 16px rgba(3, 169, 244, 0.3);
+@utility btn-accent {
+  @apply bg-[var(--color-accent-pink)] text-white transition-all duration-300 hover:brightness-110 hover:shadow-[0_8px_16px_rgba(238,64,168,0.3)];
 }
 
-.btn-accent {
-  background-color: var(--color-accent-pink);
-  color: white;
-  transition: all 0.3s ease;
-}
-
-.btn-accent:hover {
-  background-color: #d63395;
-  box-shadow: 0 8px 16px rgba(238, 64, 168, 0.3);
-}
-
-/* Text color utilities */
-.text-primary-blue {
-  color: var(--color-primary-blue);
-}
-
-.text-deep-blue {
-  color: var(--color-deep-blue);
-}
-
-.text-accent-pink {
-  color: var(--color-accent-pink);
-}
-
-.text-secondary-purple {
-  color: var(--color-secondary-purple);
-}
-
-/* Background color utilities */
-.bg-primary-blue {
-  background-color: var(--color-primary-blue);
-}
-
-.bg-deep-blue {
-  background-color: var(--color-deep-blue);
-}
-
-.bg-accent-pink {
-  background-color: var(--color-accent-pink);
-}
-
-.bg-secondary-purple {
-  background-color: var(--color-secondary-purple);
-}
-
-/* Floating animation */
+/* Animations – Story Boats inspiration */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes subtleFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
 }
 
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
 
-/* Smooth scroll reveal */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
 }
 
-.animate-slide-up {
-  animation: slideUp 0.6s ease-out forwards;
+.animate-subtle-float {
+  animation: subtleFloat 3s ease-in-out infinite;
+}
+
+/* Nav link hover underline */
+.nav-link:hover {
+  color: var(--navbar-text-hover);
+}
+
+/* 11/12 width: use class .w-11-12 or Tailwind arbitrary w-[91.666667%] */
+.w-11-12 {
+  width: 91.666667%;
 }
