@@ -7,9 +7,9 @@ import Footer from '../comps/Footer';
 
 const PAGE_WIDTH_CLASS = 'w-[91.666667%]'; // 11/12 width
 
-// First book as featured; next 3 for "Explore more"
+// First book as featured; 6 books in "Explore more"
 const featuredBook = sampleComics[0];
-const exploreMoreBooks = sampleComics.slice(1, 4);
+const exploreMoreBooks = sampleComics.slice(0, 6);
 
 const ALL_GENRES = Array.from(new Set(sampleComics.flatMap((c) => c.genre.split(',').map((g) => g.trim()))));
 
@@ -73,7 +73,7 @@ const BookPage: React.FC = () => {
         <h1 className="text-3xl md:text-4xl font-bold" style={{ color: 'var(--color-deep-blue)' }}>
           Books & Publications
         </h1>
-        <p className="mt-2 text-sm" style={{ color: 'var(--navbar-text)' }}>
+        <p className="mt-2 text-base" style={{ color: 'var(--navbar-text)' }}>
           Filter and explore our comics and graphic novels
         </p>
       </div>
@@ -100,7 +100,7 @@ const BookPage: React.FC = () => {
 
           <div className="space-y-6">
             <div>
-              <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--color-deep-blue)' }}>
+              <h3 className="text-base font-bold mb-3" style={{ color: 'var(--color-deep-blue)' }}>
                 Genres
               </h3>
               <div className="space-y-2">
@@ -113,14 +113,14 @@ const BookPage: React.FC = () => {
                       className="rounded border-2 w-4 h-4"
                       style={{ borderColor: 'var(--color-primary-blue)', accentColor: 'var(--color-accent-pink)' }}
                     />
-                    <span className="text-sm" style={{ color: 'var(--navbar-text)' }}>{g}</span>
+                    <span className="text-base" style={{ color: 'var(--navbar-text)' }}>{g}</span>
                   </label>
                 ))}
               </div>
             </div>
 
             <div>
-              <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--color-deep-blue)' }}>
+              <h3 className="text-base font-bold mb-3" style={{ color: 'var(--color-deep-blue)' }}>
                 Status
               </h3>
               <div className="space-y-2">
@@ -132,7 +132,7 @@ const BookPage: React.FC = () => {
                     className="rounded border-2 w-4 h-4"
                     style={{ borderColor: 'var(--color-primary-blue)', accentColor: 'var(--color-accent-pink)' }}
                   />
-                  <span className="text-sm" style={{ color: 'var(--navbar-text)' }}>Ongoing</span>
+                  <span className="text-base" style={{ color: 'var(--navbar-text)' }}>Ongoing</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
@@ -142,13 +142,13 @@ const BookPage: React.FC = () => {
                     className="rounded border-2 w-4 h-4"
                     style={{ borderColor: 'var(--color-primary-blue)', accentColor: 'var(--color-accent-pink)' }}
                   />
-                  <span className="text-sm" style={{ color: 'var(--navbar-text)' }}>Completed</span>
+                  <span className="text-base" style={{ color: 'var(--navbar-text)' }}>Completed</span>
                 </label>
               </div>
             </div>
 
             <div>
-              <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--color-deep-blue)' }}>
+              <h3 className="text-base font-bold mb-3" style={{ color: 'var(--color-deep-blue)' }}>
                 Type
               </h3>
               <div className="space-y-2">
@@ -160,7 +160,7 @@ const BookPage: React.FC = () => {
                     className="rounded border-2 w-4 h-4"
                     style={{ borderColor: 'var(--color-primary-blue)', accentColor: 'var(--color-accent-pink)' }}
                   />
-                  <span className="text-sm" style={{ color: 'var(--navbar-text)' }}>Series</span>
+                  <span className="text-base" style={{ color: 'var(--navbar-text)' }}>Series</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
@@ -170,7 +170,7 @@ const BookPage: React.FC = () => {
                     className="rounded border-2 w-4 h-4"
                     style={{ borderColor: 'var(--color-primary-blue)', accentColor: 'var(--color-accent-pink)' }}
                   />
-                  <span className="text-sm" style={{ color: 'var(--navbar-text)' }}>One-shot</span>
+                  <span className="text-base" style={{ color: 'var(--navbar-text)' }}>One-shot</span>
                 </label>
               </div>
             </div>
@@ -261,7 +261,7 @@ const BookPage: React.FC = () => {
                         backgroundColor: 'var(--navbar-bg)',
                       }}
                     >
-                      <div className="aspect-[2/3] overflow-hidden flex-shrink-0">
+                      <div className="aspect-[3/4] overflow-hidden flex-shrink-0">
                         <img
                           src={comic.coverImage}
                           alt={comic.title}
@@ -270,26 +270,26 @@ const BookPage: React.FC = () => {
                       </div>
                       <div className="p-2 sm:p-3 flex flex-col flex-1 min-w-0">
                         <h3
-                          className="font-bold text-xs sm:text-sm leading-tight line-clamp-2 group-hover:underline"
+                          className="font-bold text-sm sm:text-base leading-tight line-clamp-2 group-hover:underline"
                           style={{ color: 'var(--color-deep-blue)' }}
                         >
                           {comic.title}
                         </h3>
-                        <p className="text-[10px] sm:text-xs mt-0.5 truncate" style={{ color: 'var(--navbar-text)' }}>
+                        <p className="text-xs sm:text-sm mt-0.5 truncate" style={{ color: 'var(--navbar-text)' }}>
                           {comic.author}
                         </p>
-                        <p className="text-[10px] sm:text-xs mt-0.5 opacity-80 line-clamp-1" style={{ color: 'var(--navbar-text)' }}>
+                        <p className="text-xs sm:text-sm mt-0.5 opacity-80 line-clamp-1" style={{ color: 'var(--navbar-text)' }}>
                           {comic.genre}
                         </p>
                         <div className="flex flex-wrap gap-1 mt-1.5">
                           <span
-                            className="px-1.5 py-0.5 rounded text-[10px] font-semibold text-white"
+                            className="px-1.5 py-0.5 rounded text-xs font-semibold text-white"
                             style={{ backgroundColor: 'var(--color-accent-pink)' }}
                           >
                             {comic.type === 'series' ? 'Series' : 'One-shot'}
                           </span>
                           <span
-                            className="px-1.5 py-0.5 rounded text-[10px] font-semibold text-white"
+                            className="px-1.5 py-0.5 rounded text-xs font-semibold text-white"
                             style={{ backgroundColor: 'var(--color-primary-blue)' }}
                           >
                             {comic.status}
@@ -314,7 +314,7 @@ const BookPage: React.FC = () => {
                         backgroundColor: 'var(--navbar-bg)',
                       }}
                     >
-                      <div className="w-16 h-24 sm:w-20 sm:h-28 flex-shrink-0 rounded-lg overflow-hidden border border-[var(--navbar-border)] aspect-[2/3]">
+                      <div className="w-16 h-24 sm:w-20 sm:h-28 flex-shrink-0 rounded-lg overflow-hidden border border-[var(--navbar-border)] aspect-[3/4]">
                         <img
                           src={comic.coverImage}
                           alt={comic.title}
@@ -323,19 +323,19 @@ const BookPage: React.FC = () => {
                       </div>
                       <div className="min-w-0 flex-1">
                         <h3
-                          className="font-bold text-sm truncate group-hover:underline"
+                          className="font-bold text-base truncate group-hover:underline"
                           style={{ color: 'var(--color-deep-blue)' }}
                         >
                           {comic.title}
                         </h3>
-                        <p className="text-xs sm:text-sm" style={{ color: 'var(--navbar-text)' }}>
+                        <p className="text-sm sm:text-base" style={{ color: 'var(--navbar-text)' }}>
                           {comic.author} · {comic.genre}
                         </p>
                         <div className="flex gap-2 mt-1">
-                          <span className="text-xs font-semibold" style={{ color: 'var(--color-accent-pink)' }}>
+                          <span className="text-sm font-semibold" style={{ color: 'var(--color-accent-pink)' }}>
                             {comic.type}
                           </span>
-                          <span className="text-xs font-semibold" style={{ color: 'var(--color-primary-blue)' }}>
+                          <span className="text-sm font-semibold" style={{ color: 'var(--color-primary-blue)' }}>
                             {comic.status}
                           </span>
                         </div>
@@ -349,7 +349,7 @@ const BookPage: React.FC = () => {
             <div className="text-center py-20">
               <BookOpen size={56} className="mx-auto mb-4 opacity-40" style={{ color: 'var(--color-primary-blue)' }} />
               <p className="text-lg" style={{ color: 'var(--navbar-text)' }}>No books match your filters.</p>
-              <p className="text-sm mt-2" style={{ color: 'var(--navbar-text)' }}>Try changing filters or search.</p>
+              <p className="text-base mt-2" style={{ color: 'var(--navbar-text)' }}>Try changing filters or search.</p>
             </div>
           )}
         </main>
@@ -370,7 +370,7 @@ const BookPage: React.FC = () => {
           >
             <Link to={`/books/${featuredBook.id}`} className="block flex-shrink-0 group">
               <div className="relative w-full max-w-[280px] sm:max-w-[320px] mx-auto rounded-2xl overflow-hidden shadow-xl border-2 border-[var(--navbar-border)] group-hover:border-[var(--color-primary-blue)] transition-colors">
-                <div className="aspect-[2/3]">
+                <div className="aspect-[3/4]">
                   <img
                     src={featuredBook.coverImage}
                     alt={featuredBook.title}
@@ -378,7 +378,7 @@ const BookPage: React.FC = () => {
                   />
                 </div>
                 <div
-                  className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-bold text-white flex items-center gap-1"
+                  className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-sm font-bold text-white flex items-center gap-1"
                   style={{ backgroundColor: 'var(--color-accent-pink)' }}
                 >
                   <Star size={14} /> Featured
@@ -386,7 +386,7 @@ const BookPage: React.FC = () => {
               </div>
             </Link>
             <div className="flex-1 text-center lg:text-left min-w-0">
-              <p className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-primary-blue)' }}>
+              <p className="text-base font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-primary-blue)' }}>
                 Spotlight
               </p>
               <h2
@@ -403,25 +403,25 @@ const BookPage: React.FC = () => {
               </p>
               <div className="flex flex-wrap gap-2 mt-4 justify-center lg:justify-start">
                 <span
-                  className="px-2.5 py-1 rounded text-xs font-semibold text-white"
-                  style={{ backgroundColor: 'var(--color-accent-pink)' }}
-                >
-                  {featuredBook.type === 'series' ? 'Series' : 'One-shot'}
-                </span>
-                <span
-                  className="px-2.5 py-1 rounded text-xs font-semibold text-white"
-                  style={{ backgroundColor: 'var(--color-primary-blue)' }}
-                >
-                  {featuredBook.status}
-                </span>
-                <span className="px-2.5 py-1 rounded text-xs font-semibold text-[var(--navbar-text)] border border-[var(--navbar-border)]">
+className="px-2.5 py-1 rounded text-sm font-semibold text-white"
+                          style={{ backgroundColor: 'var(--color-accent-pink)' }}
+                        >
+                          {featuredBook.type === 'series' ? 'Series' : 'One-shot'}
+                        </span>
+                        <span
+                          className="px-2.5 py-1 rounded text-sm font-semibold text-white"
+                          style={{ backgroundColor: 'var(--color-primary-blue)' }}
+                        >
+                          {featuredBook.status}
+                        </span>
+                        <span className="px-2.5 py-1 rounded text-sm font-semibold text-[var(--navbar-text)] border border-[var(--navbar-border)]">
                   {featuredBook.genre}
                 </span>
               </div>
               <Link
                 to={`/books/${featuredBook.id}`}
-                className="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-full text-white font-bold text-sm uppercase tracking-wider transition-all hover:opacity-95 hover:shadow-lg"
-                style={{ backgroundColor: 'var(--color-primary-blue)' }}
+className="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-full text-white font-bold text-base uppercase tracking-wider transition-all hover:opacity-95 hover:shadow-lg"
+              style={{ backgroundColor: 'var(--color-primary-blue)' }}
               >
                 Read more <ArrowRight size={18} />
               </Link>
@@ -430,9 +430,9 @@ const BookPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Explore more – 3 books row */}
+      {/* Explore more – 6 books grid */}
       <section className="py-10 md:py-12 border-b" style={{ borderColor: 'var(--navbar-border)' }}>
-        <div className={`${PAGE_WIDTH_CLASS} mx-auto `}>
+        <div className={`${PAGE_WIDTH_CLASS} mx-auto`}>
           <motion.h2
             className="text-xl md:text-2xl font-bold mb-6"
             style={{ color: 'var(--color-deep-blue)' }}
@@ -442,10 +442,11 @@ const BookPage: React.FC = () => {
           >
             Explore more
           </motion.h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5 justify-items-center">
             {exploreMoreBooks.map((comic, index) => (
               <motion.div
                 key={comic.id}
+                className="w-full max-w-[160px]"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
@@ -453,38 +454,38 @@ const BookPage: React.FC = () => {
               >
                 <Link to={`/books/${comic.id}`} className="block group">
                   <div
-                    className="rounded-xl border-2 overflow-hidden transition-colors group-hover:border-[var(--color-primary-blue)]"
+                    className="rounded-lg border-2 overflow-hidden transition-colors group-hover:border-[var(--color-primary-blue)]"
                     style={{
                       borderColor: 'var(--navbar-border)',
                       backgroundColor: 'var(--navbar-bg)',
                     }}
                   >
-                    <div className="aspect-[2/3] overflow-hidden">
-                        <img
-                          src={comic.coverImage}
-                          alt={comic.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h3
-                          className="font-bold text-base leading-tight line-clamp-2 group-hover:underline"
-                          style={{ color: 'var(--color-deep-blue)' }}
-                        >
-                          {comic.title}
-                        </h3>
-                        <p className="text-sm mt-1" style={{ color: 'var(--navbar-text)' }}>
-                          {comic.author}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5 mt-2">
+                    <div className="aspect-[3/4] overflow-hidden">
+                      <img
+                        src={comic.coverImage}
+                        alt={comic.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="p-2.5">
+                      <h3
+                        className="font-bold text-base leading-tight line-clamp-2 group-hover:underline"
+                        style={{ color: 'var(--color-deep-blue)' }}
+                      >
+                        {comic.title}
+                      </h3>
+                      <p className="text-sm mt-0.5" style={{ color: 'var(--navbar-text)' }}>
+                        {comic.author}
+                      </p>
+                      <div className="flex flex-wrap gap-1 mt-1.5">
                         <span
-                          className="px-2 py-0.5 rounded text-xs font-semibold text-white"
+                          className="px-1.5 py-0.5 rounded text-sm font-semibold text-white"
                           style={{ backgroundColor: 'var(--color-accent-pink)' }}
                         >
                           {comic.type === 'series' ? 'Series' : 'One-shot'}
                         </span>
                         <span
-                          className="px-2 py-0.5 rounded text-xs font-semibold text-white"
+                          className="px-1.5 py-0.5 rounded text-sm font-semibold text-white"
                           style={{ backgroundColor: 'var(--color-primary-blue)' }}
                         >
                           {comic.status}
@@ -508,10 +509,10 @@ const BookPage: React.FC = () => {
         }}
       >
         <div className={`${PAGE_WIDTH_CLASS} mx-auto text-center`}>
-          <p className="text-white/90 mb-4">More titles coming soon from Lanart21 Creative Studio.</p>
+          <p className="text-white/90 mb-4 text-lg">More titles coming soon from Lanart21 Creative Studio.</p>
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-base font-bold text-white uppercase tracking-wider"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-lg font-bold text-white uppercase tracking-wider"
             style={{ backgroundColor: 'var(--color-accent-pink)' }}
           >
             Get in touch

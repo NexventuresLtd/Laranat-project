@@ -56,7 +56,7 @@ const ServicesPage: React.FC = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z\'/%3E%3C/g%3E%3C/svg%3E')]" />
         <div className="relative w-[91.666667%] mx-auto text-center">
           <motion.p
-            className="text-white/90 text-sm font-bold uppercase tracking-widest mb-4"
+            className="text-white/90 text-base font-bold uppercase tracking-widest mb-4"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
@@ -111,7 +111,7 @@ const ServicesPage: React.FC = () => {
                     style={{ backgroundColor: service.color }}
                   />
                   <span
-                    className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-sm font-bold text-white shadow-lg"
+                    className="absolute top-4 left-4 px-3 py-1.5 rounded-full text-base font-bold text-white shadow-lg"
                     style={{ backgroundColor: service.color }}
                   >
                     {service.tag}

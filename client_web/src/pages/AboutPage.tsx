@@ -51,7 +51,7 @@ const AboutPage: React.FC = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.06\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z\'/%3E%3C/g%3E%3C/svg%3E')]" />
         <div className="relative w-[91.666667%] mx-auto text-center">
           <motion.p
-            className="text-white/90 text-sm font-bold uppercase tracking-widest mb-4"
+            className="text-white/90 text-base font-bold uppercase tracking-widest mb-4"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
@@ -88,7 +88,7 @@ const AboutPage: React.FC = () => {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.5 }}
             >
-              <p className="text-sm font-bold uppercase tracking-widest" style={{ color: 'var(--color-primary-blue)' }}>
+              <p className="text-base font-bold uppercase tracking-widest" style={{ color: 'var(--color-primary-blue)' }}>
                 Our Story
               </p>
               <h2
@@ -105,8 +105,8 @@ const AboutPage: React.FC = () => {
               </p>
               <Link
                 to="/services"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-sm uppercase tracking-wider transition-all hover:opacity-95 hover:shadow-lg"
-                style={{ backgroundColor: 'var(--color-accent-pink)' }}
+className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-base uppercase tracking-wider transition-all hover:opacity-95 hover:shadow-lg"
+              style={{ backgroundColor: 'var(--color-accent-pink)' }}
               >
                 Explore our services
               </Link>
@@ -147,7 +147,7 @@ const AboutPage: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-primary-blue)' }}>
+            <p className="text-base font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-primary-blue)' }}>
               What we stand for
             </p>
             <h2
@@ -186,7 +186,7 @@ const AboutPage: React.FC = () => {
                   <h3 className="text-lg font-bold" style={{ color: 'var(--color-deep-blue)' }}>
                     {item.title}
                   </h3>
-                  <p className="text-sm mt-2 text-[var(--navbar-text)] leading-relaxed">
+                  <p className="text-base mt-2 text-[var(--navbar-text)] leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -226,7 +226,7 @@ const AboutPage: React.FC = () => {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.5 }}
             >
-              <p className="text-sm font-bold uppercase tracking-widest" style={{ color: 'var(--color-accent-pink)' }}>
+              <p className="text-base font-bold uppercase tracking-widest" style={{ color: 'var(--color-accent-pink)' }}>
                 Our Team
               </p>
               <h2
@@ -240,8 +240,8 @@ const AboutPage: React.FC = () => {
               </p>
               <a
                 href="#team"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-sm uppercase tracking-wider transition-all hover:opacity-95 hover:shadow-lg"
-                style={{ backgroundColor: 'var(--color-primary-blue)' }}
+className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-base uppercase tracking-wider transition-all hover:opacity-95 hover:shadow-lg"
+              style={{ backgroundColor: 'var(--color-primary-blue)' }}
               >
                 Meet the team below
               </a>
@@ -267,7 +267,7 @@ const AboutPage: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-primary-blue)' }}>
+            <p className="text-base font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-primary-blue)' }}>
               Expert creatives
             </p>
             <h2
@@ -302,11 +302,11 @@ const AboutPage: React.FC = () => {
                 <h3 className="text-lg font-bold" style={{ color: 'var(--navbar-text)' }}>
                   {member.name}
                 </h3>
-                <p className="text-sm font-semibold mt-1" style={{ color: 'var(--color-primary-blue)' }}>
+                <p className="text-base font-semibold mt-1" style={{ color: 'var(--color-primary-blue)' }}>
                   {member.role}
                 </p>
                 {member.focus ? (
-                  <p className="text-sm mt-2 text-[var(--navbar-text)]/80">({member.focus})</p>
+                  <p className="text-base mt-2 text-[var(--navbar-text)]/80">({member.focus})</p>
                 ) : null}
               </motion.div>
             ))}

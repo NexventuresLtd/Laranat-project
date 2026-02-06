@@ -134,7 +134,7 @@ const BookDetailPage: React.FC = () => {
                 />
                 <div className="absolute top-0 left-0 right-0 p-4 flex flex-wrap gap-2">
                   <span
-                    className="px-3 py-1.5 rounded-full text-sm font-bold text-white"
+                    className="px-3 py-1.5 rounded-full text-base font-bold text-white"
                     style={{ backgroundColor: 'var(--color-accent-pink)' }}
                   >
                     {comic.type === 'series' ? 'Series' : 'One-shot'}
@@ -146,7 +146,7 @@ const BookDetailPage: React.FC = () => {
                   >
                     {comic.status === 'ongoing' ? 'Ongoing' : 'Completed'}
                   </span>
-                  <span className="px-3 py-1.5 rounded-full text-sm font-bold bg-white/95 text-[var(--navbar-text)]">
+                  <span className="px-3 py-1.5 rounded-full text-base font-bold bg-white/95 text-[var(--navbar-text)]">
                     {comic.ageRating}
                   </span>
                 </div>
@@ -182,28 +182,28 @@ const BookDetailPage: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <Tag size={24} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--color-primary-blue)' }} />
                   <div>
-                    <p className="text-sm font-bold uppercase tracking-wider text-[var(--navbar-text)]/70">Genre</p>
+                    <p className="text-base font-bold uppercase tracking-wider text-[var(--navbar-text)]/70">Genre</p>
                     <p className="text-lg font-semibold" style={{ color: 'var(--navbar-text)' }}>{comic.genre}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Globe size={24} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--color-primary-blue)' }} />
                   <div>
-                    <p className="text-sm font-bold uppercase tracking-wider text-[var(--navbar-text)]/70">Language</p>
+                    <p className="text-base font-bold uppercase tracking-wider text-[var(--navbar-text)]/70">Language</p>
                     <p className="text-lg font-semibold" style={{ color: 'var(--navbar-text)' }}>{comic.language}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <BarChart3 size={24} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--color-primary-blue)' }} />
                   <div>
-                    <p className="text-sm font-bold uppercase tracking-wider text-[var(--navbar-text)]/70">Status</p>
+                    <p className="text-base font-bold uppercase tracking-wider text-[var(--navbar-text)]/70">Status</p>
                     <p className="text-lg font-semibold capitalize" style={{ color: 'var(--navbar-text)' }}>{comic.status}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <BookOpen size={24} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--color-primary-blue)' }} />
                   <div>
-                    <p className="text-sm font-bold uppercase tracking-wider text-[var(--navbar-text)]/70">Type</p>
+                    <p className="text-base font-bold uppercase tracking-wider text-[var(--navbar-text)]/70">Type</p>
                     <p className="text-lg font-semibold" style={{ color: 'var(--navbar-text)' }}>
                       {comic.type === 'series' ? 'Series' : 'One-shot'}
                     </p>
@@ -212,7 +212,7 @@ const BookDetailPage: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <AlertCircle size={24} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--color-primary-blue)' }} />
                   <div>
-                    <p className="text-sm font-bold uppercase tracking-wider text-[var(--navbar-text)]/70">Age rating</p>
+                    <p className="text-base font-bold uppercase tracking-wider text-[var(--navbar-text)]/70">Age rating</p>
                     <p className="text-lg font-semibold" style={{ color: 'var(--navbar-text)' }}>{comic.ageRating}</p>
                   </div>
                 </div>
@@ -220,7 +220,7 @@ const BookDetailPage: React.FC = () => {
                   <div className="flex items-start gap-3 sm:col-span-2">
                     <Layers size={24} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--color-secondary-purple)' }} />
                     <div>
-                      <p className="text-sm font-bold uppercase tracking-wider text-[var(--navbar-text)]/70">Chapters / Episodes</p>
+                      <p className="text-base font-bold uppercase tracking-wider text-[var(--navbar-text)]/70">Chapters / Episodes</p>
                       <p className="text-lg font-semibold" style={{ color: 'var(--color-secondary-purple)' }}>
                         {comic.chapterOrEpisode} {comic.chapterOrEpisode === 1 ? 'chapter' : 'chapters'}
                       </p>

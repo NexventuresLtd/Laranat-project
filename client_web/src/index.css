@@ -1,4 +1,4 @@
-/* Noteworthy: Apple system font on macOS/iOS; Caveat as web fallback */
+
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
@@ -7,17 +7,16 @@
   --color-brand-deep: var(--color-deep-blue);
   --color-brand-pink: var(--color-accent-pink);
   --color-brand-purple: var(--color-secondary-purple);
-  /* Noteworthy on Apple; Caveat fallback for web */
   --font-noteworthy: 'Noteworthy', 'Caveat', cursive;
 }
 
 :root {
-  
+  /* Brand palette – update from Drive if different */
   --color-primary-blue: #03A9F4;
   --color-deep-blue: #0D47A1;
   --color-accent-pink: #EE40A8;
   --color-secondary-purple: #6733B0;
-  /* Navbar (reference: Chef's Kitchen – light bar, accent CTA) */
+  /* Navbar (Chef's Kitchen style: light bar, accent CTA) */
   --navbar-bg: #ffffff;
   --navbar-text: #1a1a2e;
   --navbar-text-hover: var(--color-primary-blue);
@@ -27,14 +26,16 @@
   --navbar-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-/* Base resets and defaults */
+/* Base resets and defaults – larger base size for readability */
 html {
   scroll-behavior: smooth;
+  font-size: 18px;
 }
 
 body {
   font-family: var(--font-noteworthy), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  font-size: 1rem;
 }
 
 /* Noteworthy font for headings */
