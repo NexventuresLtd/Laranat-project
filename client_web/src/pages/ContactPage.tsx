@@ -27,7 +27,7 @@ const ContactPage: React.FC = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.06\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z\'/%3E%3C/g%3E%3C/svg%3E')]" />
         <div className="relative w-[91.666667%] mx-auto text-center">
           <motion.p
-            className="text-white/90 text-sm font-bold uppercase tracking-widest mb-4"
+            className="text-white/90 text-base font-bold uppercase tracking-widest mb-4"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
@@ -74,7 +74,7 @@ const ContactPage: React.FC = () => {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <label className="block">
-                    <span className="block text-sm font-semibold mb-2" style={{ color: 'var(--color-deep-blue)' }}>
+                    <span className="block text-base font-semibold mb-2" style={{ color: 'var(--color-deep-blue)' }}>
                       Name
                     </span>
                     <input
@@ -93,7 +93,7 @@ const ContactPage: React.FC = () => {
                     />
                   </label>
                   <label className="block">
-                    <span className="block text-sm font-semibold mb-2" style={{ color: 'var(--color-deep-blue)' }}>
+                    <span className="block text-base font-semibold mb-2" style={{ color: 'var(--color-deep-blue)' }}>
                       Email
                     </span>
                     <input
@@ -113,7 +113,7 @@ const ContactPage: React.FC = () => {
                   </label>
                 </div>
                 <label className="block">
-                  <span className="block text-sm font-semibold mb-2" style={{ color: 'var(--color-deep-blue)' }}>
+                  <span className="block text-base font-semibold mb-2" style={{ color: 'var(--color-deep-blue)' }}>
                     Subject
                   </span>
                   <select
@@ -136,7 +136,7 @@ const ContactPage: React.FC = () => {
                   </select>
                 </label>
                 <label className="block">
-                  <span className="block text-sm font-semibold mb-2" style={{ color: 'var(--color-deep-blue)' }}>
+                  <span className="block text-base font-semibold mb-2" style={{ color: 'var(--color-deep-blue)' }}>
                     Message
                   </span>
                   <textarea
@@ -156,7 +156,7 @@ const ContactPage: React.FC = () => {
                 </label>
                 <motion.button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-white font-bold text-sm uppercase tracking-wider transition-all hover:opacity-95 hover:shadow-lg"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-white font-bold text-base uppercase tracking-wider transition-all hover:opacity-95 hover:shadow-lg"
                   style={{ backgroundColor: 'var(--color-accent-pink)' }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -194,7 +194,7 @@ const ContactPage: React.FC = () => {
                     <Mail size={22} />
                   </div>
                   <div>
-                    <span className="block text-sm font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--color-deep-blue)' }}>
+                    <span className="block text-base font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--color-deep-blue)' }}>
                       Email
                     </span>
                     <a
@@ -214,7 +214,7 @@ const ContactPage: React.FC = () => {
                     <Phone size={22} />
                   </div>
                   <div>
-                    <span className="block text-sm font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--color-deep-blue)' }}>
+                    <span className="block text-base font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--color-deep-blue)' }}>
                       Phone
                     </span>
                     <a
@@ -234,7 +234,7 @@ const ContactPage: React.FC = () => {
                     <MapPin size={22} />
                   </div>
                   <div>
-                    <span className="block text-sm font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--color-deep-blue)' }}>
+                    <span className="block text-base font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--color-deep-blue)' }}>
                       Studio
                     </span>
                     <p className="text-[var(--navbar-text)] leading-relaxed">

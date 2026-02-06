@@ -6,10 +6,10 @@ const Hero: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[90vh] flex items-center overflow-hidden font-noteworthy"
+      className="relative min-h-[90vh] flex items-center overflow-hidden font-noteworthy -mt-[5rem] pt-[5rem]"
       style={{ fontFamily: 'var(--font-noteworthy)' }}
     >
-      {/* Background image – full cover */}
+      {/* Background image – full cover, extends behind transparent header */}
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1920&q=85"
@@ -24,12 +24,20 @@ const Hero: React.FC = () => {
             background: 'linear-gradient(135deg, rgba(13, 71, 161, 0.85) 0%, rgba(3, 169, 244, 0.5) 50%, rgba(103, 51, 176, 0.6) 100%)',
           }}
         />
+        {/* Lanart21 subtle pattern overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.4) 1px, transparent 0)`,
+            backgroundSize: '28px 28px',
+          }}
+        />
       </div>
 
       <div className="relative w-[91.666667%] mx-auto py-20 md:py-28">
         <div className="max-w-2xl">
           <motion.p
-            className="text-white/90 text-sm md:text-base font-bold uppercase tracking-widest mb-4"
+            className="text-white/90 text-base md:text-lg font-bold uppercase tracking-widest mb-4"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}

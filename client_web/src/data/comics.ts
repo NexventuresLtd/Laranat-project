@@ -74,7 +74,7 @@ export const sampleComics: Comic[] = [
     genre: 'Fantasy, Adventure',
     language: 'English',
     status: 'ongoing',
-    coverImage: 'https://images.unsplash.com/photo-1516979187457-637ebb4acffe?w=600&q=80',
+    coverImage: 'https://m.media-amazon.com/images/I/71vJK6sEuHL.jpg',
     type: 'series',
     ageRating: 'All Ages',
     chapterOrEpisode: 8,

@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
+/* Use logo from project (replace file in public/Image/ with the one from Drive folder if needed) */
+const LANART_LOGO_URL = '/Image/Larnat_logo.jpg';
 
 const navLinks = [
   { name: 'Home', to: '/' },
+  { name: 'Portfolio', to: '/portfolio' },
   { name: 'Our Services', to: '/services' },
   { name: 'Books', to: '/books' },
   { name: 'About Us', to: '/about' },
@@ -12,6 +16,8 @@ const navLinks = [
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -19,37 +25,38 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const isTransparent = isHome && !scrolled;
+  const useLightText = isTransparent;
+
   return (
     <nav
       className="sticky top-0 z-50 w-full font-noteworthy transition-all duration-300"
       style={{
         fontFamily: 'var(--font-noteworthy)',
-        backgroundColor: 'var(--navbar-bg)',
-        boxShadow: scrolled ? 'var(--navbar-shadow)' : 'none',
-        borderBottom: '1px solid var(--navbar-border)',
+        backgroundColor: isTransparent ? 'transparent' : scrolled && isHome ? 'rgba(255,255,255,0.85)' : 'var(--navbar-bg)',
+        backdropFilter: isTransparent ? 'none' : (scrolled && isHome) ? 'blur(12px)' : 'none',
+        WebkitBackdropFilter: isTransparent ? 'none' : (scrolled && isHome) ? 'blur(12px)' : 'none',
+        boxShadow: !isTransparent && (scrolled || !isHome) ? 'var(--navbar-shadow)' : 'none',
+        borderBottom: isTransparent ? '1px solid transparent' : '1px solid var(--navbar-border)',
       }}
     >
       <div className="w-[91.666667%] mx-auto">
         <div className="flex justify-between items-center min-h-[5rem] lg:min-h-[6rem] py-2">
-          {/* Left: Logo + Brand name */}
+          {/* Logo only – no text */}
           <Link
             to="/"
-            className="flex items-center gap-3 shrink-0 no-underline"
+            className="flex items-center shrink-0 no-underline"
             aria-label="Lanart21 Creative Studio – Home"
           >
-            <div className="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-xl overflow-hidden border border-[var(--navbar-border)] shadow-sm bg-white">
+            <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-xl overflow-hidden border-2 shadow-sm bg-white"
+              style={{ borderColor: isTransparent ? 'rgba(255,255,255,0.4)' : 'var(--navbar-border)' }}
+            >
               <img
-                src="/Image/Larnat_logo.jpg"
-                alt=""
-                className="w-full h-full object-cover"
+                src={LANART_LOGO_URL}
+                alt="Lanart21"
+                className="w-full h-full object-contain"
               />
             </div>
-            <span
-              className="hidden sm:block text-xl md:text-2xl font-bold tracking-tight"
-              style={{ color: 'var(--navbar-text)' }}
-            >
-              LANART21
-            </span>
           </Link>
 
           {/* Center: Nav links (desktop) */}
@@ -59,7 +66,9 @@ const Navbar: React.FC = () => {
                 key={link.name}
                 to={link.to}
                 className="nav-link px-4 py-2.5 rounded-lg text-base xl:text-lg font-semibold transition-all duration-300 relative group"
-                style={{ color: 'var(--navbar-text)' }}
+                style={{
+                  color: useLightText ? 'rgba(255,255,255,0.95)' : 'var(--navbar-text)',
+                }}
               >
                 <span className="relative z-10 group-hover:text-[var(--navbar-text-hover)] transition-colors duration-300">
                   {link.name}
@@ -72,7 +81,7 @@ const Navbar: React.FC = () => {
             ))}
           </div>
 
-          {/* Right: Join Now (sign in / sign up) + mobile menu toggle */}
+          {/* Right: Join Now + mobile menu toggle */}
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
               to="/login"
@@ -82,12 +91,11 @@ const Navbar: React.FC = () => {
               Join Us
             </Link>
 
-            {/* Mobile menu toggle */}
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
               className="lg:hidden p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary-blue)] transition-colors"
-              style={{ color: 'var(--navbar-text)' }}
+              style={{ color: useLightText ? 'white' : 'var(--navbar-text)' }}
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
             >
@@ -103,7 +111,7 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile dropdown (reference: collapsible, same palette) */}
+      {/* Mobile dropdown */}
       {isOpen && (
         <div
           className="lg:hidden border-t overflow-hidden"
