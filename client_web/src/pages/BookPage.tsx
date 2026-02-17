@@ -510,13 +510,16 @@ className="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-full text-white
       >
         <div className={`${PAGE_WIDTH_CLASS} mx-auto text-center`}>
           <p className="text-white/90 mb-4 text-lg">More titles coming soon from Lanart21 Creative Studio.</p>
-          <Link
-            to="/contact"
+          <p className="text-white/80 mb-4 text-base">Order a print via WhatsApp: +250 782 030 814</p>
+          <a
+            href="https://wa.me/250782030814?text=Hi%2C%20I'd%20like%20to%20order%20a%20print%20of%20a%20book.%20Please%20send%20me%20more%20info."
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-lg font-bold text-white uppercase tracking-wider"
             style={{ backgroundColor: 'var(--color-accent-pink)' }}
           >
-            Get in touch
-          </Link>
+            Order print
+          </a>
         </div>
       </section>
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 /* Use logo from project (replace file in public/Image/ with the one from Drive folder if needed) */
-const LANART_LOGO_URL = '/Image/Larnat_logo.jpg';
+const LANART_LOGO_URL = '/Image/lanart.jpg';
 
 const navLinks = [
   { name: 'Home', to: '/' },
