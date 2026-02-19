@@ -2,43 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Heart, Sparkles, Users, Target } from 'lucide-react';
+import { useSiteContent } from '../context/SiteContentContext';
 import Footer from '../comps/Footer';
 
-const team = [
-  { name: 'Lan Gabriel', role: 'Founder & Creative Director', focus: 'Branding, Animation & Motion' },
-  { name: 'Sauveur', role: 'Associate Creative Director & Lead Inker / Sketch Artist', focus: '' },
-  { name: 'Jospine', role: 'Colorist', focus: '' },
-  { name: 'Ciella', role: 'Typography Designer & Editor', focus: '' },
-];
-
-const values = [
-  {
-    icon: Heart,
-    title: 'Story First',
-    description: 'Every project starts with the narrative. We craft visuals that serve the story and connect with audiences.',
-    image: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600&q=80',
-  },
-  {
-    icon: Sparkles,
-    title: 'Creative Excellence',
-    description: 'From concept to final deliverable, we aim for quality that stands out and stands the test of time.',
-    image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80',
-  },
-  {
-    icon: Users,
-    title: 'Collaborative',
-    description: 'We work alongside brands, authors, and organizations as partners to bring their vision to life.',
-    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80',
-  },
-  {
-    icon: Target,
-    title: 'Impact Driven',
-    description: 'Our work is designed to inform, inspire, and move people—whether in print, digital, or motion.',
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80',
-  },
-];
+const VALUE_ICONS = [Heart, Sparkles, Users, Target];
 
 const AboutPage: React.FC = () => {
+  const { about } = useSiteContent();
+  const { hero, story, values: aboutValues, teamSection } = about;
+
   return (
     <div className="font-noteworthy" style={{ fontFamily: 'var(--font-noteworthy)' }}>
       {/* Hero */}
@@ -56,7 +28,7 @@ const AboutPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            Who We Are
+            {hero.eyebrow}
           </motion.p>
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6"
@@ -64,7 +36,7 @@ const AboutPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            About Lanart21
+            {hero.title}
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto"
@@ -72,7 +44,7 @@ const AboutPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            A visual storytelling studio turning ideas into clear, powerful narratives through illustration, comics, animation, and creative direction.
+            {hero.subtitle}
           </motion.p>
         </div>
       </section>
@@ -89,26 +61,25 @@ const AboutPage: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <p className="text-base font-bold uppercase tracking-widest" style={{ color: 'var(--color-primary-blue)' }}>
-                Our Story
+                {story.label}
               </p>
               <h2
                 className="text-3xl md:text-4xl font-bold tracking-tight"
                 style={{ color: 'var(--color-deep-blue)' }}
               >
-                Visual storytelling at the heart of everything we do
+                {story.heading}
               </h2>
               <p className="text-lg text-[var(--navbar-text)] leading-relaxed">
-                <strong>Lanart21 Creative Studio</strong> is a visual storytelling studio specializing in illustration, comics, animation, and creative direction. We work with brands, organizations, and creators to turn ideas into clear, powerful visual narratives.
+                {story.paragraph1}
               </p>
               <p className="text-[var(--navbar-text)] leading-relaxed">
-                Whether it’s a comic book, an animated explainer, a brand identity, or custom illustrations, we combine craft with strategy so your message reaches the right people and leaves a lasting impression.
-              </p>
+                {story.paragraph2} it’s              </p>
               <Link
                 to="/services"
 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-base uppercase tracking-wider transition-all hover:opacity-95 hover:shadow-lg"
               style={{ backgroundColor: 'var(--color-accent-pink)' }}
               >
-                Explore our services
+                {story.ctaText}
               </Link>
             </motion.div>
             <motion.div
@@ -119,7 +90,7 @@ className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font
               transition={{ duration: 0.5 }}
             >
               <img
-                src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=900&q=85"
+                src={story.storyImageUrl}
                 alt="Creative studio at work – visual storytelling"
                 className="w-full h-full object-cover"
               />
@@ -159,39 +130,42 @@ className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {values.map((item, index) => (
-              <motion.div
-                key={item.title}
-                className="group rounded-2xl overflow-hidden border-2 transition-colors hover:border-[var(--color-primary-blue)] bg-white shadow-sm hover:shadow-lg"
-                style={{ borderColor: 'var(--navbar-border)' }}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.4, delay: index * 0.06 }}
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt=""
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-5">
-                  <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center mb-3 text-white"
-                    style={{ backgroundColor: 'var(--color-primary-blue)' }}
-                  >
-                    <item.icon size={20} />
+            {aboutValues.map((item, index) => {
+              const Icon = VALUE_ICONS[index % VALUE_ICONS.length];
+              return (
+                <motion.div
+                  key={item.title || index}
+                  className="group rounded-2xl overflow-hidden border-2 transition-colors hover:border-[var(--color-primary-blue)] bg-white shadow-sm hover:shadow-lg"
+                  style={{ borderColor: 'var(--navbar-border)' }}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ duration: 0.4, delay: index * 0.06 }}
+                >
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt=""
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <h3 className="text-lg font-bold" style={{ color: 'var(--color-deep-blue)' }}>
-                    {item.title}
-                  </h3>
-                  <p className="text-base mt-2 text-[var(--navbar-text)] leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="p-5">
+                    <div
+                      className="w-10 h-10 rounded-lg flex items-center justify-center mb-3 text-white"
+                      style={{ backgroundColor: 'var(--color-primary-blue)' }}
+                    >
+                      <Icon size={20} />
+                    </div>
+                    <h3 className="text-lg font-bold" style={{ color: 'var(--color-deep-blue)' }}>
+                      {item.title}
+                    </h3>
+                    <p className="text-base mt-2 text-[var(--navbar-text)] leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -208,7 +182,7 @@ className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font
               transition={{ duration: 0.5 }}
             >
               <img
-                src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=900&q=85"
+                src={teamSection.teamImageUrl}
                 alt="Team collaboration – Lanart21"
                 className="w-full h-full object-cover"
               />
@@ -227,23 +201,23 @@ className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font
               transition={{ duration: 0.5 }}
             >
               <p className="text-base font-bold uppercase tracking-widest" style={{ color: 'var(--color-accent-pink)' }}>
-                Our Team
+                {teamSection.label}
               </p>
               <h2
                 className="text-3xl md:text-4xl font-bold tracking-tight"
                 style={{ color: 'var(--color-deep-blue)' }}
               >
-                Expert creatives who love what they do
+                {teamSection.heading}
               </h2>
               <p className="text-lg text-[var(--navbar-text)] leading-relaxed">
-                From founders to colorists and typographers, our team brings together diverse skills to deliver illustration, comics, animation, and branding that tell your story with clarity and impact.
+                {teamSection.intro}
               </p>
               <a
                 href="#team"
-className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-base uppercase tracking-wider transition-all hover:opacity-95 hover:shadow-lg"
-              style={{ backgroundColor: 'var(--color-primary-blue)' }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-base uppercase tracking-wider transition-all hover:opacity-95 hover:shadow-lg"
+                style={{ backgroundColor: 'var(--color-primary-blue)' }}
               >
-                Meet the team below
+                {teamSection.ctaText}
               </a>
             </motion.div>
           </div>
@@ -282,7 +256,7 @@ className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {team.map((member, index) => (
+            {teamSection.members.map((member, index) => (
               <motion.div
                 key={member.name}
                 className="text-center p-6 rounded-2xl bg-white border border-[var(--navbar-border)] shadow-sm hover:shadow-lg transition-all duration-300"
@@ -293,11 +267,15 @@ className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font
                 whileHover={{ y: -4 }}
               >
                 <motion.div
-                  className="w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center text-2xl font-bold text-white"
+                  className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden flex items-center justify-center text-2xl font-bold text-white shrink-0"
                   style={{ backgroundColor: 'var(--color-primary-blue)' }}
                   whileHover={{ scale: 1.05 }}
                 >
-                  {member.name.charAt(0)}
+                  {member.imageUrl ? (
+                    <img src={member.imageUrl} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    member.name.charAt(0)
+                  )}
                 </motion.div>
                 <h3 className="text-lg font-bold" style={{ color: 'var(--navbar-text)' }}>
                   {member.name}

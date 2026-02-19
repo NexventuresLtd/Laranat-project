@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone, Send } from 'lucide-react';
+import { useSiteContent } from '../context/SiteContentContext';
 import Footer from '../comps/Footer';
 
 const ContactPage: React.FC = () => {
+  const { contact } = useSiteContent();
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -69,7 +71,7 @@ const ContactPage: React.FC = () => {
                 className="text-2xl md:text-3xl font-bold mb-6"
                 style={{ color: 'var(--color-deep-blue)' }}
               >
-                Send a message
+                {contact.formHeading}
               </h2>
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">

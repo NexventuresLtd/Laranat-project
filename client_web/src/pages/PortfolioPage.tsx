@@ -2,16 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ImageIcon, ArrowRight } from 'lucide-react';
+import { useSiteContent } from '../context/SiteContentContext';
 import Footer from '../comps/Footer';
 
-const portfolioCategories = [
-  { title: 'Illustration & Visual Art', count: 'Selected works', image: 'https://images.unsplash.com/photo-1515405295579-ba7b45403062?w=600&q=80' },
-  { title: 'Comics & Graphic Novels', count: 'Projects', image: 'https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=600&q=80' },
-  { title: 'Animation & Motion', count: 'Reels', image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&q=80' },
-  { title: 'Branding & Identity', count: 'Case studies', image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80' },
-];
-
 const PortfolioPage: React.FC = () => {
+  const { portfolio } = useSiteContent();
+
   return (
     <div className="font-noteworthy" style={{ fontFamily: 'var(--font-noteworthy)' }}>
       <section
@@ -28,7 +24,7 @@ const PortfolioPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            Our Work
+            {portfolio.hero.eyebrow}
           </motion.p>
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6"
@@ -36,7 +32,7 @@ const PortfolioPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Portfolio
+            {portfolio.hero.title}
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto"
@@ -44,7 +40,7 @@ const PortfolioPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            A selection of our illustration, comics, animation, and branding projects.
+            {portfolio.hero.subtitle}
           </motion.p>
         </div>
       </section>
@@ -58,15 +54,15 @@ const PortfolioPage: React.FC = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4" style={{ color: 'var(--color-deep-blue)' }}>
-              Browse by category
+              {portfolio.browseHeading}
             </h2>
             <p className="text-[var(--navbar-text)] max-w-xl mx-auto">
-              From visual art to motion design—explore what we create for brands and creators.
+              {portfolio.browseSubtitle}
             </p>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {portfolioCategories.map((item, index) => (
+            {portfolio.categories.map((item, index) => (
               <motion.div
                 key={item.title}
                 className="group rounded-2xl overflow-hidden border-2 shadow-sm hover:shadow-xl transition-all duration-300"

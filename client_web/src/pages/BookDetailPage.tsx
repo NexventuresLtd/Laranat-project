@@ -14,7 +14,8 @@ import {
   BookOpen,
   X,
 } from 'lucide-react';
-import { getComicById, getPrevComicId, getNextComicId } from '../data/comics';
+import { getComicByIdFrom, getPrevComicIdFrom, getNextComicIdFrom } from '../data/comics';
+import { useComics } from '../context/ComicsContext';
 import Footer from '../comps/Footer';
 
 const PAGE_WIDTH_CLASS = 'w-[91.666667%]'; // 11/12 for large desktop
@@ -24,9 +25,10 @@ const WHATSAPP_NUMBER = '250782030814';
 const BookDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const comic = id ? getComicById(id) : undefined;
-  const prevId = id ? getPrevComicId(id) : null;
-  const nextId = id ? getNextComicId(id) : null;
+  const { comics } = useComics();
+  const comic = id ? getComicByIdFrom(comics, id) : undefined;
+  const prevId = id ? getPrevComicIdFrom(comics, id) : null;
+  const nextId = id ? getNextComicIdFrom(comics, id) : null;
 
   if (!comic) {
     return (
