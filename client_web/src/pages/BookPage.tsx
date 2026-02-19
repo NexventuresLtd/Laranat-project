@@ -2,20 +2,15 @@ import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Filter, LayoutGrid, List, Search, Star } from 'lucide-react';
-import { sampleComics } from '../data/comics';
+import { useComics } from '../context/ComicsContext';
 import Footer from '../comps/Footer';
 
 const PAGE_WIDTH_CLASS = 'w-[91.666667%]'; // 11/12 width
 
-// First book as featured; 6 books in "Explore more"
-const featuredBook = sampleComics[0];
-const exploreMoreBooks = sampleComics.slice(0, 6);
-
-const ALL_GENRES = Array.from(new Set(sampleComics.flatMap((c) => c.genre.split(',').map((g) => g.trim()))));
-
 type ViewMode = 'grid' | 'list';
 
 const BookPage: React.FC = () => {
+  const { comics } = useComics();
   const [search, setSearch] = useState('');
   const [genres, setGenres] = useState<Set<string>>(new Set());
   const [statusOngoing, setStatusOngoing] = useState(false);
@@ -24,6 +19,13 @@ const BookPage: React.FC = () => {
   const [typeOneShot, setTypeOneShot] = useState(false);
   const [sortBy, setSortBy] = useState<'title' | 'author'>('title');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
+
+  const featuredBook = comics[0];
+  const exploreMoreBooks = comics.slice(0, 6);
+  const ALL_GENRES = useMemo(
+    () => Array.from(new Set(comics.flatMap((c) => c.genre.split(',').map((g) => g.trim())))),
+    [comics]
+  );
 
   const toggleGenre = (g: string) => {
     setGenres((prev) => {
@@ -35,7 +37,7 @@ const BookPage: React.FC = () => {
   };
 
   const filtered = useMemo(() => {
-    let list = sampleComics.filter((c) => {
+    let list = comics.filter((c) => {
       if (search.trim()) {
         const q = search.toLowerCase();
         if (!c.title.toLowerCase().includes(q) && !c.author.toLowerCase().includes(q) && !c.genre.toLowerCase().includes(q))
@@ -61,7 +63,7 @@ const BookPage: React.FC = () => {
     });
     list = [...list].sort((a, b) => (sortBy === 'title' ? a.title.localeCompare(b.title) : a.author.localeCompare(b.author)));
     return list;
-  }, [search, genres, statusOngoing, statusCompleted, typeSeries, typeOneShot, sortBy]);
+  }, [comics, search, genres, statusOngoing, statusCompleted, typeSeries, typeOneShot, sortBy]);
 
   return (
     <div className="font-noteworthy min-h-screen" style={{ fontFamily: 'var(--font-noteworthy)' }}>
@@ -361,6 +363,7 @@ const BookPage: React.FC = () => {
         style={{ backgroundColor: 'rgba(3, 169, 244, 0.06)' }}
       >
         <div className={`${PAGE_WIDTH_CLASS} mx-auto `}>
+          {featuredBook && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -427,6 +430,7 @@ className="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-full text-white
               </Link>
             </div>
           </motion.div>
+          )}
         </div>
       </section>
 
@@ -510,13 +514,16 @@ className="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-full text-white
       >
         <div className={`${PAGE_WIDTH_CLASS} mx-auto text-center`}>
           <p className="text-white/90 mb-4 text-lg">More titles coming soon from Lanart21 Creative Studio.</p>
-          <Link
-            to="/contact"
+          <p className="text-white/80 mb-4 text-base">Order a print via WhatsApp: +250 782 030 814</p>
+          <a
+            href="https://wa.me/250782030814?text=Hi%2C%20I'd%20like%20to%20order%20a%20print%20of%20a%20book.%20Please%20send%20me%20more%20info."
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-lg font-bold text-white uppercase tracking-wider"
             style={{ backgroundColor: 'var(--color-accent-pink)' }}
           >
-            Get in touch
-          </Link>
+            Order print
+          </a>
         </div>
       </section>
 

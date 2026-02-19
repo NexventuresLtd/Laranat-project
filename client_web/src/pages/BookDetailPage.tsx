@@ -14,17 +14,21 @@ import {
   BookOpen,
   X,
 } from 'lucide-react';
-import { getComicById, getPrevComicId, getNextComicId } from '../data/comics';
+import { getComicByIdFrom, getPrevComicIdFrom, getNextComicIdFrom } from '../data/comics';
+import { useComics } from '../context/ComicsContext';
 import Footer from '../comps/Footer';
 
 const PAGE_WIDTH_CLASS = 'w-[91.666667%]'; // 11/12 for large desktop
 
+const WHATSAPP_NUMBER = '250782030814';
+
 const BookDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const comic = id ? getComicById(id) : undefined;
-  const prevId = id ? getPrevComicId(id) : null;
-  const nextId = id ? getNextComicId(id) : null;
+  const { comics } = useComics();
+  const comic = id ? getComicByIdFrom(comics, id) : undefined;
+  const prevId = id ? getPrevComicIdFrom(comics, id) : null;
+  const nextId = id ? getNextComicIdFrom(comics, id) : null;
 
   if (!comic) {
     return (
@@ -229,15 +233,27 @@ const BookDetailPage: React.FC = () => {
                 )}
               </div>
 
-              <div className="pt-6">
+              <div className="pt-6 flex flex-wrap gap-4">
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi, I'm interested in "${comic.title}". Please send me more info.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold text-white uppercase tracking-wider"
+                  style={{ backgroundColor: 'var(--color-primary-blue)' }}
+                >
+                  Get in touch
+                </a>
                 <Link
-                  to="/contact"
+                  to={`/books/${comic.id}/print`}
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold text-white uppercase tracking-wider"
                   style={{ backgroundColor: 'var(--color-accent-pink)' }}
                 >
-                  Get in touch about this title
+                  Print
                 </Link>
               </div>
+              <p className="mt-3 text-base" style={{ color: 'var(--navbar-text)' }}>
+                For print orders or more info: <a href={`https://wa.me/${WHATSAPP_NUMBER}`} className="font-semibold" style={{ color: 'var(--color-primary-blue)' }}>+250 782 030 814</a>
+              </p>
             </motion.div>
           </div>
         </div>

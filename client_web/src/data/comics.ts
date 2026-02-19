@@ -97,6 +97,10 @@ export function getComicById(id: string): Comic | undefined {
   return sampleComics.find((c) => c.id === id);
 }
 
+export function getComicByIdFrom(comics: Comic[], id: string): Comic | undefined {
+  return comics.find((c) => c.id === id);
+}
+
 export function getPrevComicId(currentId: string): string | null {
   const index = sampleComics.findIndex((c) => c.id === currentId);
   if (index <= 0) return null;
@@ -107,4 +111,16 @@ export function getNextComicId(currentId: string): string | null {
   const index = sampleComics.findIndex((c) => c.id === currentId);
   if (index < 0 || index >= sampleComics.length - 1) return null;
   return sampleComics[index + 1].id;
+}
+
+export function getPrevComicIdFrom(comics: Comic[], currentId: string): string | null {
+  const index = comics.findIndex((c) => c.id === currentId);
+  if (index <= 0) return null;
+  return comics[index - 1].id;
+}
+
+export function getNextComicIdFrom(comics: Comic[], currentId: string): string | null {
+  const index = comics.findIndex((c) => c.id === currentId);
+  if (index < 0 || index >= comics.length - 1) return null;
+  return comics[index + 1].id;
 }

@@ -2,48 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Palette, BookOpen, Film, Sparkles, ArrowRight } from 'lucide-react';
+import { useSiteContent } from '../context/SiteContentContext';
 import Footer from '../comps/Footer';
 
-const serviceSections = [
-  {
-    id: 'illustration',
-    title: 'Illustration & Visual Art',
-    tag: 'Visual Art',
-    description: 'Custom illustrations that capture your brand and story. From character design to editorial art, we create visuals that communicate clearly and leave a lasting impression.',
-    image: 'https://images.unsplash.com/photo-1515405295579-ba7b45403062?w=800&q=80',
-    color: 'var(--color-primary-blue)',
-    icon: Palette,
-  },
-  {
-    id: 'comics',
-    title: 'Comic & Graphic Novel Production',
-    tag: 'Comics',
-    description: 'Full production from script to finished pages. We handle storyboarding, penciling, inking, coloring, and lettering for comics and graphic novels that readers love.',
-    image: 'https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=800&q=80',
-    color: 'var(--color-deep-blue)',
-    icon: BookOpen,
-  },
-  {
-    id: 'animation',
-    title: 'Animation & Motion Design',
-    tag: 'Motion',
-    description: 'Motion that brings ideas to life on screen. From explainer videos and social content to title sequences and character animation, we add movement that engages audiences.',
-    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80',
-    color: 'var(--color-accent-pink)',
-    icon: Film,
-  },
-  {
-    id: 'branding',
-    title: 'Branding & Visual Identity',
-    tag: 'Branding',
-    description: 'Cohesive visual identity and creative direction. We help brands and projects look consistent and memorable across print, digital, and motion.',
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80',
-    color: 'var(--color-secondary-purple)',
-    icon: Sparkles,
-  },
-];
+const SERVICE_ICONS = [Palette, BookOpen, Film, Sparkles];
+const SERVICE_COLORS = ['var(--color-primary-blue)', 'var(--color-deep-blue)', 'var(--color-accent-pink)', 'var(--color-secondary-purple)'];
 
 const ServicesPage: React.FC = () => {
+  const { services } = useSiteContent();
+  const serviceSections = services.sections.map((s, i) => ({
+    ...s,
+    icon: SERVICE_ICONS[i % SERVICE_ICONS.length],
+    color: SERVICE_COLORS[i % SERVICE_COLORS.length],
+  }));
+
   return (
     <div className="font-noteworthy" style={{ fontFamily: 'var(--font-noteworthy)' }}>
       {/* Page Hero */}
@@ -61,7 +33,7 @@ const ServicesPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            What We Do
+            {services.hero.eyebrow}
           </motion.p>
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6"
@@ -69,7 +41,7 @@ const ServicesPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Our Services
+            {services.hero.title}
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto"
@@ -77,7 +49,7 @@ const ServicesPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Illustration & Visual Art, Comic & Graphic Novel Production, Animation & Motion Design, and Branding & Visual Identity.
+            {services.hero.subtitle}
           </motion.p>
         </div>
       </section>

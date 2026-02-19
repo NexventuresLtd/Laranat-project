@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Hero from '../comps/Hero';
 import Contact from '../comps/Contact';
 import Footer from '../comps/Footer';
+import { useSiteContent } from '../context/SiteContentContext';
 import { Palette, BookOpen, Film, Sparkles, ImageIcon } from 'lucide-react';
 
 /* Lanart21 decorative pattern – dots grid */
@@ -33,6 +34,7 @@ const BalloonDeco = ({ className = '' }: { className?: string }) => (
 
 const HomePage: React.FC = () => {
   const { hash } = useLocation();
+  const { home } = useSiteContent();
 
   useEffect(() => {
     if (hash) {
@@ -62,20 +64,20 @@ const HomePage: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <p className="text-base font-bold uppercase tracking-widest" style={{ color: 'var(--color-primary-blue)' }}>
-                Who we are
+                {home.aboutTeaser.eyebrow}
               </p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight" style={{ color: 'var(--color-deep-blue)' }}>
-                About Us
+                {home.aboutTeaser.title}
               </h2>
               <p className="text-lg text-[var(--navbar-text)] leading-relaxed">
-                We specialize in illustration, comics, animation, and creative direction—turning your ideas into clear, powerful visual narratives for brands, organizations, and creators.
+                {home.aboutTeaser.body}
               </p>
               <Link
                 to="/about"
                 className="inline-flex items-center justify-center px-6 py-3 rounded-full text-white font-bold text-base uppercase tracking-wider transition-all hover:opacity-95"
                 style={{ backgroundColor: 'var(--color-primary-blue)' }}
               >
-                Learn more
+                {home.aboutTeaser.ctaText}
               </Link>
             </motion.div>
             <motion.div
@@ -86,7 +88,7 @@ const HomePage: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <img
-                src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=85"
+                src={home.aboutTeaser.imageUrl}
                 alt="Creative studio – visual storytelling"
                 className="w-full h-full object-cover"
               />
@@ -107,28 +109,28 @@ const HomePage: React.FC = () => {
             transition={{ duration: 0.5 }}
           >
             <p className="text-base font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-primary-blue)' }}>
-              Features
+              {home.servicesTeaser.eyebrow}
             </p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style={{ color: 'var(--color-deep-blue)' }}>
-              Our Services
+              {home.servicesTeaser.title}
             </h2>
             <p className="text-lg text-[var(--navbar-text)]/80 max-w-2xl mx-auto mb-8">
-              From illustration to animation and branding—we bring your vision to life.
+              {home.servicesTeaser.body}
             </p>
             <Link
               to="/services"
               className="inline-flex items-center justify-center px-6 py-3 rounded-full text-white font-bold text-base uppercase tracking-wider transition-all hover:opacity-95"
               style={{ backgroundColor: 'var(--color-primary-blue)' }}
             >
-              View our services
+              {home.servicesTeaser.ctaText}
             </Link>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { title: 'Illustration & Visual Art', icon: Palette },
-              { title: 'Comic & Graphic Novels', icon: BookOpen },
-              { title: 'Animation & Motion', icon: Film },
-              { title: 'Branding & Identity', icon: Sparkles },
+              { title: home.servicesTeaser.serviceTitles[0] ?? 'Illustration & Visual Art', icon: Palette },
+              { title: home.servicesTeaser.serviceTitles[1] ?? 'Comic & Graphic Novels', icon: BookOpen },
+              { title: home.servicesTeaser.serviceTitles[2] ?? 'Animation & Motion', icon: Film },
+              { title: home.servicesTeaser.serviceTitles[3] ?? 'Branding & Identity', icon: Sparkles },
             ].map((s, i) => (
               <motion.div
                 key={s.title}
@@ -157,17 +159,17 @@ const HomePage: React.FC = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style={{ color: 'var(--color-deep-blue)' }}>
-              Books & Publications
+              {home.booksTeaser.title}
             </h2>
             <p className="text-lg text-[var(--navbar-text)]/80 max-w-2xl mx-auto mb-8">
-              Comics & graphic novels, illustrated books, and original visual storytelling projects.
+              {home.booksTeaser.body}
             </p>
             <Link
               to="/books"
               className="inline-flex items-center justify-center px-6 py-3 rounded-full text-white font-bold text-base uppercase tracking-wider transition-all hover:opacity-95"
               style={{ backgroundColor: 'var(--color-primary-blue)' }}
             >
-              View all books
+              {home.booksTeaser.ctaText}
             </Link>
           </motion.div>
         </div>
@@ -183,20 +185,20 @@ const HomePage: React.FC = () => {
             viewport={{ once: true }}
           >
             <p className="text-base font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-secondary-purple)' }}>
-              Our Work
+              {home.portfolioTeaser.eyebrow}
             </p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4" style={{ color: 'var(--color-deep-blue)' }}>
-              Portfolio
+              {home.portfolioTeaser.title}
             </h2>
             <p className="text-lg text-[var(--navbar-text)]/80 max-w-2xl mx-auto mb-8">
-              A selection of our illustration, comics, animation, and branding projects for brands and creators.
+              {home.portfolioTeaser.body}
             </p>
             <Link
               to="/portfolio"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-base uppercase tracking-wider transition-all hover:opacity-95"
               style={{ backgroundColor: 'var(--color-secondary-purple)' }}
             >
-              <ImageIcon size={18} /> View portfolio
+              <ImageIcon size={18} /> {home.portfolioTeaser.ctaText}
             </Link>
           </motion.div>
         </div>
