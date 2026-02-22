@@ -103,6 +103,20 @@ h1, h2, h3, h4, h5, h6 {
 .animate-boat-float-delay-3 { animation: boatFloat 5s ease-in-out infinite; animation-delay: 2.4s; }
 .animate-boat-float-delay-4 { animation: boatFloat 5s ease-in-out infinite; animation-delay: 3s; }
 
+/* Books carousel: slide right to left (Story Boats style) */
+@keyframes slideBooksR2L {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-slide-books-r2l {
+  animation: slideBooksR2L 25s linear infinite;
+}
+
+.animate-slide-books-r2l:hover {
+  animation-play-state: paused;
+}
+
 /* Nav link hover underline */
 .nav-link:hover {
   color: var(--navbar-text-hover);
