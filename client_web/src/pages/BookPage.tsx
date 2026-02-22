@@ -66,7 +66,7 @@ const BookPage: React.FC = () => {
   }, [comics, search, genres, statusOngoing, statusCompleted, typeSeries, typeOneShot, sortBy]);
 
   return (
-    <div className="font-noteworthy min-h-screen" style={{ fontFamily: 'var(--font-noteworthy)' }}>
+    <div className="min-h-screen" style={{ fontFamily: 'var(--font-body)' }}>
       {/* Title - brand colors */}
       <div
         className="py-6 text-center border-b"

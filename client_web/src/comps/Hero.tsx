@@ -10,15 +10,18 @@ const Hero: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[90vh] flex items-center overflow-hidden font-noteworthy -mt-[5rem] pt-[5rem]"
-      style={{ fontFamily: 'var(--font-noteworthy)' }}
+      className="relative min-h-[90vh] flex items-center overflow-hidden -mt-[5rem] pt-[5rem]"
+      style={{ fontFamily: 'var(--font-body)' }}
     >
       <div className="absolute inset-0">
-        <img
+        <motion.img
           src={hero.bgImageUrl}
           alt=""
           className="w-full h-full object-cover"
           aria-hidden
+          initial={{ scale: 1.05 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 8, repeat: Infinity, repeatType: 'reverse' }}
         />
         <div
           className="absolute inset-0"

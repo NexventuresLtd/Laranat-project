@@ -5,6 +5,7 @@ import Hero from '../comps/Hero';
 import Contact from '../comps/Contact';
 import Footer from '../comps/Footer';
 import { useSiteContent } from '../context/SiteContentContext';
+import { useComics } from '../context/ComicsContext';
 import { Palette, BookOpen, Film, Sparkles, ImageIcon } from 'lucide-react';
 
 /* Lanart21 decorative pattern – dots grid */
@@ -32,9 +33,19 @@ const BalloonDeco = ({ className = '' }: { className?: string }) => (
   </div>
 );
 
+const FALLBACK_BOOKS = [
+  { id: '', color: 'var(--color-primary-blue)', tilt: 'rotate-[-6deg]' },
+  { id: '', color: 'var(--color-accent-pink)', tilt: 'rotate-[4deg]' },
+  { id: '', color: 'var(--color-secondary-purple)', tilt: 'rotate-[-3deg]' },
+  { id: '', color: 'var(--color-deep-blue)', tilt: 'rotate-[5deg]' },
+  { id: '', color: 'var(--color-primary-blue)', tilt: 'rotate-[-4deg]' },
+];
+
 const HomePage: React.FC = () => {
   const { hash } = useLocation();
   const { home } = useSiteContent();
+  const { comics } = useComics();
+  const displayBooks = comics.length > 0 ? comics.slice(0, 5) : null;
 
   useEffect(() => {
     if (hash) {
@@ -52,7 +63,7 @@ const HomePage: React.FC = () => {
       <BalloonDeco className="bottom-40 left-[5%] hidden md:block scale-75" />
 
       {/* About teaser + CTA */}
-      <section id="about" className="relative py-16 md:py-24 font-noteworthy overflow-hidden">
+      <section id="about" className="relative py-16 md:py-24 overflow-hidden">
         <PatternDots />
         <div className="w-[91.666667%] mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -98,7 +109,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Services teaser + CTA */}
-      <section id="services" className="relative py-16 md:py-24 font-noteworthy overflow-hidden" style={{ backgroundColor: 'rgba(3, 169, 244, 0.04)' }}>
+      <section id="services" className="relative py-16 md:py-24 overflow-hidden" style={{ backgroundColor: 'rgba(3, 169, 244, 0.04)' }}>
         <PatternDots />
         <div className="w-[91.666667%] mx-auto">
           <motion.div
@@ -148,8 +159,8 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Books teaser + CTA */}
-      <section id="books" className="relative py-16 md:py-24 font-noteworthy overflow-hidden">
+      {/* Books teaser + CTA – Story Boats style floating book cards */}
+      <section id="books" className="relative py-16 md:py-24 overflow-hidden">
         <PatternDots />
         <div className="w-[91.666667%] mx-auto">
           <motion.div
@@ -172,11 +183,62 @@ const HomePage: React.FC = () => {
               {home.booksTeaser.ctaText}
             </Link>
           </motion.div>
+
+          {/* Floating books – real covers with Story Boats style bobbing animation */}
+          <motion.div
+            className="flex flex-wrap justify-center items-end gap-6 md:gap-10 pt-4 pb-8"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            {(displayBooks || FALLBACK_BOOKS).map((item, i) => {
+              const delays = ['animate-boat-float', 'animate-boat-float-delay-1', 'animate-boat-float-delay-2', 'animate-boat-float-delay-3', 'animate-boat-float-delay-4'];
+              const tilts = ['rotate-[-6deg]', 'rotate-[4deg]', 'rotate-[-3deg]', 'rotate-[5deg]', 'rotate-[-4deg]'];
+              const sizes = ['w-20 md:w-24 h-28 md:h-32', 'w-24 md:w-28 h-32 md:h-36', 'w-20 md:w-24 h-28 md:h-32', 'w-24 md:w-28 h-30 md:h-34', 'w-20 md:w-24 h-28 md:h-32'];
+              const delay = delays[i % delays.length];
+              const tilt = displayBooks ? tilts[i % tilts.length] : (item as { tilt: string }).tilt;
+              const size = sizes[i % sizes.length];
+              const isRealBook = displayBooks && 'coverImage' in item;
+              const cover = isRealBook ? (item as { id: string; title: string; coverImage: string }).coverImage : '';
+              const bookId = isRealBook ? (item as { id: string }).id : '';
+              const title = isRealBook ? (item as { title: string }).title : '';
+
+              const card = (
+                <div
+                  className={`${size} ${delay} ${tilt} rounded-lg shadow-lg border-2 border-white/40 flex-shrink-0 overflow-hidden`}
+                  style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.12)' }}
+                >
+                  {cover ? (
+                    <img
+                      src={cover}
+                      alt={title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="w-full h-full"
+                      style={{ backgroundColor: (item as { color: string }).color }}
+                      aria-hidden
+                    />
+                  )}
+                </div>
+              );
+
+              return bookId ? (
+                <Link key={bookId} to={`/books/${bookId}`} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2" style={{ ['--tw-ring-color' as string]: 'var(--color-primary-blue)' }}>
+                  {card}
+                </Link>
+              ) : (
+                <div key={i} aria-hidden>{card}</div>
+              );
+            })}
+          </motion.div>
         </div>
       </section>
 
       {/* Portfolio teaser + CTA */}
-      <section id="portfolio" className="relative py-16 md:py-24 font-noteworthy overflow-hidden" style={{ backgroundColor: 'rgba(103, 51, 176, 0.04)' }}>
+      <section id="portfolio" className="relative py-16 md:py-24 overflow-hidden" style={{ backgroundColor: 'rgba(103, 51, 176, 0.04)' }}>
         <PatternDots />
         <div className="w-[91.666667%] mx-auto text-center">
           <motion.div

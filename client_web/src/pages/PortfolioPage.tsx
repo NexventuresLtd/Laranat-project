@@ -9,7 +9,7 @@ const PortfolioPage: React.FC = () => {
   const { portfolio } = useSiteContent();
 
   return (
-    <div className="font-noteworthy" style={{ fontFamily: 'var(--font-noteworthy)' }}>
+    <div style={{ fontFamily: 'var(--font-body)' }}>
       <section
         className="relative py-20 md:py-28 overflow-hidden"
         style={{

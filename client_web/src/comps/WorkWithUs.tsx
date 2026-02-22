@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 const WorkWithUs: React.FC = () => {
   return (
     <section
-      className="py-16 md:py-24 font-noteworthy"
+      className="py-16 md:py-24"
       style={{
-        fontFamily: 'var(--font-noteworthy)',
+        fontFamily: 'var(--font-body)',
         backgroundColor: 'var(--color-deep-blue)',
         color: 'rgba(255,255,255,0.95)',
       }}

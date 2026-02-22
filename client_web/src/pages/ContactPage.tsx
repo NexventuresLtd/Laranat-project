@@ -18,7 +18,7 @@ const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="font-noteworthy min-h-screen" style={{ fontFamily: 'var(--font-noteworthy)' }}>
+    <div className="min-h-screen" style={{ fontFamily: 'var(--font-body)' }}>
       {/* Hero */}
       <section
         className="relative py-20 md:py-28 overflow-hidden"

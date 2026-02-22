@@ -6,9 +6,9 @@ const Contact: React.FC = () => {
   return (
     <section
       id="contact"
-      className="py-16 md:py-24 font-noteworthy"
+      className="py-16 md:py-24"
       style={{
-        fontFamily: 'var(--font-noteworthy)',
+        fontFamily: 'var(--font-body)',
         background: `linear-gradient(135deg, var(--color-primary-blue) 0%, var(--color-deep-blue) 100%)`,
       }}
     >

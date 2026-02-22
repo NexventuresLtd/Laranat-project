@@ -33,8 +33,8 @@ const BookDetailPage: React.FC = () => {
   if (!comic) {
     return (
       <div
-        className="min-h-[60vh] flex flex-col items-center justify-center font-noteworthy px-4"
-        style={{ fontFamily: 'var(--font-noteworthy)' }}
+        className="min-h-[60vh] flex flex-col items-center justify-center px-4"
+        style={{ fontFamily: 'var(--font-body)' }}
       >
         <BookOpen size={64} className="mb-4 opacity-40" style={{ color: 'var(--color-primary-blue)' }} />
         <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-deep-blue)' }}>
@@ -54,7 +54,7 @@ const BookDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="font-noteworthy min-h-screen" style={{ fontFamily: 'var(--font-noteworthy)' }}>
+    <div className="min-h-screen" style={{ fontFamily: 'var(--font-body)' }}>
       {/* Back bar - w-11/12 */}
       <div className="border-b border-[var(--navbar-border)] bg-white py-4">
         <div className={`${PAGE_WIDTH_CLASS} mx-auto flex items-center justify-between`}>

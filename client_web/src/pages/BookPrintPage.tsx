@@ -17,8 +17,8 @@ const BookPrintPage: React.FC = () => {
   if (!comic) {
     return (
       <div
-        className="min-h-[60vh] flex flex-col items-center justify-center font-noteworthy px-4"
-        style={{ fontFamily: 'var(--font-noteworthy)' }}
+        className="min-h-[60vh] flex flex-col items-center justify-center px-4"
+        style={{ fontFamily: 'var(--font-body)' }}
       >
         <BookOpen size={64} className="mb-4 opacity-40" style={{ color: 'var(--color-primary-blue)' }} />
         <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-deep-blue)' }}>
@@ -48,7 +48,7 @@ const BookPrintPage: React.FC = () => {
   };
 
   return (
-    <div className="font-noteworthy min-h-screen" style={{ fontFamily: 'var(--font-noteworthy)' }}>
+    <div className="min-h-screen" style={{ fontFamily: 'var(--font-body)' }}>
       <div className="border-b py-4" style={{ borderColor: 'var(--navbar-border)' }}>
         <div className={`${PAGE_WIDTH_CLASS} mx-auto flex items-center gap-4`}>
           <button

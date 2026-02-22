@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0;400;500;600;700;1;400;500&family=Source+Sans+3:ital,wght@0;300;400;500;600;700;1;400&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -7,7 +6,8 @@
   --color-brand-deep: var(--color-deep-blue);
   --color-brand-pink: var(--color-accent-pink);
   --color-brand-purple: var(--color-secondary-purple);
-  --font-noteworthy: 'Noteworthy', 'Caveat', cursive;
+  --font-heading: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-body: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -26,21 +26,22 @@
   --navbar-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-/* Base resets and defaults – larger base size for readability */
+/* Base resets and defaults */
 html {
   scroll-behavior: smooth;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 body {
-  font-family: var(--font-noteworthy), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   font-size: 1rem;
+  letter-spacing: 0.01em;
 }
 
-/* Noteworthy font for headings */
-h1, h2, h3, h4, h5, h6, .font-noteworthy {
-  font-family: var(--font-noteworthy);
+/* Trustworthy serif for headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
   letter-spacing: 0.02em;
 }
 
@@ -69,9 +70,21 @@ h1, h2, h3, h4, h5, h6, .font-noteworthy {
   50% { transform: translateY(-8px) rotate(2deg); }
 }
 
+/* Gentle boat-style bobbing: slight rise/fall + subtle tilt */
+@keyframes boatFloat {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  33% { transform: translateY(-10px) rotate(1deg); }
+  66% { transform: translateY(-4px) rotate(0.5deg); }
+}
+
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
+
+.animate-float-delay-1 { animation-delay: 0.5s; }
+.animate-float-delay-2 { animation-delay: 1s; }
+.animate-float-delay-3 { animation-delay: 1.5s; }
+.animate-float-delay-4 { animation-delay: 2s; }
 
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-out forwards;
@@ -80,6 +93,15 @@ h1, h2, h3, h4, h5, h6, .font-noteworthy {
 .animate-subtle-float {
   animation: subtleFloat 3s ease-in-out infinite;
 }
+
+.animate-boat-float {
+  animation: boatFloat 5s ease-in-out infinite;
+}
+
+.animate-boat-float-delay-1 { animation: boatFloat 5s ease-in-out infinite; animation-delay: 0.8s; }
+.animate-boat-float-delay-2 { animation: boatFloat 5s ease-in-out infinite; animation-delay: 1.6s; }
+.animate-boat-float-delay-3 { animation: boatFloat 5s ease-in-out infinite; animation-delay: 2.4s; }
+.animate-boat-float-delay-4 { animation: boatFloat 5s ease-in-out infinite; animation-delay: 3s; }
 
 /* Nav link hover underline */
 .nav-link:hover {

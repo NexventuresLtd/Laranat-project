@@ -13,8 +13,8 @@ const Book: React.FC = () => {
   return (
     <section
       id="books"
-      className="py-16 md:py-24 font-noteworthy overflow-hidden"
-      style={{ fontFamily: 'var(--font-noteworthy)' }}
+      className="py-16 md:py-24 overflow-hidden"
+      style={{ fontFamily: 'var(--font-body)' }}
     >
       <div className="w-[91.666667%] mx-auto">
         <motion.div

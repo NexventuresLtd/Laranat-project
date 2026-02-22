@@ -17,7 +17,7 @@ const ServicesPage: React.FC = () => {
   }));
 
   return (
-    <div className="font-noteworthy" style={{ fontFamily: 'var(--font-noteworthy)' }}>
+    <div style={{ fontFamily: 'var(--font-body)' }}>
       {/* Page Hero */}
       <section
         className="relative py-20 md:py-28 overflow-hidden"
