@@ -39,13 +39,19 @@ const FALLBACK_BOOKS = [
   { id: '', color: 'var(--color-secondary-purple)', tilt: 'rotate-[-3deg]' },
   { id: '', color: 'var(--color-deep-blue)', tilt: 'rotate-[5deg]' },
   { id: '', color: 'var(--color-primary-blue)', tilt: 'rotate-[-4deg]' },
+  { id: '', color: 'var(--color-accent-pink)', tilt: 'rotate-[3deg]' },
+  { id: '', color: 'var(--color-secondary-purple)', tilt: 'rotate-[-5deg]' },
+  { id: '', color: 'var(--color-deep-blue)', tilt: 'rotate-[2deg]' },
+  { id: '', color: 'var(--color-primary-blue)', tilt: 'rotate-[-2deg]' },
+  { id: '', color: 'var(--color-accent-pink)', tilt: 'rotate-[5deg]' },
 ];
 
 const HomePage: React.FC = () => {
   const { hash } = useLocation();
   const { home } = useSiteContent();
   const { comics } = useComics();
-  const displayBooks = comics.length > 0 ? comics.slice(0, 5) : null;
+  /* Use all comics in the slide so the strip is long and horizontal slide is visible */
+  const displayBooks = comics.length > 0 ? comics : null;
 
   useEffect(() => {
     if (hash) {
@@ -184,55 +190,59 @@ const HomePage: React.FC = () => {
             </Link>
           </motion.div>
 
-          {/* Floating books – real covers with Story Boats style bobbing animation */}
+          {/* Books slide – horizontal strip, right to left (Story Boats style) */}
           <motion.div
-            className="flex flex-wrap justify-center items-end gap-6 md:gap-10 pt-4 pb-8"
+            className="pt-4 pb-8"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            {(displayBooks || FALLBACK_BOOKS).map((item, i) => {
-              const delays = ['animate-boat-float', 'animate-boat-float-delay-1', 'animate-boat-float-delay-2', 'animate-boat-float-delay-3', 'animate-boat-float-delay-4'];
-              const tilts = ['rotate-[-6deg]', 'rotate-[4deg]', 'rotate-[-3deg]', 'rotate-[5deg]', 'rotate-[-4deg]'];
-              const sizes = ['w-20 md:w-24 h-28 md:h-32', 'w-24 md:w-28 h-32 md:h-36', 'w-20 md:w-24 h-28 md:h-32', 'w-24 md:w-28 h-30 md:h-34', 'w-20 md:w-24 h-28 md:h-32'];
-              const delay = delays[i % delays.length];
-              const tilt = displayBooks ? tilts[i % tilts.length] : (item as { tilt: string }).tilt;
-              const size = sizes[i % sizes.length];
-              const isRealBook = displayBooks && 'coverImage' in item;
-              const cover = isRealBook ? (item as { id: string; title: string; coverImage: string }).coverImage : '';
-              const bookId = isRealBook ? (item as { id: string }).id : '';
-              const title = isRealBook ? (item as { title: string }).title : '';
+            <div className="overflow-hidden w-full min-h-[12rem] md:min-h-[14rem]" style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)' }}>
+              <div
+                className="flex flex-nowrap gap-5 md:gap-6 items-center animate-slide-books-r2l py-2"
+                style={{ width: 'max-content', willChange: 'transform' }}
+              >
+                {[...(displayBooks || FALLBACK_BOOKS), ...(displayBooks || FALLBACK_BOOKS)].map((item, i) => {
+                  const tilts = ['rotate-[-4deg]', 'rotate-[3deg]', 'rotate-[-2deg]', 'rotate-[4deg]', 'rotate-[-3deg]', 'rotate-[2deg]', 'rotate-[-3deg]', 'rotate-[5deg]', 'rotate-[-1deg]', 'rotate-[1deg]'];
+                  const tilt = displayBooks ? tilts[i % tilts.length] : (item as { tilt: string }).tilt;
+                  const isRealBook = displayBooks && 'coverImage' in item;
+                  const cover = isRealBook ? (item as { id: string; title: string; coverImage: string }).coverImage : '';
+                  const bookId = isRealBook ? (item as { id: string }).id : '';
+                  const title = isRealBook ? (item as { title: string }).title : '';
 
-              const card = (
-                <div
-                  className={`${size} ${delay} ${tilt} rounded-lg shadow-lg border-2 border-white/40 flex-shrink-0 overflow-hidden`}
-                  style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.12)' }}
-                >
-                  {cover ? (
-                    <img
-                      src={cover}
-                      alt={title}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
+                  const card = (
                     <div
-                      className="w-full h-full"
-                      style={{ backgroundColor: (item as { color: string }).color }}
-                      aria-hidden
-                    />
-                  )}
-                </div>
-              );
+                      className={`w-28 h-40 md:w-36 md:h-52 ${tilt} rounded-lg shadow-xl border-2 border-white/50 flex-shrink-0 overflow-hidden bg-white`}
+                      style={{ boxShadow: '0 12px 40px rgba(0,0,0,0.14)' }}
+                    >
+                      {cover ? (
+                        <img
+                          src={cover}
+                          alt={title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div
+                          className="w-full h-full"
+                          style={{ backgroundColor: (item as { color: string }).color }}
+                          aria-hidden
+                        />
+                      )}
+                    </div>
+                  );
 
-              return bookId ? (
-                <Link key={bookId} to={`/books/${bookId}`} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2" style={{ ['--tw-ring-color' as string]: 'var(--color-primary-blue)' }}>
-                  {card}
-                </Link>
-              ) : (
-                <div key={i} aria-hidden>{card}</div>
-              );
-            })}
+                  const uniqueKey = bookId ? `slide-${bookId}-${i}` : `slide-fb-${i}`;
+                  return bookId ? (
+                    <Link key={uniqueKey} to={`/books/${bookId}`} className="block flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 rounded-lg" style={{ ['--tw-ring-color' as string]: 'var(--color-primary-blue)' }}>
+                      {card}
+                    </Link>
+                  ) : (
+                    <div key={uniqueKey} className="flex-shrink-0" aria-hidden>{card}</div>
+                  );
+                })}
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
