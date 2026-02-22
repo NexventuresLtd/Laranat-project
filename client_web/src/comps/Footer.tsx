@@ -49,9 +49,9 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative font-noteworthy"
+      className="relative"
       style={{
-        fontFamily: 'var(--font-noteworthy)',
+        fontFamily: 'var(--font-body)',
         color: 'rgba(255,255,255,0.9)',
       }}
     >

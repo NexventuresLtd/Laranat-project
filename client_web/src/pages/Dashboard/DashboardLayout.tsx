@@ -34,7 +34,7 @@ const DashboardLayout: React.FC = () => {
     <div
       className="min-h-screen"
       style={{
-        fontFamily: 'var(--font-noteworthy)',
+        fontFamily: 'var(--font-body)',
         background: 'linear-gradient(165deg, #eff6ff 0%, #f8fafc 35%, #f5f3ff 100%)',
       }}
     >

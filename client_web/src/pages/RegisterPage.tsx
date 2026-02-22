@@ -31,8 +31,8 @@ const RegisterPage: React.FC = () => {
 
   return (
     <div
-      className="min-h-[calc(100vh-5rem)] flex items-center justify-center px-4 py-12 font-noteworthy"
-      style={{ fontFamily: 'var(--font-noteworthy)' }}
+      className="min-h-[calc(100vh-5rem)] flex items-center justify-center px-4 py-12"
+      style={{ fontFamily: 'var(--font-body)' }}
     >
       <motion.div
         className="w-full max-w-md"

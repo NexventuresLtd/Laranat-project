@@ -6,8 +6,8 @@ const About: React.FC = () => {
   return (
     <section
       id="about"
-      className="py-16 md:py-24 font-noteworthy"
-      style={{ fontFamily: 'var(--font-noteworthy)' }}
+      className="py-16 md:py-24"
+      style={{ fontFamily: 'var(--font-body)' }}
     >
       <div className="w-[91.666667%] mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">

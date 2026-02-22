@@ -13,9 +13,9 @@ const Team: React.FC = () => {
   return (
     <section
       id="team"
-      className="py-16 md:py-24 font-noteworthy"
+      className="py-16 md:py-24"
       style={{
-        fontFamily: 'var(--font-noteworthy)',
+        fontFamily: 'var(--font-body)',
         backgroundColor: 'rgba(103, 51, 176, 0.04)',
       }}
     >

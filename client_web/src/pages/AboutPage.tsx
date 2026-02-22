@@ -12,7 +12,7 @@ const AboutPage: React.FC = () => {
   const { hero, story, values: aboutValues, teamSection } = about;
 
   return (
-    <div className="font-noteworthy" style={{ fontFamily: 'var(--font-noteworthy)' }}>
+    <div style={{ fontFamily: 'var(--font-body)' }}>
       {/* Hero */}
       <section
         className="relative py-20 md:py-28 overflow-hidden"
@@ -229,7 +229,7 @@ className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font
         id="team"
         className="py-16 md:py-24"
         style={{
-          fontFamily: 'var(--font-noteworthy)',
+          fontFamily: 'var(--font-body)',
           backgroundColor: 'rgba(103, 51, 176, 0.04)',
         }}
       >
