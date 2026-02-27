@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Heart, Sparkles, Users, Target } from 'lucide-react';
 import { useSiteContent } from '../context/SiteContentContext';
 import Footer from '../comps/Footer';
+import PageHero from '../comps/PageHero';
 
 const VALUE_ICONS = [Heart, Sparkles, Users, Target];
 
@@ -13,41 +14,12 @@ const AboutPage: React.FC = () => {
 
   return (
     <div style={{ fontFamily: 'var(--font-body)' }}>
-      {/* Hero */}
-      <section
-        className="relative py-20 md:py-28 overflow-hidden"
-        style={{
-          background: `linear-gradient(135deg, var(--color-primary-blue) 0%, var(--color-deep-blue) 100%)`,
-        }}
-      >
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.06\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z\'/%3E%3C/g%3E%3C/svg%3E')]" />
-        <div className="relative w-[91.666667%] mx-auto text-center">
-          <motion.p
-            className="text-white/90 text-base font-bold uppercase tracking-widest mb-4"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            {hero.eyebrow}
-          </motion.p>
-          <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            {hero.title}
-          </motion.h1>
-          <motion.p
-            className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            {hero.subtitle}
-          </motion.p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={hero.eyebrow}
+        title={hero.title}
+        subtitle={hero.subtitle}
+        variant="about"
+      />
 
       {/* Our Story – text + image */}
       <section className="py-16 md:py-24">

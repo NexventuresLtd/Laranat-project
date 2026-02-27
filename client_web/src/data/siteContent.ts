@@ -63,7 +63,7 @@ const defaultAboutContent: AboutContent = {
     paragraph2:
       "Whether it's a comic book, an animated explainer, a brand identity, or custom illustrations, we combine craft with strategy so your message reaches the right people and leaves a lasting impression.",
     ctaText: 'Explore our services',
-    storyImageUrl: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=900&q=85',
+    storyImageUrl: 'https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=900&q=85',
   },
   values: [
     {
@@ -130,6 +130,8 @@ export interface HomeHero {
   subtitle: string;
   ctaPrimary: string;
   ctaSecondary: string;
+  /** Optional: link for primary CTA (e.g. /books). Defaults to /contact. */
+  ctaPrimaryTo?: string;
   bgImageUrl: string;
 }
 
@@ -206,24 +208,25 @@ export interface ContactContent {
 
 const defaultHomeContent: HomeContent = {
   hero: {
-    eyebrow: 'LANART21 Creative Studio',
-    title: 'Turn ideas into clear, powerful visual narratives',
-    subtitle: 'Illustration, comics, animation & branding for brands and creators.',
-    ctaPrimary: 'Get in touch',
+    eyebrow: 'Books & Comics',
+    title: 'Stories that move. Books that last.',
+    subtitle: 'Graphic novels, comics, and illustrated books—we bring your stories to life.',
+    ctaPrimary: 'Explore books',
     ctaSecondary: 'About us',
-    bgImageUrl: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1920&q=85',
+    ctaPrimaryTo: '/books',
+    bgImageUrl: 'https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=1920&q=85',
   },
   aboutTeaser: {
     eyebrow: 'Who we are',
     title: 'About Us',
     body: 'We specialize in illustration, comics, animation, and creative direction—turning your ideas into clear, powerful visual narratives for brands, organizations, and creators.',
     ctaText: 'Learn more',
-    imageUrl: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=85',
+    imageUrl: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=800&q=85',
   },
   servicesTeaser: {
-    eyebrow: 'Features',
+    eyebrow: 'What we create',
     title: 'Our Services',
-    body: 'From illustration to animation and branding—we bring your vision to life.',
+    body: 'From comics and graphic novels to illustration and animation—we bring your vision to life.',
     ctaText: 'View our services',
     serviceTitles: ['Illustration & Visual Art', 'Comic & Graphic Novels', 'Animation & Motion', 'Branding & Identity'],
   },
@@ -235,7 +238,7 @@ const defaultHomeContent: HomeContent = {
   portfolioTeaser: {
     eyebrow: 'Our Work',
     title: 'Portfolio',
-    body: 'A selection of our illustration, comics, animation, and branding projects for brands and creators.',
+    body: 'A selection of our comics, illustration, animation, and branding projects.',
     ctaText: 'View portfolio',
   },
 };
