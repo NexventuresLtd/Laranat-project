@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { loginWithApi } from '../lib/auth';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -8,15 +9,19 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     if (!email.trim() || !password) {
       setError('Please enter email and password.');
       return;
     }
-    // TODO: connect to auth API
-    navigate('/');
+    try {
+      await loginWithApi(email.trim(), password);
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Login failed');
+    }
   };
 
   return (
@@ -38,7 +43,7 @@ const LoginPage: React.FC = () => {
             className="text-2xl md:text-3xl font-bold text-center mb-2"
             style={{ color: 'var(--color-deep-blue)' }}
           >
-            Sign In
+            Admin Sign In
           </h1>
           <p className="text-center text-[var(--navbar-text)]/80 mb-6">
             Welcome back to Lanart21 Creative Studio
@@ -89,12 +94,7 @@ const LoginPage: React.FC = () => {
             </motion.button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-[var(--navbar-text)]/80">
-            Don&apos;t have an account?{' '}
-            <Link to="/register" className="font-semibold" style={{ color: 'var(--color-primary-blue)' }}>
-              Sign Up
-            </Link>
-          </p>
+
         </div>
       </motion.div>
     </div>
