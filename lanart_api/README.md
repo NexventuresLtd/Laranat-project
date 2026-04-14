@@ -2,6 +2,12 @@
 
 FastAPI + SQLite backend for the existing Lanart frontend.
 
+## Deployed links
+
+- Backend docs: `https://laranat21-project.onrender.com/docs`
+- Backend base URL: `https://laranat21-project.onrender.com`
+- Frontend: `https://lanart.netlify.app/`
+
 ## Features
 
 - `GET /api/health`
@@ -41,4 +47,12 @@ uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 Docs URL: `http://127.0.0.1:8000/docs#/`
 
 Backend base URL: `http://127.0.0.1:8000`
+
+## Render start command
+
+Use this start command on Render:
+
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port $PORT
+```
 

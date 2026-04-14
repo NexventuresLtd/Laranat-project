@@ -62,7 +62,11 @@ app = FastAPI(title="Lanart API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "https://lanart.netlify.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -96,6 +100,11 @@ def parse_bearer_token(authorization: str | None) -> str | None:
 @app.on_event("startup")
 def startup() -> None:
     init_db()
+
+
+@app.get("/")
+def root() -> dict[str, str]:
+    return {"status": "ok", "service": "lanart-api"}
 
 
 @app.get("/api/health")
