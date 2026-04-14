@@ -1,4 +1,4 @@
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || "https://laranat21-project.onrender.com").replace(/\/$/, "");
 const AUTH_TOKEN_KEY = "lanart_auth_token";
 
 export type AuthUser = {

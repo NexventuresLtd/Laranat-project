@@ -2,6 +2,21 @@
 
 React frontend for the Lanart21 Creative Studio website (illustration, comics, animation, branding).
 
+## Deployed links
+
+- Frontend: `https://lanart.netlify.app/`
+- Backend docs: `https://laranat21-project.onrender.com/docs`
+- Backend base URL: `https://laranat21-project.onrender.com`
+
+## Backend connection
+
+The frontend reads `VITE_API_BASE_URL` for API calls.  
+For deployed usage, set:
+
+```bash
+VITE_API_BASE_URL=https://laranat21-project.onrender.com
+```
+
 ## Prerequisites
 
 - **Node.js** 18+ (recommended: 20+)
