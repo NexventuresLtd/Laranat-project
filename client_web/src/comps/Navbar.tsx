@@ -88,7 +88,7 @@ const Navbar: React.FC = () => {
               className="hidden sm:inline-flex items-center justify-center px-6 py-3 rounded-full text-base font-bold uppercase tracking-wider text-white transition-all duration-300 hover:opacity-95 hover:scale-[1.02] active:scale-[0.98]"
               style={{ backgroundColor: 'var(--navbar-cta-bg)' }}
             >
-              Join Us
+              Login
             </Link>
 
             <button
@@ -140,7 +140,7 @@ const Navbar: React.FC = () => {
                 style={{ backgroundColor: 'var(--navbar-cta-bg)' }}
                 onClick={() => setIsOpen(false)}
               >
-                Join Now
+                Login
               </Link>
             </div>
           </div>

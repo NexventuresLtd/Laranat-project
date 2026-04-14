@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -9,11 +9,10 @@ import {
   LogOut,
 } from 'lucide-react';
 import { useSiteContent } from '../../context/SiteContentContext';
+import { fetchMe, logoutApi } from '../../lib/auth';
 
-const AUTH_KEY = 'lanart_admin';
-
-function handleLogout(navigate: (to: string) => void) {
-  localStorage.removeItem(AUTH_KEY);
+async function handleLogout(navigate: (to: string) => void) {
+  await logoutApi();
   navigate('/login');
 }
 
@@ -29,6 +28,34 @@ const DashboardLayout: React.FC = () => {
   const navigate = useNavigate();
   const { settings } = useSiteContent();
   const logoUrl = settings.logoUrl || '/Image/lanart.jpg';
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+    const run = async () => {
+      try {
+        await fetchMe();
+      } catch {
+        if (mounted) navigate('/login', { replace: true });
+      } finally {
+        if (mounted) setCheckingAuth(false);
+      }
+    };
+    run();
+    return () => {
+      mounted = false;
+    };
+  }, [navigate]);
+
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ fontFamily: 'var(--font-body)' }}>
+        <div className="text-sm font-semibold" style={{ color: 'var(--color-deep-blue)' }}>
+          Checking admin access...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -117,7 +144,7 @@ const DashboardLayout: React.FC = () => {
           </Link>
           <button
             type="button"
-            onClick={() => handleLogout(navigate)}
+            onClick={() => { void handleLogout(navigate); }}
             className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors hover:bg-red-50"
             style={{ color: 'var(--navbar-text)' }}
           >
