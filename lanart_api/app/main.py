@@ -3,7 +3,6 @@ from __future__ import annotations
 from collections import Counter
 import hashlib
 import hmac
-import os
 import secrets
 from pathlib import Path
 from uuid import uuid4
