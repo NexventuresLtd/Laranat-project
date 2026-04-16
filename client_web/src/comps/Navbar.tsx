@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
-/* Use logo from project (replace file in public/Image/ with the one from Drive folder if needed) */
-const LANART_LOGO_URL = '/Image/lanart.jpg';
+import { useSiteContent } from '../context/SiteContentContext';
 
 const navLinks = [
   { name: 'Home', to: '/' },
@@ -17,6 +15,7 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { settings } = useSiteContent();
   const isHome = location.pathname === '/';
 
   useEffect(() => {
@@ -27,6 +26,7 @@ const Navbar: React.FC = () => {
 
   const isTransparent = isHome && !scrolled;
   const useLightText = isTransparent;
+  const isActiveLink = (to: string) => (to === '/' ? location.pathname === '/' : location.pathname.startsWith(to));
 
   return (
     <nav
@@ -48,15 +48,11 @@ const Navbar: React.FC = () => {
             className="flex items-center shrink-0 no-underline"
             aria-label="Lanart21 Creative Studio – Home"
           >
-            <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-xl overflow-hidden border-2 shadow-sm bg-white"
-              style={{ borderColor: isTransparent ? 'rgba(255,255,255,0.4)' : 'var(--navbar-border)' }}
-            >
-              <img
-                src={LANART_LOGO_URL}
-                alt="Lanart21"
-                className="w-full h-full object-contain"
-              />
-            </div>
+            <img
+              src={settings.logoLandscapeUrl || settings.logoUrl || '/Image/lanart.jpg'}
+              alt={settings.siteName || 'Lanart21'}
+              className="h-10 md:h-12 w-auto object-contain"
+            />
           </Link>
 
           {/* Center: Nav links (desktop) */}
@@ -67,30 +63,29 @@ const Navbar: React.FC = () => {
                 to={link.to}
                 className="nav-link px-4 py-2.5 rounded-lg text-base xl:text-lg font-semibold transition-all duration-300 relative group"
                 style={{
-                  color: useLightText ? 'rgba(255,255,255,0.95)' : 'var(--navbar-text)',
+                  color: isActiveLink(link.to)
+                    ? 'white'
+                    : useLightText
+                      ? 'rgba(255,255,255,0.95)'
+                      : 'var(--navbar-text)',
+                  backgroundColor: isActiveLink(link.to) ? 'var(--color-primary-blue)' : 'transparent',
                 }}
               >
-                <span className="relative z-10 group-hover:text-[var(--navbar-text-hover)] transition-colors duration-300">
+                <span className="relative z-10 transition-colors duration-300">
                   {link.name}
                 </span>
                 <span
-                  className="absolute bottom-1 left-4 right-4 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"
-                  style={{ backgroundColor: 'var(--navbar-text-hover)' }}
+                  className={`absolute bottom-1 left-4 right-4 h-0.5 transition-transform duration-300 origin-left rounded-full ${
+                    isActiveLink(link.to) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  }`}
+                  style={{ backgroundColor: isActiveLink(link.to) ? 'white' : 'var(--navbar-text-hover)' }}
                 />
               </Link>
             ))}
           </div>
 
-          {/* Right: Join Now + mobile menu toggle */}
+          {/* Right: mobile menu toggle */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              to="/login"
-              className="hidden sm:inline-flex items-center justify-center px-6 py-3 rounded-full text-base font-bold uppercase tracking-wider text-white transition-all duration-300 hover:opacity-95 hover:scale-[1.02] active:scale-[0.98]"
-              style={{ backgroundColor: 'var(--navbar-cta-bg)' }}
-            >
-              Login
-            </Link>
-
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
@@ -127,22 +122,15 @@ const Navbar: React.FC = () => {
                 key={link.name}
                 to={link.to}
                 className="block py-3.5 px-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:bg-white/10 hover:pl-6"
-                style={{ color: 'var(--navbar-text)' }}
+                style={{
+                  color: isActiveLink(link.to) ? 'white' : 'var(--navbar-text)',
+                  backgroundColor: isActiveLink(link.to) ? 'var(--color-primary-blue)' : 'transparent',
+                }}
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <div className="pt-3 mt-2 border-t" style={{ borderColor: 'var(--navbar-border)' }}>
-              <Link
-                to="/login"
-                className="flex items-center justify-center w-full py-4 rounded-xl text-base font-bold uppercase tracking-wider text-white"
-                style={{ backgroundColor: 'var(--navbar-cta-bg)' }}
-                onClick={() => setIsOpen(false)}
-              >
-                Login
-              </Link>
-            </div>
           </div>
         </div>
       )}

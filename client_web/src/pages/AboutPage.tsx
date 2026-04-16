@@ -45,7 +45,8 @@ const AboutPage: React.FC = () => {
                 {story.paragraph1}
               </p>
               <p className="text-[var(--navbar-text)] leading-relaxed">
-                {story.paragraph2} it’s              </p>
+                {story.paragraph2}
+              </p>
               <Link
                 to="/services"
 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-base uppercase tracking-wider transition-all hover:opacity-95 hover:shadow-lg"
@@ -77,7 +78,7 @@ className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font
         </div>
       </section>
 
-      {/* Values with images */}
+      {/* Values */}
       <section
         className="py-16 md:py-24"
         style={{ backgroundColor: 'rgba(3, 169, 244, 0.04)' }}
@@ -107,34 +108,25 @@ className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font
               return (
                 <motion.div
                   key={item.title || index}
-                  className="group rounded-2xl overflow-hidden border-2 transition-colors hover:border-[var(--color-primary-blue)] bg-white shadow-sm hover:shadow-lg"
+                  className="group rounded-2xl border-2 transition-colors hover:border-[var(--color-primary-blue)] bg-white shadow-sm hover:shadow-lg p-6"
                   style={{ borderColor: 'var(--navbar-border)' }}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ duration: 0.4, delay: index * 0.06 }}
                 >
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt=""
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                  <div
+                    className="w-10 h-10 rounded-lg flex items-center justify-center mb-4 text-white"
+                    style={{ backgroundColor: 'var(--color-primary-blue)' }}
+                  >
+                    <Icon size={20} />
                   </div>
-                  <div className="p-5">
-                    <div
-                      className="w-10 h-10 rounded-lg flex items-center justify-center mb-3 text-white"
-                      style={{ backgroundColor: 'var(--color-primary-blue)' }}
-                    >
-                      <Icon size={20} />
-                    </div>
-                    <h3 className="text-lg font-bold" style={{ color: 'var(--color-deep-blue)' }}>
-                      {item.title}
-                    </h3>
-                    <p className="text-base mt-2 text-[var(--navbar-text)] leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
+                  <h3 className="text-lg font-bold" style={{ color: 'var(--color-deep-blue)' }}>
+                    {item.title}
+                  </h3>
+                  <p className="text-base mt-3 text-[var(--navbar-text)] leading-relaxed">
+                    {item.description}
+                  </p>
                 </motion.div>
               );
             })}

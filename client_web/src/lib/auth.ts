@@ -53,4 +53,19 @@ export async function logoutApi(): Promise<void> {
   }
 }
 
+export async function uploadImage(file: File): Promise<string> {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const res = await authFetch("/api/upload/image", {
+    method: "POST",
+    headers: {}, // Let browser set Content-Type for FormData
+    body: formData,
+  });
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(data?.detail || "Upload failed");
+  return data.url;
+}
+
 

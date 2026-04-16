@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -29,6 +29,10 @@ const BookDetailPage: React.FC = () => {
   const comic = id ? getComicByIdFrom(comics, id) : undefined;
   const prevId = id ? getPrevComicIdFrom(comics, id) : null;
   const nextId = id ? getNextComicIdFrom(comics, id) : null;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [id]);
 
   if (!comic) {
     return (

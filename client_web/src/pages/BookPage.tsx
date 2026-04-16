@@ -103,26 +103,6 @@ const BookPage: React.FC = () => {
           <div className="space-y-6">
             <div>
               <h3 className="text-base font-bold mb-3" style={{ color: 'var(--color-deep-blue)' }}>
-                Genres
-              </h3>
-              <div className="space-y-2">
-                {ALL_GENRES.map((g) => (
-                  <label key={g} className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={genres.has(g)}
-                      onChange={() => toggleGenre(g)}
-                      className="rounded border-2 w-4 h-4"
-                      style={{ borderColor: 'var(--color-primary-blue)', accentColor: 'var(--color-accent-pink)' }}
-                    />
-                    <span className="text-base" style={{ color: 'var(--navbar-text)' }}>{g}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-base font-bold mb-3" style={{ color: 'var(--color-deep-blue)' }}>
                 Status
               </h3>
               <div className="space-y-2">
@@ -244,6 +224,31 @@ const BookPage: React.FC = () => {
                   <List size={20} />
                 </button>
               </div>
+            </div>
+          </div>
+          <div className="mb-8">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-sm font-bold uppercase tracking-wider" style={{ color: 'var(--color-deep-blue)' }}>
+                Genres
+              </span>
+              {ALL_GENRES.map((genre) => {
+                const active = genres.has(genre);
+                return (
+                  <button
+                    key={genre}
+                    type="button"
+                    onClick={() => toggleGenre(genre)}
+                    className="rounded-full border px-4 py-2 text-sm font-semibold transition-colors"
+                    style={{
+                      borderColor: active ? 'var(--color-accent-pink)' : 'var(--navbar-border)',
+                      backgroundColor: active ? 'var(--color-accent-pink)' : 'transparent',
+                      color: active ? 'white' : 'var(--navbar-text)',
+                    }}
+                  >
+                    {genre}
+                  </button>
+                );
+              })}
             </div>
           </div>
 

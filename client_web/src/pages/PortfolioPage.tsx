@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ImageIcon, ArrowRight } from 'lucide-react';
+import { ImageIcon, ArrowRight, Layers, Sparkles } from 'lucide-react';
 import { useSiteContent } from '../context/SiteContentContext';
 import Footer from '../comps/Footer';
 import PageHero from '../comps/PageHero';
 
 const PortfolioPage: React.FC = () => {
   const { portfolio } = useSiteContent();
+  const [activeCategory, setActiveCategory] = useState('All');
+  const visibleWorks = useMemo(
+    () =>
+      activeCategory === 'All'
+        ? portfolio.featuredWorks
+        : portfolio.featuredWorks.filter((work) => work.category === activeCategory),
+    [activeCategory, portfolio.featuredWorks]
+  );
 
   return (
     <div style={{ fontFamily: 'var(--font-body)' }}>
@@ -20,6 +28,32 @@ const PortfolioPage: React.FC = () => {
 
       <section className="py-16 md:py-24">
         <div className="w-[91.666667%] mx-auto">
+          <div className="grid lg:grid-cols-3 gap-6 mb-12">
+            {[
+              { label: 'Categories', value: String(portfolio.categories.length), icon: Layers },
+              { label: 'Featured works', value: String(portfolio.featuredWorks.length), icon: ImageIcon },
+              { label: 'Creative focus', value: 'Illustration, motion and brand storytelling', icon: Sparkles },
+            ].map((item, index) => (
+              <motion.div
+                key={item.label}
+                className="rounded-2xl border bg-white p-6 shadow-sm"
+                style={{ borderColor: 'var(--navbar-border)' }}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.08 }}
+              >
+                <item.icon size={22} style={{ color: 'var(--color-primary-blue)' }} />
+                <p className="mt-4 text-sm font-bold uppercase tracking-widest" style={{ color: 'var(--color-primary-blue)' }}>
+                  {item.label}
+                </p>
+                <p className="mt-2 text-2xl font-bold" style={{ color: 'var(--color-deep-blue)' }}>
+                  {item.value}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
           <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 20 }}
@@ -34,7 +68,28 @@ const PortfolioPage: React.FC = () => {
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex flex-wrap justify-center gap-3 mb-10">
+            {['All', ...portfolio.categories.map((item) => item.title)].map((category) => {
+              const active = activeCategory === category;
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setActiveCategory(category)}
+                  className="rounded-full border px-5 py-2.5 text-sm font-semibold transition-colors"
+                  style={{
+                    borderColor: active ? 'var(--color-primary-blue)' : 'var(--navbar-border)',
+                    backgroundColor: active ? 'var(--color-primary-blue)' : 'white',
+                    color: active ? 'white' : 'var(--navbar-text)',
+                  }}
+                >
+                  {category}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {portfolio.categories.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -63,6 +118,51 @@ const PortfolioPage: React.FC = () => {
                   <h3 className="font-bold" style={{ color: 'var(--color-deep-blue)' }}>{item.title}</h3>
                 </div>
               </motion.div>
+            ))}
+          </div>
+
+          <div className="mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3" style={{ color: 'var(--color-deep-blue)' }}>
+              Featured projects
+            </h2>
+            <p className="text-[var(--navbar-text)] max-w-2xl">
+              Publish selected previous work here to give visitors a stronger view of the studio&apos;s range and execution quality.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-6">
+            {visibleWorks.map((work, index) => (
+              <motion.article
+                key={`${work.title}-${index}`}
+                className="rounded-2xl overflow-hidden border bg-white shadow-sm hover:shadow-xl transition-all duration-300"
+                style={{ borderColor: 'var(--navbar-border)' }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: index * 0.08 }}
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={work.image}
+                    alt={work.title}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                </div>
+                <div className="p-5">
+                  <span
+                    className="inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider text-white"
+                    style={{ backgroundColor: 'var(--color-secondary-purple)' }}
+                  >
+                    {work.category}
+                  </span>
+                  <h3 className="mt-4 text-xl font-bold" style={{ color: 'var(--color-deep-blue)' }}>
+                    {work.title}
+                  </h3>
+                  <p className="mt-3 text-[var(--navbar-text)] leading-relaxed">
+                    {work.summary}
+                  </p>
+                </div>
+              </motion.article>
             ))}
           </div>
 

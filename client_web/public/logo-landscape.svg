@@ -1,0 +1,30 @@
+<svg width="520" height="120" viewBox="0 0 520 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon mark -->
+  <g transform="translate(18,6)">
+    <circle cx="52" cy="50" r="34" fill="#03A9F4"/>
+    <circle cx="52" cy="50" r="34" fill="none" stroke="#0D47A1" stroke-opacity="0.25" stroke-width="4"/>
+
+    <!-- White "holes" -->
+    <circle cx="36" cy="46" r="11" fill="#FFFFFF"/>
+    <circle cx="58" cy="35" r="9" fill="#FFFFFF"/>
+    <circle cx="38" cy="66" r="10" fill="#FFFFFF"/>
+
+    <!-- Purple/magenta accent -->
+    <circle cx="63" cy="38" r="7" fill="#EE40A8"/>
+
+    <!-- Pointer / brush stroke -->
+    <path d="M69 20L104 85" stroke="#0D47A1" stroke-width="8" stroke-linecap="round"/>
+    <path d="M72 28L102 78" stroke="#EE40A8" stroke-width="8" stroke-linecap="round" opacity="0.95"/>
+
+    <!-- Small purple dot (brand accent) -->
+    <circle cx="112" cy="98" r="6" fill="#6733B0"/>
+  </g>
+
+  <!-- Wordmark (script-ish fallback) -->
+  <text x="150" y="72" fill="#03A9F4" font-family="cursive" font-size="58" font-weight="700" letter-spacing="0.5">
+    Lanart21
+  </text>
+  <text x="165" y="100" fill="#0D47A1" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="2">
+    CREATIVE STUDIO
+  </text>
+</svg>

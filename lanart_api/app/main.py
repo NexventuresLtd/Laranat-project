@@ -3,11 +3,14 @@ from __future__ import annotations
 from collections import Counter
 import hashlib
 import hmac
+import os
 import secrets
+from pathlib import Path
 from uuid import uuid4
 
-from fastapi import FastAPI, Header, HTTPException
+from fastapi import FastAPI, File, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 try:
     from .database import (
@@ -71,6 +74,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount static files for uploaded images
+UPLOAD_DIR = Path(__file__).resolve().parent.parent / "uploads"
+UPLOAD_DIR.mkdir(exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
 
 PASSWORD_SALT = "lanart_salt_v1"
 ADMIN_EMAIL = "admin@lanart21.com"
@@ -233,7 +241,37 @@ def dashboard_summary() -> dict:
     }
 
 
-
+@app.post("/api/upload/image")
+def upload_image(file: UploadFile = File(...), authorization: str | None = Header(default=None)) -> dict[str, str]:
+    token = parse_bearer_token(authorization)
+    if not token:
+        raise HTTPException(status_code=401, detail="Missing token")
+    user = get_user_by_token(token)
+    if user is None:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    if not is_admin_user(user):
+        raise HTTPException(status_code=403, detail="Only admins can upload images")
+    
+    # Validate file type
+    allowed_types = ["image/jpeg", "image/png", "image/gif", "image/webp", "image/svg+xml"]
+    if file.content_type not in allowed_types:
+        raise HTTPException(status_code=400, detail="Invalid file type. Only images are allowed.")
+    
+    # Generate unique filename
+    file_extension = Path(file.filename).suffix.lower()
+    unique_filename = f"{uuid4().hex}{file_extension}"
+    file_path = UPLOAD_DIR / unique_filename
+    
+    # Save file
+    try:
+        with open(file_path, "wb") as buffer:
+            content = file.file.read()
+            buffer.write(content)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to save file: {str(e)}")
+    
+    # Return the URL path
+    return {"url": f"/uploads/{unique_filename}"}
 
 
 @app.post("/api/auth/login", response_model=AuthResponse)

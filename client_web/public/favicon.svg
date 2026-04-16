@@ -1,0 +1,19 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon mark only (no background) -->
+  <circle cx="32" cy="32" r="18" fill="#03A9F4"/>
+
+  <!-- White holes -->
+  <circle cx="25" cy="28" r="6" fill="#FFFFFF"/>
+  <circle cx="38" cy="23" r="5" fill="#FFFFFF"/>
+  <circle cx="28" cy="40" r="5.5" fill="#FFFFFF"/>
+
+  <!-- Magenta accent dot -->
+  <circle cx="40" cy="26" r="3.5" fill="#EE40A8"/>
+
+  <!-- Pointer / brush stroke -->
+  <path d="M41 10L58 52" stroke="#0D47A1" stroke-width="6" stroke-linecap="round"/>
+  <path d="M44 18L56 47" stroke="#EE40A8" stroke-width="6" stroke-linecap="round" opacity="0.95"/>
+
+  <!-- Secondary purple accent -->
+  <circle cx="52" cy="55" r="3.5" fill="#6733B0"/>
+</svg>

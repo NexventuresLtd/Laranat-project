@@ -12,8 +12,7 @@ import {
   Send,
   ArrowRight,
 } from 'lucide-react';
-
-const LANART_LOGO_URL = '/Image/Larnat_logo.jpg';
+import { useSiteContent } from '../context/SiteContentContext';
 
 const quickLinks = [
   { name: 'Home', to: '/' },
@@ -34,6 +33,7 @@ const footerServices = [
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
+  const { settings } = useSiteContent();
 
   const socialLinks = [
     { icon: Facebook, href: '#', label: 'Facebook' },
@@ -105,11 +105,13 @@ export default function Footer() {
             {/* Brand column – spans 4 on lg */}
             <div className="lg:col-span-4 space-y-6">
               <Link to="/" className="inline-flex items-center gap-3 no-underline">
-                <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-white/20 bg-white flex-shrink-0">
-                  <img src={LANART_LOGO_URL} alt="Lanart21" className="w-full h-full object-contain" />
-                </div>
+                <img
+                  src={settings.logoLandscapeUrl || settings.logoUrl}
+                  alt={settings.siteName}
+                  className="h-12 w-auto object-contain flex-shrink-0"
+                />
                 <div>
-                  <span className="font-bold text-xl text-white tracking-tight block">LANART21</span>
+                  <span className="font-bold text-xl text-white tracking-tight block">{settings.siteName}</span>
                   <span className="text-sm font-medium tracking-widest text-white/60">CREATIVE STUDIO</span>
                 </div>
               </Link>
@@ -175,13 +177,13 @@ export default function Footer() {
                   Contact
                 </h4>
                 <div className="space-y-3">
-                  <a href="mailto:info@lanart21.com" className="flex items-start gap-2 text-base text-white/75 hover:text-white transition-colors">
+                  <a href={`mailto:${settings.contactEmail}`} className="flex items-start gap-2 text-base text-white/75 hover:text-white transition-colors">
                     <Mail size={16} className="mt-0.5 flex-shrink-0 text-[var(--color-primary-blue)]" />
-                    info@lanart21.com
+                    {settings.contactEmail}
                   </a>
-                  <a href="tel:+1234567890" className="flex items-start gap-2 text-base text-white/75 hover:text-white transition-colors">
+                  <a href={`tel:${settings.contactPhone || '+250782030814'}`} className="flex items-start gap-2 text-base text-white/75 hover:text-white transition-colors">
                     <Phone size={16} className="mt-0.5 flex-shrink-0 text-[var(--color-primary-blue)]" />
-                    +1 (234) 567-890
+                    {settings.contactPhone || '+250 782 030 814'}
                   </a>
                   <span className="flex items-start gap-2 text-base text-white/75">
                     <MapPin size={16} className="mt-0.5 flex-shrink-0 text-[var(--color-primary-blue)]" />
@@ -222,10 +224,10 @@ export default function Footer() {
             style={{ borderColor: 'rgba(255,255,255,0.1)' }}
           >
             <p className="text-base text-white/60">
-              © {currentYear} <span className="font-semibold text-white/90">Lanart21 Creative Studio</span>. All rights reserved.
+              © {currentYear} <span className="font-semibold text-white/90">{settings.siteName}</span>. All rights reserved.
             </p>
             <p className="text-sm text-white/50">
-              Crafting visual narratives for brands &amp; creators
+              {settings.footerTagline}
             </p>
           </div>
         </div>
