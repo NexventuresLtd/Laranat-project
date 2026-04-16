@@ -48,7 +48,7 @@ const FALLBACK_BOOKS = [
 
 const HomePage: React.FC = () => {
   const { hash } = useLocation();
-  const { home } = useSiteContent();
+  const { home, settings } = useSiteContent();
   const { comics } = useComics();
   /* Use all comics in the slide so the strip is long and horizontal slide is visible */
   const displayBooks = comics.length > 0 ? comics : null;
@@ -275,6 +275,41 @@ const HomePage: React.FC = () => {
           </motion.div>
         </div>
       </section>
+
+      {settings.clientLogos.length > 0 && (
+        <section className="py-14 md:py-18 border-y" style={{ borderColor: 'var(--navbar-border)' }}>
+          <div className="w-[91.666667%] mx-auto">
+            <motion.div
+              className="text-center mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <p className="text-base font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-primary-blue)' }}>
+                Trusted by teams
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3" style={{ color: 'var(--color-deep-blue)' }}>
+                Brands and organizations we work with
+              </h2>
+            </motion.div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 items-stretch">
+              {settings.clientLogos.map((logo, index) => (
+                <motion.div
+                  key={`${logo}-${index}`}
+                  className="rounded-2xl border bg-white p-6 flex items-center justify-center min-h-[112px] shadow-sm"
+                  style={{ borderColor: 'var(--navbar-border)' }}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.06 }}
+                >
+                  <img src={logo} alt="" className="max-h-12 w-auto object-contain opacity-80" />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Contact CTA */}
       <Contact />

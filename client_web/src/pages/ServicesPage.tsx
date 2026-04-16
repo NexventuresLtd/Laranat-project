@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Palette, BookOpen, Film, Sparkles, ArrowRight } from 'lucide-react';
+import { Palette, BookOpen, Film, Sparkles } from 'lucide-react';
 import { useSiteContent } from '../context/SiteContentContext';
 import Footer from '../comps/Footer';
 import PageHero from '../comps/PageHero';
@@ -90,50 +89,6 @@ const ServicesPage: React.FC = () => {
           </div>
         </section>
       ))}
-
-      {/* CTA section */}
-      <section
-        className="py-16 md:py-24"
-        style={{
-          background: `linear-gradient(135deg, var(--color-deep-blue) 0%, var(--color-secondary-purple) 100%)`,
-          color: 'white',
-        }}
-      >
-        <div className="w-[91.666667%] mx-auto text-center">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-4"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            Ready to start a project?
-          </motion.h2>
-          <motion.p
-            className="text-lg text-white/90 mb-8 max-w-xl mx-auto"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            Let&apos;s turn your ideas into clear, powerful visual narratives.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-lg font-bold text-white uppercase tracking-wider"
-              style={{ backgroundColor: 'var(--color-accent-pink)' }}
-            >
-              Get in touch
-              <ArrowRight size={20} />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
 
       <Footer />
     </div>

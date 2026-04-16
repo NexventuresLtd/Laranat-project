@@ -1,10 +1,70 @@
 import React, { useState } from 'react';
 import { useSiteContent } from '../../context/SiteContentContext';
-import type { AboutValue, AboutTeamMember } from '../../data/siteContent';
-import { Save, Plus, Trash2 } from 'lucide-react';
+import type { AboutValue, AboutTeamMember, PortfolioCategory, PortfolioWork } from '../../data/siteContent';
+import { Save, Plus, Trash2, Upload } from 'lucide-react';
+import { uploadImage } from '../../lib/auth';
 
 const TABS = ['home', 'services', 'portfolio', 'about', 'contact'] as const;
 type Tab = (typeof TABS)[number];
+
+interface ImageUploadFieldProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  uploading: boolean;
+  onUpload: (file: File) => Promise<string>;
+  className?: string;
+  placeholder?: string;
+}
+
+const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
+  label,
+  value,
+  onChange,
+  uploading,
+  onUpload,
+  className = '',
+  placeholder = '',
+}) => {
+  const inputClass = `w-full max-w-md rounded-xl border-2 px-4 py-2.5 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-blue)]/40 ${className}`;
+  const labelClass = 'block text-sm font-semibold mb-1.5 text-[var(--navbar-text)]';
+
+  return (
+    <div>
+      <label className={labelClass}>{label}</label>
+      <div className="flex gap-2">
+        <input
+          className={inputClass}
+          style={{ borderColor: 'var(--navbar-border)' }}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+        />
+        <label className="inline-flex items-center gap-2 rounded-xl px-3 py-2.5 text-white font-semibold text-sm cursor-pointer transition-all hover:opacity-95" style={{ backgroundColor: 'var(--color-primary-blue)' }}>
+          <Upload size={16} />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={async (e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                try {
+                  const url = await onUpload(file);
+                  onChange(url);
+                } catch (error) {
+                  // Error already handled in onUpload
+                }
+              }
+            }}
+            className="hidden"
+            disabled={uploading}
+          />
+          {uploading ? 'Uploading...' : 'Upload'}
+        </label>
+      </div>
+    </div>
+  );
+};
 
 const PagesEditor: React.FC = () => {
   const site = useSiteContent();
@@ -22,6 +82,23 @@ const PagesEditor: React.FC = () => {
     resetAllPages,
   } = site;
   const [activeTab, setActiveTab] = useState<Tab>('home');
+  const [uploading, setUploading] = useState<string | null>(null);
+
+  const handleFileUpload = async (file: File): Promise<string> => {
+    if (!file) throw new Error('No file provided');
+    
+    setUploading('uploading');
+    try {
+      const url = await uploadImage(file);
+      return url;
+    } catch (error) {
+      console.error('Upload failed:', error);
+      alert('Upload failed. Please try again.');
+      throw error;
+    } finally {
+      setUploading(null);
+    }
+  };
   const [saved, setSaved] = useState(false);
 
   const handleSave = () => {
@@ -44,6 +121,38 @@ const PagesEditor: React.FC = () => {
 
   const removeValue = (index: number) => {
     site.updateAbout({ values: about.values.filter((_, i) => i !== index) });
+  };
+
+  const updatePortfolioCategory = (index: number, patch: Partial<PortfolioCategory>) => {
+    const categories = [...portfolio.categories];
+    categories[index] = { ...categories[index], ...patch };
+    updatePortfolio({ categories });
+  };
+
+  const addPortfolioCategory = () => {
+    updatePortfolio({
+      categories: [...portfolio.categories, { title: '', count: '', image: '' }],
+    });
+  };
+
+  const removePortfolioCategory = (index: number) => {
+    updatePortfolio({ categories: portfolio.categories.filter((_, i) => i !== index) });
+  };
+
+  const updatePortfolioWork = (index: number, patch: Partial<PortfolioWork>) => {
+    const featuredWorks = [...portfolio.featuredWorks];
+    featuredWorks[index] = { ...featuredWorks[index], ...patch };
+    updatePortfolio({ featuredWorks });
+  };
+
+  const addPortfolioWork = () => {
+    updatePortfolio({
+      featuredWorks: [...portfolio.featuredWorks, { title: '', category: '', summary: '', image: '' }],
+    });
+  };
+
+  const removePortfolioWork = (index: number) => {
+    updatePortfolio({ featuredWorks: portfolio.featuredWorks.filter((_, i) => i !== index) });
   };
 
   const updateMember = (index: number, patch: Partial<AboutTeamMember>) => {
@@ -140,8 +249,14 @@ const PagesEditor: React.FC = () => {
               <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={home.hero.ctaPrimary} onChange={(e) => updateHome({ hero: { ...home.hero, ctaPrimary: e.target.value } })} />
               <label className={labelClass}>Secondary CTA (e.g. About us)</label>
               <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={home.hero.ctaSecondary} onChange={(e) => updateHome({ hero: { ...home.hero, ctaSecondary: e.target.value } })} />
-              <label className={labelClass}>Background image URL</label>
-              <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={home.hero.bgImageUrl} onChange={(e) => updateHome({ hero: { ...home.hero, bgImageUrl: e.target.value } })} />
+              <ImageUploadField
+                label="Background image URL"
+                value={home.hero.bgImageUrl}
+                onChange={(value) => updateHome({ hero: { ...home.hero, bgImageUrl: value } })}
+                uploading={uploading === 'uploading'}
+                onUpload={handleFileUpload}
+                placeholder="https://example.com/hero-image.jpg"
+              />
             </div>
           </section>
           <section className="rounded-2xl border-2 bg-white/90 p-6 shadow-sm backdrop-blur-sm" style={{ borderColor: 'var(--navbar-border)' }}>
@@ -155,8 +270,14 @@ const PagesEditor: React.FC = () => {
               <textarea className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} rows={3} value={home.aboutTeaser.body} onChange={(e) => updateHome({ aboutTeaser: { ...home.aboutTeaser, body: e.target.value } })} />
               <label className={labelClass}>CTA text</label>
               <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={home.aboutTeaser.ctaText} onChange={(e) => updateHome({ aboutTeaser: { ...home.aboutTeaser, ctaText: e.target.value } })} />
-              <label className={labelClass}>Image URL</label>
-              <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={home.aboutTeaser.imageUrl} onChange={(e) => updateHome({ aboutTeaser: { ...home.aboutTeaser, imageUrl: e.target.value } })} />
+              <ImageUploadField
+                label="Image URL"
+                value={home.aboutTeaser.imageUrl}
+                onChange={(value) => updateHome({ aboutTeaser: { ...home.aboutTeaser, imageUrl: value } })}
+                uploading={uploading === 'uploading'}
+                onUpload={handleFileUpload}
+                placeholder="https://example.com/about-image.jpg"
+              />
             </div>
           </section>
           <section className="rounded-2xl border-2 bg-white/90 p-6 shadow-sm backdrop-blur-sm" style={{ borderColor: 'var(--navbar-border)' }}>
@@ -222,8 +343,14 @@ const PagesEditor: React.FC = () => {
                 <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={sec.tag} onChange={(e) => updateServices({ sections: services.sections.map((s, j) => j === i ? { ...s, tag: e.target.value } : s) })} />
                 <label className={labelClass}>Description</label>
                 <textarea className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} rows={3} value={sec.description} onChange={(e) => updateServices({ sections: services.sections.map((s, j) => j === i ? { ...s, description: e.target.value } : s) })} />
-                <label className={labelClass}>Image URL</label>
-                <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={sec.image} onChange={(e) => updateServices({ sections: services.sections.map((s, j) => j === i ? { ...s, image: e.target.value } : s) })} />
+                <ImageUploadField
+                  label="Image URL"
+                  value={sec.image}
+                  onChange={(value) => updateServices({ sections: services.sections.map((s, j) => j === i ? { ...s, image: value } : s) })}
+                  uploading={uploading === 'uploading'}
+                  onUpload={handleFileUpload}
+                  placeholder="https://example.com/service-image.jpg"
+                />
               </div>
             </section>
           ))}
@@ -252,19 +379,91 @@ const PagesEditor: React.FC = () => {
               <textarea className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} rows={2} value={portfolio.browseSubtitle} onChange={(e) => updatePortfolio({ browseSubtitle: e.target.value })} />
             </div>
           </section>
-          {portfolio.categories.map((cat, i) => (
-            <section key={i} className="rounded-2xl border-2 bg-white/90 p-6 shadow-sm backdrop-blur-sm" style={{ borderColor: 'var(--navbar-border)' }}>
-              <h2 className="text-lg font-bold mb-4" style={{ color: 'var(--color-deep-blue)' }}>Category {i + 1}</h2>
-              <div className="space-y-4">
-                <label className={labelClass}>Title</label>
-                <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={cat.title} onChange={(e) => updatePortfolio({ categories: portfolio.categories.map((c, j) => j === i ? { ...c, title: e.target.value } : c) })} />
-                <label className={labelClass}>Count label (e.g. Selected works)</label>
-                <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={cat.count} onChange={(e) => updatePortfolio({ categories: portfolio.categories.map((c, j) => j === i ? { ...c, count: e.target.value } : c) })} />
-                <label className={labelClass}>Image URL</label>
-                <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={cat.image} onChange={(e) => updatePortfolio({ categories: portfolio.categories.map((c, j) => j === i ? { ...c, image: e.target.value } : c) })} />
+          <section className="rounded-2xl border-2 bg-white/90 p-6 shadow-sm backdrop-blur-sm" style={{ borderColor: 'var(--navbar-border)' }}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold" style={{ color: 'var(--color-deep-blue)' }}>Categories</h2>
+              <button
+                type="button"
+                onClick={addPortfolioCategory}
+                className="inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium text-white"
+                style={{ backgroundColor: 'var(--color-secondary-purple)' }}
+              >
+                <Plus size={16} /> Add category
+              </button>
+            </div>
+            <div className="space-y-6">
+              {portfolio.categories.map((cat, i) => (
+                <section key={i} className="rounded-xl border p-4" style={{ borderColor: 'var(--navbar-border)' }}>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-bold" style={{ color: 'var(--color-deep-blue)' }}>Category {i + 1}</h3>
+                    <button type="button" onClick={() => removePortfolioCategory(i)} className="text-red-600 hover:text-red-700 p-1" aria-label="Remove category">
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+                  <div className="space-y-4">
+                    <label className={labelClass}>Title</label>
+                    <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={cat.title} onChange={(e) => updatePortfolioCategory(i, { title: e.target.value })} />
+                    <label className={labelClass}>Count label (e.g. Selected works)</label>
+                    <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={cat.count} onChange={(e) => updatePortfolioCategory(i, { count: e.target.value })} />
+                    <ImageUploadField
+                      label="Image URL"
+                      value={cat.image}
+                      onChange={(value) => updatePortfolioCategory(i, { image: value })}
+                      uploading={uploading === 'uploading'}
+                      onUpload={handleFileUpload}
+                      placeholder="https://example.com/category-image.jpg"
+                    />
+                  </div>
+                </section>
+              ))}
+            </div>
+          </section>
+          <section className="rounded-2xl border-2 bg-white/90 p-6 shadow-sm backdrop-blur-sm" style={{ borderColor: 'var(--navbar-border)' }}>
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-lg font-bold" style={{ color: 'var(--color-deep-blue)' }}>Featured works</h2>
+                <p className="text-sm text-[var(--navbar-text)]/80 mt-1">
+                  Add previous work entries to publish them on the portfolio page.
+                </p>
               </div>
-            </section>
-          ))}
+              <button
+                type="button"
+                onClick={addPortfolioWork}
+                className="inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium text-white"
+                style={{ backgroundColor: 'var(--color-secondary-purple)' }}
+              >
+                <Plus size={16} /> Add work
+              </button>
+            </div>
+            <div className="space-y-6">
+              {portfolio.featuredWorks.map((work, i) => (
+                <section key={i} className="rounded-xl border p-4" style={{ borderColor: 'var(--navbar-border)' }}>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-bold" style={{ color: 'var(--color-deep-blue)' }}>Work {i + 1}</h3>
+                    <button type="button" onClick={() => removePortfolioWork(i)} className="text-red-600 hover:text-red-700 p-1" aria-label="Remove work">
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+                  <div className="space-y-4">
+                    <label className={labelClass}>Title</label>
+                    <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={work.title} onChange={(e) => updatePortfolioWork(i, { title: e.target.value })} />
+                    <label className={labelClass}>Category</label>
+                    <input className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} value={work.category} onChange={(e) => updatePortfolioWork(i, { category: e.target.value })} />
+                    <label className={labelClass}>Summary</label>
+                    <textarea className={inputClass} style={{ borderColor: 'var(--navbar-border)' }} rows={3} value={work.summary} onChange={(e) => updatePortfolioWork(i, { summary: e.target.value })} />
+                    <ImageUploadField
+                      label="Image URL"
+                      value={work.image}
+                      onChange={(value) => updatePortfolioWork(i, { image: value })}
+                      uploading={uploading === 'uploading'}
+                      onUpload={handleFileUpload}
+                      placeholder="https://example.com/work-image.jpg"
+                    />
+                  </div>
+                </section>
+              ))}
+            </div>
+          </section>
         </div>
       )}
 
@@ -345,17 +544,21 @@ const PagesEditor: React.FC = () => {
                 value={about.story.ctaText}
                 onChange={(e) => site.updateAbout({ story: { ...about.story, ctaText: e.target.value } })}
               />
-              <label className={labelClass}>Story image URL</label>
-              <input
-                className={inputClass}
-                style={{ borderColor: 'var(--navbar-border)' }}
+              <ImageUploadField
+                label="Story image URL"
                 value={about.story.storyImageUrl}
-                onChange={(e) => site.updateAbout({ story: { ...about.story, storyImageUrl: e.target.value } })}
+                onChange={(value) => site.updateAbout({ story: { ...about.story, storyImageUrl: value } })}
+                uploading={uploading === 'uploading'}
+                onUpload={handleFileUpload}
+                placeholder="https://example.com/story-image.jpg"
               />
             </div>
           </section>
 
           <section className="rounded-2xl border-2 bg-white/90 p-6 shadow-sm backdrop-blur-sm" style={{ borderColor: 'var(--navbar-border)' }}>
+            <p className="text-sm text-[var(--navbar-text)]/80 mb-4">
+              Values are displayed as text-only cards on the About page.
+            </p>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold" style={{ color: 'var(--color-deep-blue)' }}>
                 Our Values
@@ -402,13 +605,6 @@ const PagesEditor: React.FC = () => {
                       placeholder="Description"
                       value={value.description}
                       onChange={(e) => updateValue(i, { description: e.target.value })}
-                    />
-                    <input
-                      className={inputClass}
-                      style={{ borderColor: 'var(--navbar-border)' }}
-                      placeholder="Image URL"
-                      value={value.image}
-                      onChange={(e) => updateValue(i, { image: e.target.value })}
                     />
                   </div>
                 </div>
@@ -458,16 +654,17 @@ const PagesEditor: React.FC = () => {
                   })
                 }
               />
-              <label className={labelClass}>Team image URL</label>
-              <input
-                className={inputClass}
-                style={{ borderColor: 'var(--navbar-border)' }}
+              <ImageUploadField
+                label="Team image URL"
                 value={about.teamSection.teamImageUrl}
-                onChange={(e) =>
+                onChange={(value) =>
                   site.updateAbout({
-                    teamSection: { ...about.teamSection, teamImageUrl: e.target.value },
+                    teamSection: { ...about.teamSection, teamImageUrl: value },
                   })
                 }
+                uploading={uploading === 'uploading'}
+                onUpload={handleFileUpload}
+                placeholder="https://example.com/team-image.jpg"
               />
             </div>
             <div className="flex items-center justify-between mb-4">
@@ -535,13 +732,13 @@ const PagesEditor: React.FC = () => {
                       </div>
                     </div>
                     <div>
-                      <label className={labelClass}>Profile image URL</label>
-                      <input
-                        className={inputClass}
-                        style={{ borderColor: 'var(--navbar-border)' }}
-                        placeholder="Paste image URL for this member’s photo"
+                      <ImageUploadField
+                        label="Profile image URL"
                         value={member.imageUrl ?? ''}
-                        onChange={(e) => updateMember(i, { imageUrl: e.target.value })}
+                        onChange={(value) => updateMember(i, { imageUrl: value })}
+                        uploading={uploading === 'uploading'}
+                        onUpload={handleFileUpload}
+                        placeholder="Paste image URL for this member's photo"
                       />
                       <p className="text-xs text-[var(--navbar-text)]/70 mt-1">Photo appears on the About page. Use any direct image link.</p>
                     </div>

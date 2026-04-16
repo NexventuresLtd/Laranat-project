@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useState, useEffect } from 'react';
 import type {
   AboutContent,
   PlatformSettings,
@@ -71,6 +71,14 @@ export function SiteContentProvider({ children }: { children: React.ReactNode })
     setPortfolioState(loadPortfolioContent());
     setContactState(loadContactContent());
   }, []);
+
+  // Update favicon when logoIconUrl changes
+  useEffect(() => {
+    const favicon = document.querySelector('link[rel="icon"]') as HTMLLinkElement;
+    if (favicon && settings.logoIconUrl) {
+      favicon.href = settings.logoIconUrl;
+    }
+  }, [settings.logoIconUrl]);
 
   const setAbout = useCallback((content: AboutContent) => setAboutState(content), []);
   const updateAbout = useCallback(

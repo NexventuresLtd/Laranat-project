@@ -110,17 +110,28 @@ const defaultAboutContent: AboutContent = {
 export interface PlatformSettings {
   siteName: string;
   logoUrl: string;
+  logoLandscapeUrl: string;
+  logoIconUrl: string;
   contactEmail: string;
   contactPhone: string;
   footerTagline: string;
+  clientLogos: string[];
 }
 
 const defaultSettings: PlatformSettings = {
   siteName: 'Lanart21 Creative Studio',
-  logoUrl: '/Image/lanart.jpg',
+  logoUrl: '/logo-landscape.svg',
+  logoLandscapeUrl: '/logo-landscape.svg',
+  logoIconUrl: '/favicon.svg',
   contactEmail: 'hello@lanart21.com',
-  contactPhone: '',
+  contactPhone: '+250 782 030 814',
   footerTagline: 'Visual storytelling at its best.',
+  clientLogos: [
+    '/client-logo-1.svg',
+    '/client-logo-2.svg',
+    '/client-logo-3.svg',
+    '/client-logo-4.svg',
+  ],
 };
 
 /** Home page – hero + section teasers */
@@ -193,11 +204,19 @@ export interface PortfolioCategory {
   image: string;
 }
 
+export interface PortfolioWork {
+  title: string;
+  category: string;
+  summary: string;
+  image: string;
+}
+
 export interface PortfolioContent {
   hero: { eyebrow: string; title: string; subtitle: string };
   browseHeading: string;
   browseSubtitle: string;
   categories: PortfolioCategory[];
+  featuredWorks: PortfolioWork[];
 }
 
 /** Contact page */
@@ -266,6 +285,26 @@ const defaultPortfolioContent: PortfolioContent = {
     { title: 'Comics & Graphic Novels', count: 'Projects', image: 'https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=600&q=80' },
     { title: 'Animation & Motion', count: 'Reels', image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&q=80' },
     { title: 'Branding & Identity', count: 'Case studies', image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80' },
+  ],
+  featuredWorks: [
+    {
+      title: 'Editorial Illustration Series',
+      category: 'Illustration & Visual Art',
+      summary: 'A colorful illustration set designed for campaign storytelling across print and social channels.',
+      image: 'https://images.unsplash.com/photo-1515405295579-ba7b45403062?w=900&q=80',
+    },
+    {
+      title: 'Original Comic Production',
+      category: 'Comics & Graphic Novels',
+      summary: 'From storyboards to finished pages, this project combined character design, inking, and lettering.',
+      image: 'https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=900&q=80',
+    },
+    {
+      title: 'Animated Brand Story',
+      category: 'Animation & Motion',
+      summary: 'A motion-led explainer that transformed a complex message into a clear and memorable short video.',
+      image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&q=80',
+    },
   ],
 };
 

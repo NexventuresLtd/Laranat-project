@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { BookOpen } from 'lucide-react';
 import { useSiteContent } from '../context/SiteContentContext';
 
 const Hero: React.FC = () => {
@@ -92,20 +91,6 @@ const Hero: React.FC = () => {
             </Link>
           </motion.div>
         </div>
-        <motion.div
-          className="hidden lg:flex flex-col items-center gap-3 text-white/90"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <div
-            className="w-20 h-24 rounded-lg shadow-xl flex items-center justify-center border-2 border-white/30"
-            style={{ backgroundColor: 'rgba(103, 51, 176, 0.9)' }}
-          >
-            <BookOpen size={36} className="text-white" />
-          </div>
-          <span className="text-sm font-bold uppercase tracking-widest">Books & Comics</span>
-        </motion.div>
       </div>
     </section>
   );

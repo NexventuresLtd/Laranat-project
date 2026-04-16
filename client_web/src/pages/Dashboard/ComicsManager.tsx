@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useComics } from '../../context/ComicsContext';
 import type { Comic, ComicStatus, ComicType } from '../../data/comics';
 import { sampleComics } from '../../data/comics';
-import { Save, Plus, Pencil, Trash2, X } from 'lucide-react';
+import { Save, Plus, Pencil, Trash2, X, Upload } from 'lucide-react';
+import { uploadImage } from '../../lib/auth';
 
 const emptyComic = (): Comic => ({
   id: '',
@@ -23,6 +24,21 @@ const ComicsManager: React.FC = () => {
   const [saved, setSaved] = useState(false);
   const [editing, setEditing] = useState<Comic | null>(null);
   const [form, setForm] = useState<Comic>(emptyComic);
+  const [uploading, setUploading] = useState(false);
+
+  const handleFileUpload = async (file: File): Promise<string> => {
+    setUploading(true);
+    try {
+      const url = await uploadImage(file);
+      return url;
+    } catch (error) {
+      console.error('Upload failed:', error);
+      alert('Upload failed. Please try again.');
+      throw error;
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleSave = () => {
     persist();
@@ -237,13 +253,36 @@ const ComicsManager: React.FC = () => {
                     <div className="w-full h-full flex items-center justify-center text-xs text-[var(--navbar-text)]/70 text-center px-1">No image</div>
                   )}
                 </div>
-                <input
-                  className={`${inputClass} flex-1 min-w-0`}
-                  style={{ borderColor: 'var(--navbar-border)' }}
-                  placeholder="Paste image URL for book cover"
-                  value={form.coverImage}
-                  onChange={(e) => setForm({ ...form, coverImage: e.target.value })}
-                />
+                <div className="flex-1 min-w-0 flex gap-2">
+                  <input
+                    className={inputClass}
+                    style={{ borderColor: 'var(--navbar-border)' }}
+                    placeholder="Paste image URL for book cover"
+                    value={form.coverImage}
+                    onChange={(e) => setForm({ ...form, coverImage: e.target.value })}
+                  />
+                  <label className="inline-flex items-center gap-2 rounded-xl px-3 py-2.5 text-white font-semibold text-sm cursor-pointer transition-all hover:opacity-95 shrink-0" style={{ backgroundColor: 'var(--color-primary-blue)' }}>
+                    <Upload size={16} />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          try {
+                            const url = await handleFileUpload(file);
+                            setForm({ ...form, coverImage: url });
+                          } catch (error) {
+                            // Error already handled in handleFileUpload
+                          }
+                        }
+                      }}
+                      className="hidden"
+                      disabled={uploading}
+                    />
+                    {uploading ? 'Uploading...' : 'Upload'}
+                  </label>
+                </div>
               </div>
             </div>
           </div>

@@ -15,6 +15,7 @@ import DashboardHome from './pages/Dashboard/DashboardHome';
 import PagesEditor from './pages/Dashboard/PagesEditor';
 import ComicsManager from './pages/Dashboard/ComicsManager';
 import SettingsPage from './pages/Dashboard/SettingsPage';
+import ScrollToTop from './comps/ScrollToTop';
 
 const App: React.FC = () => {
   return (
@@ -38,6 +39,7 @@ const App: React.FC = () => {
           <Route path="login" element={<LoginPage />} />
         </Route>
       </Routes>
+      <ScrollToTop />
     </div>
   );
 };
