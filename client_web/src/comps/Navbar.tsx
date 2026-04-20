@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { useSiteContent } from '../context/SiteContentContext';
 
 const navLinks = [
@@ -15,8 +16,9 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const { settings } = useSiteContent();
+  const { settings, home } = useSiteContent();
   const isHome = location.pathname === '/';
+  const primaryCtaTo = home.hero.ctaPrimaryTo || '/contact';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -25,8 +27,14 @@ const Navbar: React.FC = () => {
   }, []);
 
   const isTransparent = isHome && !scrolled;
-  const useLightText = isTransparent;
+  const navTextColor = isTransparent ? 'var(--color-deep-blue)' : 'var(--navbar-text)';
   const isActiveLink = (to: string) => (to === '/' ? location.pathname === '/' : location.pathname.startsWith(to));
+
+  const logoSrc = settings.logoLandscapeUrl || settings.logoUrl || '/Image/lanarnt.jpg';
+  const navPillSurface = {
+    backgroundColor: isTransparent ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.96)',
+    border: '1px solid var(--navbar-border)',
+  } as const;
 
   return (
     <nav
@@ -41,56 +49,64 @@ const Navbar: React.FC = () => {
       }}
     >
       <div className="w-[91.666667%] mx-auto">
-        <div className="flex justify-between items-center min-h-[5rem] lg:min-h-[6rem] py-2">
-          {/* Logo only – no text */}
+        <div className="flex justify-between items-center gap-3 min-h-[5rem] lg:min-h-[6rem] py-2">
+          {/* Logo – landscape, no border/background */}
           <Link
             to="/"
-            className="flex items-center shrink-0 no-underline"
+            className="flex items-center shrink-0 no-underline z-[60]"
             aria-label="Lanart21 Creative Studio – Home"
           >
             <img
-              src={settings.logoLandscapeUrl || settings.logoUrl || '/Image/lanart.jpg'}
+              src={logoSrc}
               alt={settings.siteName || 'Lanart21'}
               className="h-10 md:h-12 w-auto object-contain"
             />
           </Link>
 
-          {/* Center: Nav links (desktop) */}
-          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.to}
-                className="nav-link px-4 py-2.5 rounded-lg text-base xl:text-lg font-semibold transition-all duration-300 relative group"
-                style={{
-                  color: isActiveLink(link.to)
-                    ? 'white'
-                    : useLightText
-                      ? 'rgba(255,255,255,0.95)'
-                      : 'var(--navbar-text)',
-                  backgroundColor: isActiveLink(link.to) ? 'var(--color-primary-blue)' : 'transparent',
-                }}
-              >
-                <span className="relative z-10 transition-colors duration-300">
+          {/* Center: pill nav (desktop) */}
+          <div className="hidden lg:flex flex-1 justify-center min-w-0 px-2">
+            <div
+              className="inline-flex items-center gap-0.5 xl:gap-1 rounded-full px-2 py-1.5 max-w-full overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              style={navPillSurface}
+            >
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.to}
+                  className="nav-link shrink-0 px-3 xl:px-4 py-2 rounded-full text-sm xl:text-[15px] font-semibold transition-all duration-300"
+                  style={{
+                    color: isActiveLink(link.to)
+                      ? 'white'
+                      : navTextColor,
+                    backgroundColor: isActiveLink(link.to) ? 'var(--color-primary-blue)' : 'transparent',
+                  }}
+                >
                   {link.name}
-                </span>
-                <span
-                  className={`absolute bottom-1 left-4 right-4 h-0.5 transition-transform duration-300 origin-left rounded-full ${
-                    isActiveLink(link.to) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                  }`}
-                  style={{ backgroundColor: isActiveLink(link.to) ? 'white' : 'var(--navbar-text-hover)' }}
-                />
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
 
-          {/* Right: mobile menu toggle */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* Right: primary CTA + mobile menu */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0 z-[60]">
+            <Link
+              to={primaryCtaTo}
+              className="hidden sm:inline-flex items-center gap-2 pl-5 pr-1.5 py-1.5 rounded-full text-sm font-bold text-white uppercase tracking-wide transition-opacity hover:opacity-95"
+              style={{ backgroundColor: 'var(--color-accent-pink)' }}
+            >
+              <span>{home.hero.ctaPrimary}</span>
+              <span
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-white/15"
+                aria-hidden
+              >
+                <ArrowRight className="w-4 h-4 text-white" strokeWidth={2.5} />
+              </span>
+            </Link>
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
               className="lg:hidden p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary-blue)] transition-colors"
-              style={{ color: useLightText ? 'white' : 'var(--navbar-text)' }}
+              style={{ color: navTextColor }}
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
             >
@@ -112,7 +128,7 @@ const Navbar: React.FC = () => {
           className="lg:hidden border-t overflow-hidden"
           style={{
             borderColor: 'var(--navbar-border)',
-            backgroundColor: 'var(--navbar-bg)',
+            backgroundColor: isTransparent ? 'rgba(255,255,255,0.96)' : 'var(--navbar-bg)',
             boxShadow: 'inset 0 4px 6px -2px rgba(0,0,0,0.05)',
           }}
         >
@@ -123,7 +139,7 @@ const Navbar: React.FC = () => {
                 to={link.to}
                 className="block py-3.5 px-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:bg-white/10 hover:pl-6"
                 style={{
-                  color: isActiveLink(link.to) ? 'white' : 'var(--navbar-text)',
+                  color: isActiveLink(link.to) ? 'white' : navTextColor,
                   backgroundColor: isActiveLink(link.to) ? 'var(--color-primary-blue)' : 'transparent',
                 }}
                 onClick={() => setIsOpen(false)}
@@ -131,6 +147,17 @@ const Navbar: React.FC = () => {
                 {link.name}
               </Link>
             ))}
+            <div className="pt-3 px-2">
+              <Link
+                to={primaryCtaTo}
+                onClick={() => setIsOpen(false)}
+                className="flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-base font-bold uppercase tracking-wide text-white"
+                style={{ backgroundColor: 'var(--color-deep-blue)' }}
+              >
+                {home.hero.ctaPrimary}
+                <ArrowRight className="w-5 h-5" strokeWidth={2.5} />
+              </Link>
+            </div>
           </div>
         </div>
       )}
