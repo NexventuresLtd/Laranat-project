@@ -27,7 +27,7 @@ const DashboardLayout: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { settings } = useSiteContent();
-  const logoUrl = settings.logoUrl || '/Image/lanart.jpg';
+  const logoUrl = settings.logoUrl || '/Image/lanarnt.jpg';
   const [checkingAuth, setCheckingAuth] = useState(true);
 
   useEffect(() => {

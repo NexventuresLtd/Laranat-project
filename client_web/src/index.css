@@ -122,6 +122,15 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--navbar-text-hover);
 }
 
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* 11/12 width: use class .w-11-12 or Tailwind arbitrary w-[91.666667%] */
 .w-11-12 {
   width: 91.666667%;

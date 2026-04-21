@@ -106,7 +106,7 @@ export default function Footer() {
             <div className="lg:col-span-4 space-y-6">
               <Link to="/" className="inline-flex items-center gap-3 no-underline">
                 <img
-                  src={settings.logoLandscapeUrl || settings.logoUrl}
+                  src={settings.logoLandscapeUrl || settings.logoUrl || '/Image/lanarnt.jpg'}
                   alt={settings.siteName}
                   className="h-12 w-auto object-contain flex-shrink-0"
                 />
