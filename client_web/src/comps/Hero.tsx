@@ -11,7 +11,7 @@ const Hero: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-[90vh] flex items-center overflow-hidden -mt-[6rem] pt-[6rem]"
+      className="relative min-h-[90vh] flex items-center overflow-hidden -mt-[6.5rem] pt-[6.5rem]"
       style={{ fontFamily: 'var(--font-body)' }}
     >
       <div className="absolute inset-0">

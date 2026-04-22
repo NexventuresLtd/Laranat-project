@@ -37,7 +37,7 @@ const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, subtitle, variant }
 
   return (
     <section
-      className="relative min-h-[42vh] py-20 md:py-28 overflow-hidden flex items-center"
+      className="relative min-h-[42vh] -mt-[6.5rem] pt-[6.5rem] pb-20 md:pb-28 overflow-hidden flex items-center"
       aria-label={`${title} page header`}
     >
       {/* Background image */}
