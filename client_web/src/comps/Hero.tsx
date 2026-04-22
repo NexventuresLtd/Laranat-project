@@ -38,8 +38,8 @@ const Hero: React.FC = () => {
         />
       </div>
 
-      <div className="relative w-[91.666667%] mx-auto py-20 md:py-28 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12">
-        <div className="max-w-2xl">
+      <div className="relative w-[91.666667%] mx-auto py-20 md:py-24 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12">
+        <div className="max-w-xl lg:max-w-2xl">
           <motion.p
             className="text-white/90 text-base md:text-lg font-bold uppercase tracking-widest mb-4"
             initial={{ opacity: 0, y: 16 }}
@@ -49,7 +49,7 @@ const Hero: React.FC = () => {
             {hero.eyebrow}
           </motion.p>
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight tracking-tight"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.12] tracking-tight"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -57,7 +57,7 @@ const Hero: React.FC = () => {
             {hero.title}
           </motion.h1>
           <motion.p
-            className="mt-6 text-lg md:text-xl text-white/90 leading-relaxed"
+            className="mt-6 text-base md:text-lg text-white/90 leading-relaxed max-w-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
