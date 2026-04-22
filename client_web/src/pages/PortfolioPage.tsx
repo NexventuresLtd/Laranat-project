@@ -143,7 +143,7 @@ const PortfolioPage: React.FC = () => {
         </div>
       </section>
 
-      <Footer />
+      <Footer showTopCta={false} />
     </div>
   );
 };
