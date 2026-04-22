@@ -314,7 +314,7 @@ const HomePage: React.FC = () => {
       {/* Contact CTA */}
       <Contact />
 
-      <Footer />
+      <Footer showTopCta={false} />
     </>
   );
 };

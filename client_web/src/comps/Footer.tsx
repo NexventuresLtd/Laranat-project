@@ -30,7 +30,11 @@ const footerServices = [
   'Branding & Identity',
 ];
 
-export default function Footer() {
+type FooterProps = {
+  showTopCta?: boolean;
+};
+
+export default function Footer({ showTopCta = true }: FooterProps) {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
   const { settings } = useSiteContent();
@@ -55,38 +59,39 @@ export default function Footer() {
         color: 'rgba(255,255,255,0.9)',
       }}
     >
-      {/* Top CTA strip – GoDigito-style */}
-      <div
-        className="relative py-8 md:py-10"
-        style={{
-          background: 'linear-gradient(90deg, var(--color-primary-blue), var(--color-deep-blue))',
-        }}
-      >
+      {showTopCta && (
         <div
-          className="absolute inset-0 opacity-10"
+          className="relative py-8 md:py-10"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: '20px 20px',
+            background: 'linear-gradient(90deg, var(--color-primary-blue), var(--color-deep-blue))',
           }}
-        />
-        <div className="relative w-[91.666667%] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">
-              Ready to start your project?
-            </h3>
-            <p className="text-white/90 text-base mt-1">
-              Let's turn your ideas into visual narratives.
-            </p>
+        >
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+              backgroundSize: '20px 20px',
+            }}
+          />
+          <div className="relative w-[91.666667%] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">
+                Ready to start your project?
+              </h3>
+              <p className="text-white/90 text-base mt-1">
+                Let's turn your ideas into visual narratives.
+              </p>
+            </div>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-white font-bold uppercase tracking-wider whitespace-nowrap transition-all hover:opacity-95 hover:scale-[1.02]"
+              style={{ backgroundColor: 'var(--color-accent-pink)' }}
+            >
+              Get in touch <ArrowRight size={18} />
+            </Link>
           </div>
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-white font-bold uppercase tracking-wider whitespace-nowrap transition-all hover:opacity-95 hover:scale-[1.02]"
-            style={{ backgroundColor: 'var(--color-accent-pink)' }}
-          >
-            Get in touch <ArrowRight size={18} />
-          </Link>
         </div>
-      </div>
+      )}
 
       {/* Main footer – multi-column unique layout */}
       <div
