@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useSiteContent } from '../context/SiteContentContext';
@@ -14,29 +14,20 @@ const navLinks = [
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { settings, home } = useSiteContent();
   const isHome = location.pathname === '/';
   const primaryCtaTo = isHome ? '/contact' : (home.hero.ctaPrimaryTo || '/contact');
   const primaryCtaLabel = isHome ? 'Start a Project' : home.hero.ctaPrimary;
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // Transparent header until the user scrolls (all public pages).
-  const isTransparent = !scrolled;
-  // On home (transparent header), links sit on a light "pill" surface — keep dark text for contrast.
-  const navTextColor = isTransparent ? 'var(--color-deep-blue)' : 'var(--navbar-text)';
+  // Always-transparent navbar (all pages, all scroll positions).
+  const navTextColor = 'rgba(255,255,255,0.95)';
   const isActiveLink = (to: string) => (to === '/' ? location.pathname === '/' : location.pathname.startsWith(to));
 
   const logoSrc = settings.logoLandscapeUrl || settings.logoUrl || '/Image/lanarnt.jpg';
   const navPillSurface = {
-    backgroundColor: isTransparent ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.96)',
-    border: '1px solid var(--navbar-border)',
+    backgroundColor: 'transparent',
+    border: '1px solid rgba(255,255,255,0.22)',
   } as const;
 
   return (
@@ -44,11 +35,11 @@ const Navbar: React.FC = () => {
       className="sticky top-0 z-50 w-full transition-all duration-300"
       style={{
         fontFamily: 'var(--font-body)',
-        backgroundColor: isTransparent ? 'transparent' : 'rgba(255,255,255,0.92)',
-        backdropFilter: isTransparent ? 'none' : 'blur(12px)',
-        WebkitBackdropFilter: isTransparent ? 'none' : 'blur(12px)',
-        boxShadow: !isTransparent && (scrolled || !isHome) ? 'var(--navbar-shadow)' : 'none',
-        borderBottom: isTransparent ? '1px solid transparent' : '1px solid var(--navbar-border)',
+        backgroundColor: 'transparent',
+        backdropFilter: 'none',
+        WebkitBackdropFilter: 'none',
+        boxShadow: 'none',
+        borderBottom: '1px solid transparent',
       }}
     >
       <div className="w-[91.666667%] mx-auto">
@@ -63,7 +54,7 @@ const Navbar: React.FC = () => {
               src={logoSrc}
               alt={settings.siteName || 'Lanart21'}
               className="h-10 md:h-12 w-auto object-contain"
-              style={isTransparent ? { filter: 'drop-shadow(0 6px 18px rgba(0,0,0,0.35))' } : undefined}
+              style={{ filter: 'drop-shadow(0 6px 18px rgba(0,0,0,0.35))' }}
             />
           </Link>
 
@@ -131,9 +122,11 @@ const Navbar: React.FC = () => {
         <div
           className="lg:hidden border-t overflow-hidden"
           style={{
-            borderColor: 'var(--navbar-border)',
-            backgroundColor: isTransparent ? 'rgba(255,255,255,0.96)' : 'var(--navbar-bg)',
-            boxShadow: 'inset 0 4px 6px -2px rgba(0,0,0,0.05)',
+            borderColor: 'rgba(255,255,255,0.18)',
+            backgroundColor: 'rgba(13, 71, 161, 0.55)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            boxShadow: 'none',
           }}
         >
           <div className="w-[91.666667%] mx-auto py-4 space-y-0.5">
