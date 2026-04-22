@@ -18,7 +18,8 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const { settings, home } = useSiteContent();
   const isHome = location.pathname === '/';
-  const primaryCtaTo = home.hero.ctaPrimaryTo || '/contact';
+  const primaryCtaTo = isHome ? '/contact' : (home.hero.ctaPrimaryTo || '/contact');
+  const primaryCtaLabel = isHome ? 'Start a Project' : home.hero.ctaPrimary;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -27,6 +28,7 @@ const Navbar: React.FC = () => {
   }, []);
 
   const isTransparent = isHome && !scrolled;
+  // On home (transparent header), links sit on a light "pill" surface — keep dark text for contrast.
   const navTextColor = isTransparent ? 'var(--color-deep-blue)' : 'var(--navbar-text)';
   const isActiveLink = (to: string) => (to === '/' ? location.pathname === '/' : location.pathname.startsWith(to));
 
@@ -60,6 +62,7 @@ const Navbar: React.FC = () => {
               src={logoSrc}
               alt={settings.siteName || 'Lanart21'}
               className="h-10 md:h-12 w-auto object-contain"
+              style={isTransparent ? { filter: 'drop-shadow(0 6px 18px rgba(0,0,0,0.35))' } : undefined}
             />
           </Link>
 
@@ -94,7 +97,7 @@ const Navbar: React.FC = () => {
               className="hidden sm:inline-flex items-center gap-2 pl-5 pr-1.5 py-1.5 rounded-full text-sm font-bold text-white uppercase tracking-wide transition-opacity hover:opacity-95"
               style={{ backgroundColor: 'var(--color-accent-pink)' }}
             >
-              <span>{home.hero.ctaPrimary}</span>
+              <span>{primaryCtaLabel}</span>
               <span
                 className="flex h-8 w-8 items-center justify-center rounded-full bg-white/15"
                 aria-hidden
@@ -154,7 +157,7 @@ const Navbar: React.FC = () => {
                 className="flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-base font-bold uppercase tracking-wide text-white"
                 style={{ backgroundColor: 'var(--color-deep-blue)' }}
               >
-                {home.hero.ctaPrimary}
+                {primaryCtaLabel}
                 <ArrowRight className="w-5 h-5" strokeWidth={2.5} />
               </Link>
             </div>

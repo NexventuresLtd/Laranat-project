@@ -230,9 +230,9 @@ const defaultHomeContent: HomeContent = {
     eyebrow: 'Books & Comics',
     title: 'Stories that move. Books that last.',
     subtitle: 'Graphic novels, comics, and illustrated books—we bring your stories to life.',
-    ctaPrimary: 'Explore books',
+    ctaPrimary: 'Get in touch',
     ctaSecondary: 'About us',
-    ctaPrimaryTo: '/books',
+    ctaPrimaryTo: '/contact',
     bgImageUrl: 'https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=1920&q=85',
   },
   aboutTeaser: {

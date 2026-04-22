@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ImageIcon, ArrowRight, Layers, Sparkles } from 'lucide-react';
+import { ImageIcon, ArrowRight } from 'lucide-react';
 import { useSiteContent } from '../context/SiteContentContext';
 import Footer from '../comps/Footer';
 import PageHero from '../comps/PageHero';
@@ -28,46 +28,6 @@ const PortfolioPage: React.FC = () => {
 
       <section className="py-16 md:py-24">
         <div className="w-[91.666667%] mx-auto">
-          <div className="grid lg:grid-cols-3 gap-6 mb-12">
-            {[
-              { label: 'Categories', value: String(portfolio.categories.length), icon: Layers },
-              { label: 'Featured works', value: String(portfolio.featuredWorks.length), icon: ImageIcon },
-              { label: 'Creative focus', value: 'Illustration, motion and brand storytelling', icon: Sparkles },
-            ].map((item, index) => (
-              <motion.div
-                key={item.label}
-                className="rounded-2xl border bg-white p-6 shadow-sm"
-                style={{ borderColor: 'var(--navbar-border)' }}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08 }}
-              >
-                <item.icon size={22} style={{ color: 'var(--color-primary-blue)' }} />
-                <p className="mt-4 text-sm font-bold uppercase tracking-widest" style={{ color: 'var(--color-primary-blue)' }}>
-                  {item.label}
-                </p>
-                <p className="mt-2 text-2xl font-bold" style={{ color: 'var(--color-deep-blue)' }}>
-                  {item.value}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4" style={{ color: 'var(--color-deep-blue)' }}>
-              {portfolio.browseHeading}
-            </h2>
-            <p className="text-[var(--navbar-text)] max-w-xl mx-auto">
-              {portfolio.browseSubtitle}
-            </p>
-          </motion.div>
-
           <div className="flex flex-wrap justify-center gap-3 mb-10">
             {['All', ...portfolio.categories.map((item) => item.title)].map((category) => {
               const active = activeCategory === category;
@@ -183,7 +143,7 @@ const PortfolioPage: React.FC = () => {
         </div>
       </section>
 
-      <Footer />
+      <Footer showTopCta={false} />
     </div>
   );
 };
