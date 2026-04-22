@@ -115,10 +115,6 @@ export default function Footer({ showTopCta = true }: FooterProps) {
                   alt={settings.siteName}
                   className="h-12 w-auto object-contain flex-shrink-0"
                 />
-                <div>
-                  <span className="font-bold text-xl text-white tracking-tight block">{settings.siteName}</span>
-                  <span className="text-sm font-medium tracking-widest text-white/60">CREATIVE STUDIO</span>
-                </div>
               </Link>
               <p className="text-base leading-relaxed text-white/80 max-w-sm">
                 A visual storytelling studio. Illustration, comics, animation, and creative direction for brands and creators.
@@ -190,10 +186,6 @@ export default function Footer({ showTopCta = true }: FooterProps) {
                     <Phone size={16} className="mt-0.5 flex-shrink-0 text-[var(--color-primary-blue)]" />
                     {settings.contactPhone || '+250 782 030 814'}
                   </a>
-                  <span className="flex items-start gap-2 text-base text-white/75">
-                    <MapPin size={16} className="mt-0.5 flex-shrink-0 text-[var(--color-primary-blue)]" />
-                    Creative Studio
-                  </span>
                 </div>
               </div>
               <div>
