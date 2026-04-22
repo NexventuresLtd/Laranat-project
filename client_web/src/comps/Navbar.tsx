@@ -27,7 +27,8 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const isTransparent = isHome && !scrolled;
+  // Transparent header until the user scrolls (all public pages).
+  const isTransparent = !scrolled;
   // On home (transparent header), links sit on a light "pill" surface — keep dark text for contrast.
   const navTextColor = isTransparent ? 'var(--color-deep-blue)' : 'var(--navbar-text)';
   const isActiveLink = (to: string) => (to === '/' ? location.pathname === '/' : location.pathname.startsWith(to));
@@ -43,9 +44,9 @@ const Navbar: React.FC = () => {
       className="sticky top-0 z-50 w-full transition-all duration-300"
       style={{
         fontFamily: 'var(--font-body)',
-        backgroundColor: isTransparent ? 'transparent' : scrolled && isHome ? 'rgba(255,255,255,0.85)' : 'var(--navbar-bg)',
-        backdropFilter: isTransparent ? 'none' : (scrolled && isHome) ? 'blur(12px)' : 'none',
-        WebkitBackdropFilter: isTransparent ? 'none' : (scrolled && isHome) ? 'blur(12px)' : 'none',
+        backgroundColor: isTransparent ? 'transparent' : 'rgba(255,255,255,0.92)',
+        backdropFilter: isTransparent ? 'none' : 'blur(12px)',
+        WebkitBackdropFilter: isTransparent ? 'none' : 'blur(12px)',
         boxShadow: !isTransparent && (scrolled || !isHome) ? 'var(--navbar-shadow)' : 'none',
         borderBottom: isTransparent ? '1px solid transparent' : '1px solid var(--navbar-border)',
       }}
