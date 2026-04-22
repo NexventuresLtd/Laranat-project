@@ -17,17 +17,23 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const { settings, home } = useSiteContent();
   const isHome = location.pathname === '/';
+  const isDarkHeroPage =
+    location.pathname === '/' ||
+    location.pathname === '/portfolio' ||
+    location.pathname === '/services' ||
+    location.pathname === '/about' ||
+    location.pathname === '/contact';
   const primaryCtaTo = isHome ? '/contact' : (home.hero.ctaPrimaryTo || '/contact');
   const primaryCtaLabel = isHome ? 'Start a Project' : home.hero.ctaPrimary;
 
   // Always-transparent navbar (all pages, all scroll positions).
-  const navTextColor = 'rgba(255,255,255,0.95)';
+  const navTextColor = isDarkHeroPage ? 'rgba(255,255,255,0.95)' : 'var(--color-deep-blue)';
   const isActiveLink = (to: string) => (to === '/' ? location.pathname === '/' : location.pathname.startsWith(to));
 
   const logoSrc = settings.logoLandscapeUrl || settings.logoUrl || '/Image/lanarnt.jpg';
   const navPillSurface = {
     backgroundColor: 'transparent',
-    border: '1px solid rgba(255,255,255,0.22)',
+    border: isDarkHeroPage ? '1px solid rgba(255,255,255,0.22)' : '1px solid var(--navbar-border)',
   } as const;
 
   return (
