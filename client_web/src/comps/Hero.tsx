@@ -4,8 +4,9 @@ import { motion } from 'framer-motion';
 import { useSiteContent } from '../context/SiteContentContext';
 
 const Hero: React.FC = () => {
-  const { home } = useSiteContent();
+  const { home, settings } = useSiteContent();
   const { hero } = home;
+  const eyebrowText = hero.eyebrow?.trim() || settings.siteName || 'Lanart21';
 
   return (
     <section
@@ -46,7 +47,7 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {hero.eyebrow}
+            {eyebrowText}
           </motion.p>
           <motion.h1
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.12] tracking-tight"
